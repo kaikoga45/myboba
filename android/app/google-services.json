@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1096675650994",
+    "project_id": "myboba-a0c14",
+    "storage_bucket": "myboba-a0c14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096675650994:android:b79618d6495f7c6ba808ab",
+        "android_client_info": {
+          "package_name": "com.lentera.myboba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1096675650994-t03b6dvhduolfovve70hj1vo9eisr1l9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuNaWQnzTUhY4c-XaRkGerPkIlt9oTLF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1096675650994-t03b6dvhduolfovve70hj1vo9eisr1l9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

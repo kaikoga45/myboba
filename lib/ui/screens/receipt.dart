@@ -8,7 +8,7 @@ class Receipt extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'RECEIPT',
+          'RECEIPT ORDER',
           style: Theme.of(context)
               .textTheme
               .headline6

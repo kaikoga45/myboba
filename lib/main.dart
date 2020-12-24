@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/ui/components/error_alert.dart';
-import 'package:myboba/ui/screens/homepage_screens.dart';
+import 'package:myboba/ui/components/header_footer.dart';
 import 'package:myboba/ui/screens/welcome_screens.dart';
 import 'package:myboba/ui/theme/main_theme.dart';
 

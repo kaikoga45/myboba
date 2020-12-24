@@ -9,7 +9,7 @@ import 'package:myboba/ui/screens/settings.dart';
 import 'package:myboba/ui/screens/welcome_screens.dart';
 import 'package:myboba/ui/theme/main_theme.dart';
 
-bool _isLogin = true;
+bool _isLogin = false;
 var _initialRoute;
 
 void main() {

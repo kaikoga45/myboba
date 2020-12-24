@@ -17,6 +17,7 @@ class _FooterState extends State<Footer> {
     return Scaffold(
       body: widgetOptionsAtHomepage.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,
         showUnselectedLabels: false,

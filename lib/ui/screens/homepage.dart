@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:myboba/services/firebase/firestore.dart';
+import 'package:myboba/ui/components/stream_menu_builder.dart';
+import 'package:myboba/ui/screens/see_all_menu.dart';
 
 class HomePage extends StatelessWidget {
   static const String id = '/home_page';
@@ -17,16 +21,66 @@ class HomePage extends StatelessWidget {
         elevation: 0,
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              height: 100,
-              color: Colors.blue,
-            ),
-          ],
+        padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              StreamMenuBuilder(
+                  containerHeight: 260.0,
+                  title: 'Featured',
+                  category: 'featured',
+                  scrollDirection: Axis.horizontal,
+                  imageHeight: 182.0,
+                  imageWidth: 160.0,
+                  imageBorderRadius: 20.0),
+              Container(
+                padding: EdgeInsets.only(bottom: 10.0),
+                child: Divider(
+                  color: Theme.of(context).accentColor.withOpacity(0.2),
+                ),
+              ),
+              StreamMenuBuilder(
+                  containerHeight: 220.0,
+                  title: 'Most Popular',
+                  category: 'popular',
+                  scrollDirection: Axis.horizontal,
+                  imageHeight: 140.0,
+                  imageWidth: 140.0,
+                  imageBorderRadius: 70.0),
+              Container(
+                padding: EdgeInsets.only(bottom: 10.0),
+                child: Divider(
+                  color: Theme.of(context).accentColor.withOpacity(0.2),
+                ),
+              ),
+              StreamMenuBuilder(
+                  containerHeight: 220.0,
+                  title: 'Recommendation',
+                  category: 'recommendation',
+                  scrollDirection: Axis.horizontal,
+                  imageHeight: 140.0,
+                  imageWidth: 140.0,
+                  imageBorderRadius: 70.0),
+            ],
+          ),
         ),
+      ),
+      /*
+        INFORMATION!
+        The FAB is for experiment only to add a menu data in firestore.
+       */
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          FirestoreHelper.firestore.collection('menu').add({
+            'name': 'Milkshake',
+            'description': 'Combination milk with tea',
+            'price': 20000,
+            'status': 'featured',
+            'img':
+                'https://images.unsplash.com/photo-1551782450-40537687757d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80'
+          });
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

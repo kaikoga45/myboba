@@ -5,6 +5,7 @@ import 'package:myboba/ui/components/footer.dart';
 import 'package:myboba/ui/screens/homepage.dart';
 import 'package:myboba/ui/screens/menu.dart';
 import 'package:myboba/ui/screens/receipt.dart';
+import 'package:myboba/ui/screens/see_all_menu.dart';
 import 'package:myboba/ui/screens/settings.dart';
 import 'package:myboba/ui/screens/welcome_screens.dart';
 import 'package:myboba/ui/theme/main_theme.dart';
@@ -56,6 +57,7 @@ class MyBoba extends StatelessWidget {
         Menu.id: (context) => Menu(),
         Receipt.id: (context) => Receipt(),
         Settings.id: (context) => Settings(),
+        SeeAllMenu.id: (context) => SeeAllMenu(),
       },
     );
   }

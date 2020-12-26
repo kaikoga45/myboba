@@ -5,6 +5,7 @@ import 'package:myboba/ui/screens/display_all_menu.dart';
 
 class StreamMenuListViewBuilder extends StatelessWidget {
   final String _value;
+  final String _description;
   final String _field;
   final double _containerHeight;
   final double _imageHeight;
@@ -15,6 +16,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
   StreamMenuListViewBuilder(
       {@required double containerHeight,
       @required String title,
+      String description,
       @required String value,
       @required String field,
       @required double imageHeight,
@@ -22,6 +24,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
       @required double imageBorderRadius})
       : _containerHeight = containerHeight,
         _title = title,
+        _description = description,
         _value = value,
         _field = field,
         _imageHeight = imageHeight,
@@ -87,6 +90,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                             DisplayAllMenu.id,
                             arguments: DisplayAllMenu(
                               title: _title,
+                              description: _description,
                               field: _field,
                               value: _value,
                             ),
@@ -155,6 +159,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                               ),
                             ),
                             onTap: () {
+                              //TODO : Adding a screen to display the menu that has been pressed
                               print('Menu Has Been Pressed. ID = ${_menu.id}');
                             },
                           ),

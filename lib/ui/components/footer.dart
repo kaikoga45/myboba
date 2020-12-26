@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:myboba/utils/list_widgets.dart';
+import 'package:myboba/utils/list_of_widgets.dart';
 
 class Footer extends StatefulWidget {
   static const id = '/footer';
@@ -17,6 +17,7 @@ class _FooterState extends State<Footer> {
     return Scaffold(
       body: widgetOptionsAtHomepage.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,
         showUnselectedLabels: false,

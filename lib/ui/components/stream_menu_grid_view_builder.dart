@@ -77,6 +77,7 @@ class StreamMenuGridViewBuilder extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
+                      //TODO : Adding a screen to display the menu that has been pressed
                       print('Menu Has Been Pressed. ID = ${_menus.id}');
                     },
                   );

@@ -167,7 +167,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                       },
                     ),
                   ),
-                  Divider(),
+                  Divider(color: Color(0xFFC99543).withOpacity(0.2)),
                 ],
               ),
             );

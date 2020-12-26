@@ -45,7 +45,7 @@ class DisplayAllMenu extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   )
-                : Container(),
+                : Padding(padding: EdgeInsets.all(20)),
             StreamMenuGridViewBuilder(
               field: _data._field,
               value: _data._value,

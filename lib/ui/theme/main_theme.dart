@@ -84,4 +84,6 @@ final ThemeData themeData = ThemeData(
   ),
   iconTheme: IconThemeData(color: Color(0xFF9D521E)),
   buttonColor: Color(0xFFC99542),
+  appBarTheme: AppBarTheme(color: Color(0xFFFFFFFF)),
+  scaffoldBackgroundColor: Color(0xFFFFFFFF),
 );

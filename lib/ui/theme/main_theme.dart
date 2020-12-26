@@ -83,4 +83,5 @@ final ThemeData themeData = ThemeData(
     ),
   ),
   iconTheme: IconThemeData(color: Color(0xFF9D521E)),
+  buttonColor: Color(0xFFC99542),
 );

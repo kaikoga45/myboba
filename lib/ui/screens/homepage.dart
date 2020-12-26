@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/firestore.dart';
-import 'package:myboba/ui/components/stream_menu_builder.dart';
-import 'package:myboba/ui/screens/see_all_menu.dart';
+import 'package:myboba/ui/components/stream_menu_list_view_builder.dart';
 
 class HomePage extends StatelessWidget {
   static const String id = '/home_page';
@@ -25,11 +23,11 @@ class HomePage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              StreamMenuBuilder(
+              StreamMenuListViewBuilder(
+                  field: 'status',
+                  value: 'featured',
                   containerHeight: 260.0,
                   title: 'Featured',
-                  category: 'featured',
-                  scrollDirection: Axis.horizontal,
                   imageHeight: 182.0,
                   imageWidth: 160.0,
                   imageBorderRadius: 20.0),
@@ -39,11 +37,11 @@ class HomePage extends StatelessWidget {
                   color: Theme.of(context).accentColor.withOpacity(0.2),
                 ),
               ),
-              StreamMenuBuilder(
-                  containerHeight: 220.0,
+              StreamMenuListViewBuilder(
+                  field: 'status',
+                  value: 'popular',
                   title: 'Most Popular',
-                  category: 'popular',
-                  scrollDirection: Axis.horizontal,
+                  containerHeight: 220.0,
                   imageHeight: 140.0,
                   imageWidth: 140.0,
                   imageBorderRadius: 70.0),
@@ -53,11 +51,11 @@ class HomePage extends StatelessWidget {
                   color: Theme.of(context).accentColor.withOpacity(0.2),
                 ),
               ),
-              StreamMenuBuilder(
+              StreamMenuListViewBuilder(
+                  field: 'status',
+                  value: 'recommendation',
                   containerHeight: 220.0,
                   title: 'Recommendation',
-                  category: 'recommendation',
-                  scrollDirection: Axis.horizontal,
                   imageHeight: 140.0,
                   imageWidth: 140.0,
                   imageBorderRadius: 70.0),

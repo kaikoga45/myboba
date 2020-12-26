@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/firestore.dart';
 import 'package:myboba/ui/components/stream_menu_list_view_builder.dart';
@@ -43,47 +44,40 @@ class HomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              StreamMenuListViewBuilder(
-                  field: 'status',
-                  value: 'featured',
-                  containerHeight: 260.0,
-                  title: 'Featured',
-                  imageHeight: 182.0,
-                  imageWidth: 160.0,
-                  imageBorderRadius: 20.0),
-              Container(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: Divider(
-                  color: Theme.of(context).accentColor.withOpacity(0.2),
-                ),
-              ),
-              StreamMenuListViewBuilder(
-                  field: 'status',
-                  value: 'popular',
-                  title: 'Most Popular',
-                  containerHeight: 220.0,
-                  imageHeight: 140.0,
-                  imageWidth: 140.0,
-                  imageBorderRadius: 70.0),
-              Container(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: Divider(
-                  color: Theme.of(context).accentColor.withOpacity(0.2),
-                ),
-              ),
-              StreamMenuListViewBuilder(
-                  field: 'status',
-                  value: 'recommendation',
-                  containerHeight: 220.0,
-                  title: 'Recommendation',
-                  imageHeight: 140.0,
-                  imageWidth: 140.0,
-                  imageBorderRadius: 70.0),
-            ],
-          ),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirestoreHelper.firestore
+              .collection('status')
+              .orderBy('time_added', descending: false)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return ListView.builder(
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (context, index) {
+                  final DocumentSnapshot _category = snapshot.data.docs[index];
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        StreamMenuListViewBuilder(
+                            field: 'status',
+                            value: _category['name'],
+                            containerHeight: index != 0 ? 240.0 : 270.0,
+                            title: _category['name'],
+                            imageHeight: index != 0 ? 140 : 182.0,
+                            imageWidth: index != 0 ? 140 : 160.0,
+                            imageBorderRadius: index != 0 ? 70 : 20),
+                      ],
+                    ),
+                  );
+                },
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ),
       /*

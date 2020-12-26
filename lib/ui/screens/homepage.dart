@@ -57,15 +57,15 @@ class HomePage extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (context, index) {
-                  final DocumentSnapshot _category = snapshot.data.docs[index];
+                  final DocumentSnapshot _status = snapshot.data.docs[index];
                   return SingleChildScrollView(
                     child: Column(
                       children: [
                         StreamMenuListViewBuilder(
                             field: 'status',
-                            value: _category['name'],
+                            value: _status['name'],
                             containerHeight: index != 0 ? 240.0 : 280.0,
-                            title: _category['name'],
+                            title: _status['name'],
                             imageHeight: index != 0 ? 140 : 182.0,
                             imageWidth: index != 0 ? 140 : 160.0,
                             imageBorderRadius: index != 0 ? 70 : 20),

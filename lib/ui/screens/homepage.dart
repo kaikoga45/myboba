@@ -64,6 +64,7 @@ class HomePage extends StatelessWidget {
                         StreamMenuListViewBuilder(
                             field: 'status',
                             value: _status['name'],
+                            description: _status['description'],
                             containerHeight: index != 0 ? 240.0 : 280.0,
                             title: _status['name'],
                             imageHeight: index != 0 ? 140 : 182.0,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/firestore.dart';
 import 'package:myboba/ui/components/stream_menu_list_view_builder.dart';
+import 'package:myboba/utils/time.dart';
 
 class HomePage extends StatelessWidget {
   static const String id = '/home_page';
@@ -16,6 +17,28 @@ class HomePage extends StatelessWidget {
               .headline6
               .copyWith(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Row(
+            children: [
+              Container(
+                height: 24,
+                width: 136,
+                child: Text(
+                  Time.getGreetingMessages(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                decoration: BoxDecoration(
+                    color: Color(0xFFE4DFD7),
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+              ),
+            ],
+          ),
+          SizedBox(width: 20),
+        ],
         elevation: 0,
       ),
       body: Padding(

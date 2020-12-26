@@ -32,12 +32,10 @@ class StreamMenuListViewBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _value == null || _field == null
-          ? FirestoreHelper.firestore.collection('menu').snapshots()
-          : FirestoreHelper.firestore
-              .collection('menu')
-              .where(_field, isEqualTo: _value)
-              .snapshots(),
+      stream: FirestoreHelper.firestore
+          .collection('menu')
+          .where(_field, isEqualTo: _value)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (!snapshot.hasData) {
@@ -71,7 +69,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                               left: 9,
                               bottom: 1,
                               child: Text(
-                                _title,
+                                _title.toUpperCase(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1
@@ -165,6 +163,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                       },
                     ),
                   ),
+                  Divider(),
                 ],
               ),
             );

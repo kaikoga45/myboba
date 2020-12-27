@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myboba/services/firebase/authentication.dart';
+import 'package:myboba/ui/screens/sign_out_dummy.dart';
+import 'package:myboba/ui/components/inputField_myboba.dart';
 
 class SignIn extends StatefulWidget {
   SignIn({Key key}) : super(key: key);
@@ -8,11 +11,13 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  @override
-  String text = "Coba";
-
+  String email;
+  String password;
+  
+  String _errorMessage;
   final _formKey = GlobalKey<FormState>();
-
+  
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -28,6 +33,7 @@ class _SignInState extends State<SignIn> {
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 23, vertical: 40),
         child: Form(
+          key: _formKey,
           child: Column(
             children: <Widget>[
               emailField(),
@@ -38,121 +44,74 @@ class _SignInState extends State<SignIn> {
       ),
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(bottom: 65, left: 23, right: 23),
-        child: submitButton(),
-      ),
-    );
-  }
-
-  Widget nameField() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
-      child: TextFormField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color(0xFFFAFAFA),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide.none,
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(right: 20, left: 10),
-            child: Icon(
-              Icons.perm_identity,
-              color: Color(0xFFC99542),
-              size: 40,
-            ),
-          ),
-          hintText: "Nickname",
-          hintStyle: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        style: TextStyle(
-          color: Color(0xFF757575),
-          fontWeight: FontWeight.w700,
-        ),
-        //controller: ,
-        //validator: ,
+        child: submitButton(context),
       ),
     );
   }
 
   Widget emailField() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
-      child: TextFormField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color(0xFFFAFAFA),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide.none,
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(right: 20, left: 10),
-            child: Icon(
-              Icons.mail,
-              color: Color(0xFFC99542),
-              size: 40,
-            ),
-          ),
-          hintText: "Email",
-          hintStyle: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        style: TextStyle(
-          color: Color(0xFF757575),
-          fontWeight: FontWeight.w700,
-        ),
-        //controller: ,
-        //validator: ,
-      ),
+    return InputField(
+      obscureText: false,
+      hintText: "Email",
+      icon: Icons.mail,
+      
+      onChanged: (value){
+        setState(() {
+          email = value;
+        });
+      },
+      
+      validator: (value){
+        if(_errorMessage == "invalid-email"){
+          return "Please enter a valid email address";
+        }
+        if (_errorMessage == "user-not-found"){
+          return "Sorry, We couldn't find your account";
+        }
+        return null;
+      },
     );
   }
 
   Widget passwordField() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
-      child: TextFormField(
-        obscureText: true,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color(0xFFFAFAFA),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide.none,
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(right: 20, left: 10),
-            child: Icon(
-              Icons.lock,
-              color: Color(0xFFC99542),
-              size: 40,
-            ),
-          ),
-          hintText: "Password",
-          hintStyle: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        style: TextStyle(
-          color: Color(0xFF757575),
-          fontWeight: FontWeight.w700,
-        ),
-        //controller: ,
-        //validator: ,
-      ),
+    return InputField(
+      obscureText: true,
+      hintText: "Password",
+      icon: Icons.lock,
+      onChanged: (value){
+        setState(() {
+          password = value;
+        });
+      },
+
+      validator: (value){
+        if(_errorMessage == "wrong-password"){
+          return "Password you entered is incorrect";
+        }
+        return null;
+      },
     );
   }
 
-  Widget submitButton() {
+  Widget submitButton(BuildContext context) {
     return FlatButton(
       child: Text("SIGN IN"),
-      onPressed: () {},
+      onPressed: () async {
+        final Map<String, dynamic> output = await AuthHelper(
+          email: this.email,
+          password: this.password,
+        ).signIn();
+        print(output["message"]);
+        if (output["valid"] == true) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SignOut()),
+          );
+        }else{
+          _errorMessage = output["message"];
+          _formKey.currentState.validate();
+        }
+      },
       textColor: Colors.white,
       color: Color(0xFFC99542),
       padding: EdgeInsets.all(20),

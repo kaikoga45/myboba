@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myboba/services/firebase/authentication.dart';
 import 'package:myboba/ui/screens/welcome_screens.dart';
+import 'package:myboba/ui/screens/sign_out_dummy.dart';
+import 'package:myboba/ui/components/inputField_myboba.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
@@ -8,10 +11,13 @@ class SignUp extends StatefulWidget {
   _SignUpState createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp>{
+class _SignUpState extends State<SignUp> {
   @override
-  String text;
+  String username;
+  String password;
+  String email;
 
+  String _errorMessage;
   final _formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
@@ -35,7 +41,6 @@ class _SignUpState extends State<SignUp>{
               nameField(),
               emailField(),
               passwordField(),
-              confirmPasswordField(),
             ],
           ),
         ),
@@ -48,169 +53,86 @@ class _SignUpState extends State<SignUp>{
   }
 
   Widget nameField() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
-      child: TextFormField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color(0xFFFAFAFA),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide.none,
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(right: 20, left: 10),
-            child: Icon(
-              Icons.perm_identity,
-              color: Color(0xFFC99542),
-              size: 40,
-            ),
-          ),
-          hintText: "Nickname",
-          hintStyle: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        style: TextStyle(
-          color: Color(0xFF757575),
-          fontWeight: FontWeight.w700,
-        ),
-        //controller: ,
-        //validator: () {},
-      ),
+    return InputField(
+      obscureText: false,
+      hintText: "Username",
+      icon: Icons.perm_identity,
+      onChanged: (value) {
+        setState(() {
+          username = value;
+        });
+      },
     );
   }
 
   Widget emailField() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
-      child: TextFormField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color(0xFFFAFAFA),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide.none,
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(right: 20, left: 10),
-            child: Icon(
-              Icons.mail,
-              color: Color(0xFFC99542),
-              size: 40,
-            ),
-          ),
-          hintText: "Email",
-          hintStyle: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        style: TextStyle(
-          color: Color(0xFF757575),
-          fontWeight: FontWeight.w700,
-        ),
-        //controller: ,
-        onSaved: (value) {
-          setState(() {
-            text = value;
-          });
-        },
-        validator: (value) {
-          if (value.contains('@')) {
-            return null;
-          } else {
-            return "Email tidak valid";
-          }
-        },
-      ),
+    return InputField(
+      obscureText: false,
+      hintText: "Email",
+      icon: Icons.mail,
+      onChanged: (value) {
+        setState(() {
+          email = value;
+        });
+      },
+      validator: (value) {
+        if (_errorMessage == "email-already-in-use") {
+          return "Email alreay registered";
+        }
+        if (_errorMessage == "invalid-email") {
+          return "Please enter a valid email address";
+        }
+        return null;
+      },
     );
   }
 
   Widget passwordField() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
-      child: TextFormField(
-        obscureText: true,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color(0xFFFAFAFA),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide.none,
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(right: 20, left: 10),
-            child: Icon(
-              Icons.lock,
-              color: Color(0xFFC99542),
-              size: 40,
-            ),
-          ),
-          hintText: "Password",
-          hintStyle: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        style: TextStyle(
-          color: Color(0xFF757575),
-          fontWeight: FontWeight.w700,
-        ),
-        //controller: ,
-        //validator: ,
-      ),
+    return InputField(
+      obscureText: true,
+      hintText: "Password",
+      icon: Icons.lock,
+      onChanged: (value) {
+        setState(() {
+          password = value;
+        });
+      },
+      validator: (value) {
+        if (_errorMessage == "weak-password") {
+          return "Please choose a password that's harder to guess";
+        }
+        return null;
+      },
     );
   }
 
   Widget confirmPasswordField() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
-      child: TextFormField(
-        obscureText: true,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color(0xFFFAFAFA),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide.none,
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(right: 20, left: 10),
-            child: Icon(
-              Icons.lock,
-              color: Color(0xFFC99542),
-              size: 40,
-            ),
-          ),
-          hintText: "Confirm Password",
-          hintStyle: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        style: TextStyle(
-          color: Color(0xFF757575),
-          fontWeight: FontWeight.w700,
-        ),
-        //controller: ,
-        //validator: ,
-      ),
+    return InputField(
+      obscureText: true,
+      hintText: "Confirm Password",
+      icon: Icons.lock,
     );
   }
 
   Widget submitButton() {
     return FlatButton(
       child: Text("SIGN UP"),
-      onPressed: () {
-        if (_formKey.currentState.validate()) {
-          _formKey.currentState.save();
+      onPressed: () async {
+        final Map<String, dynamic> output = await AuthHelper(
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        ).signUp();
 
+        if (output["valid"]) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => WelcomeScreen()),
           );
+        } else {
+          _errorMessage = output["message"];
+          print(output);
+          _formKey.currentState.validate();
         }
       },
       textColor: Colors.white,

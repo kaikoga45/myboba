@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myboba/services/firebase/authentication.dart';
 
 class Settings extends StatelessWidget {
   static const String id = '/settings';
@@ -24,6 +25,14 @@ class Settings extends StatelessWidget {
             Container(
               color: Colors.pinkAccent,
               height: 100,
+            ),
+            Center(
+              child: FlatButton(
+                child: Text("Sign Out"),
+                onPressed: (){
+                  AuthHelper.auth.signOut();
+                },
+              ),
             ),
           ],
         ),

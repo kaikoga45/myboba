@@ -6,6 +6,7 @@ class AuthHelper {
   final String email;
   final String password;
   static final auth = FirebaseAuth.instance;
+  final CollectionReference _users_firestore = FirebaseFirestore.instance.collection('users');
 
   AuthHelper({
     this.username,
@@ -15,28 +16,41 @@ class AuthHelper {
 
   Stream<User> get authStateChanges => auth.authStateChanges();
 
-  Future<Map<String, dynamic>> signUp() async {
+  Future <Map<String, dynamic>> signUp() async {
     try {
       UserCredential data = await auth.createUserWithEmailAndPassword(
         email: this.email,
         password: this.password,
       );
+      
+      // it save username at Displayname 
       User user = data.user;
       user.updateProfile(displayName: username);
+      
+      // it save username at firestore 
+      _users_firestore.add({
+        'source_UID': user.uid,
+        'username': username,
+      });
 
       return {
-        "valid": true,
-        "message": "Sign Up Success",
+        "value": true,
+        "message": "Sign In Success"
       };
     } on FirebaseAuthException catch (error) {
       return {
-        "valid": false,
+        "value": false,
         "message": error.code,
+      };
+    }catch (error){
+      return {
+        "value": false,
+        "message": error,
       };
     }
   }
 
-  Future<Map<String, dynamic>> signIn() async {
+  Future <Map<String, dynamic>> signIn() async {
     try {
       await auth.signInWithEmailAndPassword(
         email: this.email,
@@ -44,23 +58,29 @@ class AuthHelper {
       );
 
       return {
-        "valid": true,
+        "value": true,
         "message": "Sign In Success",
       };
     } on FirebaseAuthException catch (error) {
       return {
-        "valid": false,
+        "value": false,
         "message": error.code,
       };
     }
   }
 
-  Future<String> signOut() async {
+  Future<Map<String, dynamic>> signOut() async {
     try {
       auth.signOut();
-      return "Sign Out Success";
+      return {
+        "value": true,
+        "message": "Sign Out Success",
+      };
     } on FirebaseAuthException catch (error) {
-      return error.code;
+      return {
+        "value": true,
+        "message": error.code,
+      };
     } catch (e) {
       rethrow;
     }

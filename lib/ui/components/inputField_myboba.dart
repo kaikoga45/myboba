@@ -52,7 +52,7 @@ class _InputFieldState extends State<InputField> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 12),
         child: TextFormField(
-          obscureText: obscureText,
+          obscureText: (obscureText == null || !obscureText)? false : true,
           decoration: InputDecoration(
             filled: true,
             fillColor: Color(0xFFFAFAFA),

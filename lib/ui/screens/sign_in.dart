@@ -13,10 +13,10 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   String email;
   String password;
-  
+
   String _errorMessage;
   final _formKey = GlobalKey<FormState>();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,21 +51,18 @@ class _SignInState extends State<SignIn> {
 
   Widget emailField() {
     return InputField(
-      obscureText: false,
       hintText: "Email",
       icon: Icons.mail,
-      
-      onChanged: (value){
+      onChanged: (value) {
         setState(() {
           email = value;
         });
       },
-      
-      validator: (value){
-        if(_errorMessage == "invalid-email"){
+      validator: (value) {
+        if (_errorMessage == "invalid-email") {
           return "Please enter a valid email address";
         }
-        if (_errorMessage == "user-not-found"){
+        if (_errorMessage == "user-not-found") {
           return "Sorry, We couldn't find your account";
         }
         return null;
@@ -78,14 +75,13 @@ class _SignInState extends State<SignIn> {
       obscureText: true,
       hintText: "Password",
       icon: Icons.lock,
-      onChanged: (value){
+      onChanged: (value) {
         setState(() {
           password = value;
         });
       },
-
-      validator: (value){
-        if(_errorMessage == "wrong-password"){
+      validator: (value) {
+        if (_errorMessage == "wrong-password") {
           return "Password you entered is incorrect";
         }
         return null;
@@ -97,17 +93,20 @@ class _SignInState extends State<SignIn> {
     return FlatButton(
       child: Text("SIGN IN"),
       onPressed: () async {
+        //call signIn method at authentication.dart
         final Map<String, dynamic> output = await AuthHelper(
           email: this.email,
           password: this.password,
         ).signIn();
-        print(output["message"]);
-        if (output["valid"] == true) {
+
+        print(output);
+
+        if (output["valid"]) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SignOut()),
           );
-        }else{
+        } else {
           _errorMessage = output["message"];
           _formKey.currentState.validate();
         }

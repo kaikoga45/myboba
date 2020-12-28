@@ -54,7 +54,6 @@ class _SignUpState extends State<SignUp> {
 
   Widget nameField() {
     return InputField(
-      obscureText: false,
       hintText: "Username",
       icon: Icons.perm_identity,
       onChanged: (value) {
@@ -67,7 +66,6 @@ class _SignUpState extends State<SignUp> {
 
   Widget emailField() {
     return InputField(
-      obscureText: false,
       hintText: "Email",
       icon: Icons.mail,
       onChanged: (value) {
@@ -118,6 +116,8 @@ class _SignUpState extends State<SignUp> {
     return FlatButton(
       child: Text("SIGN UP"),
       onPressed: () async {
+
+        //call sign up method at authentication.dart
         final Map<String, dynamic> output = await AuthHelper(
           username: this.username,
           email: this.email,

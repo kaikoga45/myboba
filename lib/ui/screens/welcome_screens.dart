@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myboba/ui/screens/sign_up.dart';
-import 'package:myboba/ui/screens/sign_in.dart';
+import 'package:myboba/main.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key key}) : super(key: key);
+  WelcomeScreen({Key key}) : super(key: key);
   static const String id = '/welcome_screen';
 
   @override
@@ -20,7 +19,8 @@ class WelcomeScreen extends StatelessWidget {
             SizedBox(height: heightScreen * 0.078),
             _picture(),
             SizedBox(height: heightScreen * 0.202),
-            _buttonSignInAndSignUp(context),
+            _buttonSignUp(context),
+            _buttonSignIn(context),
           ],
         ),
       ),
@@ -57,21 +57,16 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buttonSignInAndSignUp(BuildContext context) {
+  Widget _buttonSignUp(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
-    double heightScreen = MediaQuery.of(context).size.height;
 
-    return Column(
-      children: <Widget>[
+    return 
         Container(
           margin: EdgeInsets.symmetric(horizontal: 23),
           child: FlatButton(
             child: Text("SIGN UP"),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignUp()),
-              );
+              Navigator.pushNamed(context, "/signup");
             },
             textColor: Colors.white,
             color: Color(0xFFC99542),
@@ -80,8 +75,11 @@ class WelcomeScreen extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100)),
           ),
-        ),
-        Row(
+    );
+  }
+
+  Widget _buttonSignIn(BuildContext context){
+    return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -92,17 +90,12 @@ class WelcomeScreen extends StatelessWidget {
             Container(
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignIn()),
-              );
+                  Navigator.pushNamed(context, "/signin");
                 },
                 child: Text("Sign In"),
               ),
             ),
           ],
-        ),
-      ],
-    );
+        );
   }
 }

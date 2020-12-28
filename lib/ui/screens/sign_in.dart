@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/ui/screens/sign_out_dummy.dart';
 import 'package:myboba/ui/components/inputField_myboba.dart';
+import 'package:myboba/main.dart';
 
 class SignIn extends StatefulWidget {
+  static const String id = '/signin';
   SignIn({Key key}) : super(key: key);
 
   @override
@@ -100,13 +101,11 @@ class _SignInState extends State<SignIn> {
         ).signIn();
 
         print(output);
-
-        if (output["valid"]) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SignOut()),
-          );
-        } else {
+        if (output["valid"] == false){
+          //print(Navigator.defaultRouteName);
+          //Navigator.pop(homepage_context.currentState.context);
+          //navigatorKey.currentState.pushNamed('/welcome_screens');
+          //print(AuthHelper.auth.currentUser){
           _errorMessage = output["message"];
           _formKey.currentState.validate();
         }

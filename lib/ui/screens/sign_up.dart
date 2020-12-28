@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/ui/screens/welcome_screens.dart';
-import 'package:myboba/ui/screens/sign_out_dummy.dart';
 import 'package:myboba/ui/components/inputField_myboba.dart';
 
 class SignUp extends StatefulWidget {
+  static const String id = '/signup';
   SignUp({Key key}) : super(key: key);
 
   @override
@@ -12,14 +11,13 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  @override
   String username;
   String password;
   String email;
 
   String _errorMessage;
   final _formKey = GlobalKey<FormState>();
-
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +73,7 @@ class _SignUpState extends State<SignUp> {
       },
       validator: (value) {
         if (_errorMessage == "email-already-in-use") {
-          return "Email alreay registered";
+          return "Email already registered";
         }
         if (_errorMessage == "invalid-email") {
           return "Please enter a valid email address";
@@ -123,15 +121,11 @@ class _SignUpState extends State<SignUp> {
           email: this.email,
           password: this.password,
         ).signUp();
-
-        if (output["valid"]) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => WelcomeScreen()),
-          );
-        } else {
+        
+        if (output["valid"] == false) {
+          //Navigator.popAndPushNamed(context, "/footer");
           _errorMessage = output["message"];
-          print(output);
+          //print(output);
           _formKey.currentState.validate();
         }
       },

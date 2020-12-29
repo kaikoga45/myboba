@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/firestore.dart';
+import 'package:myboba/services/firebase/firestore_helper.dart';
 import 'package:myboba/ui/screens/display_all_menu.dart';
+import 'package:myboba/ui/screens/order.dart';
 
 class StreamMenuListViewBuilder extends StatelessWidget {
   final String _value;
@@ -133,14 +134,17 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                                 children: [
                                   Container(
                                     child: ClipRRect(
-                                      child: FadeInImage.assetNetwork(
-                                        fit: BoxFit.cover,
-                                        height: _imageHeight,
-                                        width: _imageWidth,
-                                        fadeInCurve: Curves.bounceIn,
-                                        placeholder:
-                                            'assets/img/fade_placeholder.png',
-                                        image: _menu['img'],
+                                      child: Hero(
+                                        child: FadeInImage.assetNetwork(
+                                          fit: BoxFit.cover,
+                                          height: _imageHeight,
+                                          width: _imageWidth,
+                                          fadeInCurve: Curves.bounceIn,
+                                          placeholder:
+                                              'assets/img/fade_placeholder.png',
+                                          image: _menu['img'],
+                                        ),
+                                        tag: '${_menu.id}',
                                       ),
                                       borderRadius: BorderRadius.circular(
                                           _imageBorderRadius),
@@ -159,8 +163,14 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                               ),
                             ),
                             onTap: () {
-                              //TODO : Adding a screen to display the menu that has been pressed
-                              print('Menu Has Been Pressed. ID = ${_menu.id}');
+                              Navigator.pushNamed(
+                                context,
+                                Order.id,
+                                arguments: Order(
+                                  menu: _menu,
+                                  title: _title,
+                                ),
+                              );
                             },
                           ),
                         );

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/ui/components/stream_receipt.dart';
+import 'package:myboba/ui/customer/components/stream_receipt.dart';
 
 class Receipt extends StatelessWidget {
   static const String id = '/receipt';

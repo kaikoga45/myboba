@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_boba_staff/ui/components/stream_collection.dart';
+import 'package:myboba/ui/staff/components/stream_collection.dart';
 
 class DatabasePage extends StatelessWidget {
   static const String id = '/database_page';

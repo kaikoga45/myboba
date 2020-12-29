@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:my_boba_staff/utils/receipt_helper.dart';
+import 'package:myboba/utils/staff/receipt_helper.dart';
 
 class ScannerPage extends StatefulWidget {
   static const String id = '/scanner_page';

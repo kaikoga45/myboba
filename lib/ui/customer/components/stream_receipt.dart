@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/authentication.dart';
 import 'package:myboba/services/firebase/firestore_helper.dart';
-import 'package:myboba/ui/screens/detail_receipt.dart';
-import 'package:myboba/utils/time.dart';
+import 'package:myboba/ui/customer/screens/detail_receipt.dart';
+import 'package:myboba/utils/customer/time.dart';
 
 class StreamReceipt extends StatelessWidget {
   final _firestore = FirestoreHelper.firestore;

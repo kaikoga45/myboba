@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/firestore_helper.dart';
-import 'package:myboba/utils/time.dart';
+import 'package:myboba/utils/customer/time.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class DetailReceipt extends StatelessWidget {

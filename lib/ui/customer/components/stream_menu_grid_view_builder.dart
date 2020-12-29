@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/firestore_helper.dart';
-import 'package:myboba/ui/screens/order.dart';
+import 'package:myboba/ui/customer/screens/order.dart';
 
 class StreamMenuGridViewBuilder extends StatelessWidget {
   final String _field;

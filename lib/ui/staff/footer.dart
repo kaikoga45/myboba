@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_boba_staff/utils/list_of_widgets.dart';
+import 'package:myboba/utils/staff/list_of_widgets.dart';
 
 class Footer extends StatefulWidget {
   static const id = '/footer';

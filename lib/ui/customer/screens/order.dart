@@ -2,11 +2,11 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/firestore_helper.dart';
-import 'package:myboba/ui/components/order_tool.dart';
-import 'package:myboba/ui/components/customization_dropdown_button.dart';
-import 'package:myboba/ui/components/rounded_text_box.dart';
-import 'package:myboba/ui/components/topping_list.dart';
-import 'package:myboba/utils/order_helper.dart';
+import 'package:myboba/ui/customer/components/order_tool.dart';
+import 'package:myboba/ui/customer/components/customization_dropdown_button.dart';
+import 'package:myboba/ui/customer/components/rounded_text_box.dart';
+import 'package:myboba/ui/customer/components/topping_list.dart';
+import 'package:myboba/utils/customer/order_helper.dart';
 
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 

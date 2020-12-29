@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/utils/time.dart';
+import 'package:myboba/utils/customer/time.dart';
 
 class FirestoreHelper {
   FirestoreHelper._privateConstructor();

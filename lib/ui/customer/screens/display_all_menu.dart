@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myboba/ui/components/stream_menu_grid_view_builder.dart';
+import 'package:myboba/ui/customer/components/stream_menu_grid_view_builder.dart';
 
 class DisplayAllMenu extends StatelessWidget {
   static const String id = '/see_all_menu';

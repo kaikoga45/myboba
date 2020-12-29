@@ -16,16 +16,33 @@ class Settings extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              color: Colors.pinkAccent,
-              height: 100,
-            ),
-          ],
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Container(
+                  color: Colors.pinkAccent,
+                  height: 100,
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    'LOGOUT',
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

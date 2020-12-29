@@ -1,17 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/ui/customer/components/error_alert.dart';
-import 'package:myboba/ui/customer/components/footer.dart';
+import 'package:myboba/ui/customer/components/footer_customer.dart';
 import 'package:myboba/ui/customer/screens/detail_receipt.dart';
 import 'package:myboba/ui/customer/screens/display_all_menu.dart';
 import 'package:myboba/ui/customer/screens/experiment_only.dart';
-import 'package:myboba/ui/customer/screens/homepage.dart';
+import 'package:myboba/ui/customer/screens/customer_home_page.dart';
 import 'package:myboba/ui/customer/screens/menu.dart';
 import 'package:myboba/ui/customer/screens/order.dart';
 import 'package:myboba/ui/customer/screens/receipt.dart';
 import 'package:myboba/ui/customer/screens/settings.dart';
 import 'package:myboba/ui/customer/screens/welcome_screens.dart';
 import 'package:myboba/ui/customer/theme/main_theme.dart';
+import 'package:myboba/ui/staff/footer_staff.dart';
 
 bool _isLogin = true;
 var _initialRoute;
@@ -56,14 +57,15 @@ class MyBoba extends StatelessWidget {
       routes: {
         ExperimentOnly.id: (context) => ExperimentOnly(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
-        Footer.id: (context) => Footer(),
-        HomePage.id: (context) => HomePage(),
+        FooterCustomer.id: (context) => FooterCustomer(),
+        CustomerHomePage.id: (context) => CustomerHomePage(),
         Menu.id: (context) => Menu(),
         Receipt.id: (context) => Receipt(),
         Settings.id: (context) => Settings(),
         DisplayAllMenu.id: (context) => DisplayAllMenu(),
         Order.id: (context) => Order(),
         DetailReceipt.id: (context) => DetailReceipt(),
+        FooterStaff.id: (context) => FooterStaff(),
       },
     );
   }
@@ -74,6 +76,6 @@ void checkUserLogin() {
   if (!_isLogin) {
     _initialRoute = WelcomeScreen.id;
   } else {
-    _initialRoute = Footer.id;
+    _initialRoute = FooterStaff.id;
   }
 }

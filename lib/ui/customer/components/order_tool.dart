@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/services/firebase/firestore_helper.dart';
+import 'package:myboba/services/firebase/customer_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/cart.dart';
 
 class OrderTool extends StatelessWidget {
@@ -14,7 +14,7 @@ class OrderTool extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirestoreHelper.firestore
+      stream: CustomerFirestoreHelper.firestore
           .collection('order')
           .where('customer_id', isEqualTo: _authHelper.customerId)
           .where('checkout', isEqualTo: false)

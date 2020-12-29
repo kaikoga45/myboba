@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/firestore_helper.dart';
+import 'package:myboba/services/firebase/customer_firestore_helper.dart';
 import 'package:myboba/ui/customer/components/stream_menu_grid_view_builder.dart';
 import 'package:myboba/ui/customer/components/stream_menu_list_view_builder.dart';
 
@@ -32,7 +32,9 @@ class _MenuState extends State<Menu> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: StreamBuilder<QuerySnapshot>(
-          stream: FirestoreHelper.firestore.collection('category').snapshots(),
+          stream: CustomerFirestoreHelper.firestore
+              .collection('category')
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (!snapshot.hasData) {

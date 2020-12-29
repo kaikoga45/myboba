@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/services/firebase/firestore_helper.dart';
+import 'package:myboba/services/firebase/customer_firestore_helper.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -9,8 +9,8 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  final _firestore = FirestoreHelper.firestore;
-  final _firestoreHelper = FirestoreHelper.instance;
+  final _firestore = CustomerFirestoreHelper.firestore;
+  final _firestoreHelper = CustomerFirestoreHelper.instance;
   final _authHelper = AuthHelper.instance;
 
   bool _isLoading = false;

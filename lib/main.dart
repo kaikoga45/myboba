@@ -2,9 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/ui/components/error_alert.dart';
 import 'package:myboba/ui/components/footer.dart';
+import 'package:myboba/ui/screens/detail_receipt.dart';
 import 'package:myboba/ui/screens/display_all_menu.dart';
+import 'package:myboba/ui/screens/experiment_only.dart';
 import 'package:myboba/ui/screens/homepage.dart';
 import 'package:myboba/ui/screens/menu.dart';
+import 'package:myboba/ui/screens/order.dart';
 import 'package:myboba/ui/screens/receipt.dart';
 import 'package:myboba/ui/screens/settings.dart';
 import 'package:myboba/ui/screens/welcome_screens.dart';
@@ -51,6 +54,7 @@ class MyBoba extends StatelessWidget {
       theme: themeData,
       initialRoute: _initialRoute,
       routes: {
+        ExperimentOnly.id: (context) => ExperimentOnly(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
         Footer.id: (context) => Footer(),
         HomePage.id: (context) => HomePage(),
@@ -58,6 +62,8 @@ class MyBoba extends StatelessWidget {
         Receipt.id: (context) => Receipt(),
         Settings.id: (context) => Settings(),
         DisplayAllMenu.id: (context) => DisplayAllMenu(),
+        Order.id: (context) => Order(),
+        DetailReceipt.id: (context) => DetailReceipt(),
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/firestore.dart';
+import 'package:myboba/services/firebase/firestore_helper.dart';
+import 'package:myboba/ui/screens/order.dart';
 
 class StreamMenuGridViewBuilder extends StatelessWidget {
   final String _field;
@@ -77,8 +78,14 @@ class StreamMenuGridViewBuilder extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      //TODO : Adding a screen to display the menu that has been pressed
-                      print('Menu Has Been Pressed. ID = ${_menus.id}');
+                      Navigator.pushNamed(
+                        context,
+                        Order.id,
+                        arguments: Order(
+                          menu: _menus,
+                          title: _menus['category'],
+                        ),
+                      );
                     },
                   );
                 },

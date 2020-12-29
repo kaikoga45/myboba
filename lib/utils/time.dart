@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Time {
   static String getGreetingMessages() {
     DateTime _data = DateTime.now();
@@ -9,5 +11,14 @@ class Time {
     } else {
       return 'Good Evening!';
     }
+  }
+
+  static Timestamp getTimeStamps() {
+    return Timestamp.now();
+  }
+
+  static String convertToDate(Timestamp timestamp) {
+    DateTime data = timestamp.toDate();
+    return '${data.day} - ${data.month} - ${data.year}';
   }
 }

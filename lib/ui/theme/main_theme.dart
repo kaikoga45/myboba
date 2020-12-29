@@ -86,4 +86,5 @@ final ThemeData themeData = ThemeData(
   buttonColor: Color(0xFFC99542),
   appBarTheme: AppBarTheme(color: Color(0xFFFFFFFF)),
   scaffoldBackgroundColor: Color(0xFFFFFFFF),
+  cardColor: Color(0xFFFAFAFA),
 );

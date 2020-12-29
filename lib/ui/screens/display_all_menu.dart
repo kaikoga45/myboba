@@ -18,8 +18,6 @@ class DisplayAllMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DisplayAllMenu _data = ModalRoute.of(context).settings.arguments;
-    print(_data._title);
-    print(_data._description);
     return Scaffold(
       appBar: AppBar(
         title: Text(

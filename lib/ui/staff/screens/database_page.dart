@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myboba/ui/staff/components/stream_collection.dart';
+import 'package:myboba/ui/staff/screens/category_page/read_category.dart';
+import 'package:myboba/ui/staff/screens/menu_page/read_menu.dart';
+import 'package:myboba/ui/staff/screens/order_page/read_order.dart';
+import 'package:myboba/ui/staff/screens/status_page/read_status.dart';
 
 class DatabasePage extends StatelessWidget {
   static const String id = '/database_page';
@@ -24,31 +28,68 @@ class DatabasePage extends StatelessWidget {
             children: [
               Expanded(
                 child: StreamCollection(
+                  isOrder: false,
                   collection: 'status',
                   title: 'status',
                   color: Color(0xFFF8B195),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReadStatus(),
+                      ),
+                    );
+                  },
                 ),
               ),
               Expanded(
                 child: StreamCollection(
+                  isOrder: false,
                   collection: 'category',
                   title: 'category',
                   color: Color(0xFFF67280),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReadCategory(),
+                      ),
+                    );
+                  },
                 ),
               ),
               Expanded(
                 child: StreamCollection(
+                  isOrder: false,
                   collection: 'menu',
                   title: 'menu',
                   color: Color(0xFFC06C84),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReadMenu(),
+                      ),
+                    );
+                  },
                 ),
               ),
               Expanded(
-                  child: StreamCollection(
-                collection: 'order',
-                title: 'order',
-                color: Color(0xFF6C5B7B),
-              )),
+                child: StreamCollection(
+                  isOrder: true,
+                  collection: 'order',
+                  title: 'order',
+                  color: Color(0xFF6C5B7B),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReadOrder(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

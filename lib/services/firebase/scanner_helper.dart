@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ReceiptHelper {
-  ReceiptHelper._privateConstructor();
-  static final instance = ReceiptHelper._privateConstructor();
+class ScannerHelper {
+  ScannerHelper._privateConstructor();
+  static final instance = ScannerHelper._privateConstructor();
 
   final _firestore = FirebaseFirestore.instance;
 

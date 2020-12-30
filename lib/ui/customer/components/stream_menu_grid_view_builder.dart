@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/customer_firestore_helper.dart';
+import 'package:myboba/services/firebase/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/order.dart';
 
 class StreamMenuGridViewBuilder extends StatelessWidget {
@@ -15,8 +15,8 @@ class StreamMenuGridViewBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: _value == null || _field == null
-          ? CustomerFirestoreHelper.firestore.collection('menu').snapshots()
-          : CustomerFirestoreHelper.firestore
+          ? OrderFirestoreHelper.firestore.collection('menu').snapshots()
+          : OrderFirestoreHelper.firestore
               .collection('menu')
               .where(_field, isEqualTo: _value)
               .snapshots(),

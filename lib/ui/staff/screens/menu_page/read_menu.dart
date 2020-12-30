@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/staff_firestore_helper.dart';
+import 'package:myboba/services/firebase/firestore_data_management_helper.dart';
 import 'package:myboba/ui/staff/screens/menu_page/create_update_menu.dart';
 
 class ReadMenu extends StatelessWidget {
-  final _firestore = StaffFirestoreHelper.firestore;
-  final _staffFirestoreHelper = StaffFirestoreHelper.instance;
+  final _firestore = FirestoreDataManagementHelper.firestore;
+  final _staffFirestoreHelper = FirestoreDataManagementHelper.instance;
 
   @override
   Widget build(BuildContext context) {

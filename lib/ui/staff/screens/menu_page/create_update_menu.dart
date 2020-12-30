@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/staff_firestore_helper.dart';
+import 'package:myboba/services/firebase/firestore_data_management_helper.dart';
 
 final _formKey = GlobalKey<FormState>();
 final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -14,7 +14,7 @@ class CreateUpdateMenu extends StatefulWidget {
 }
 
 class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
-  final _staffFirestoreHelper = StaffFirestoreHelper.instance;
+  final _staffFirestoreHelper = FirestoreDataManagementHelper.instance;
 
   TextEditingController _controllerMenuName = TextEditingController();
   TextEditingController _controllerMenuDescription = TextEditingController();

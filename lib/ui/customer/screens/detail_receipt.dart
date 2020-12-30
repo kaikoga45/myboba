@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/customer_firestore_helper.dart';
+import 'package:myboba/services/firebase/order_firestore_helper.dart';
 import 'package:myboba/utils/customer/time.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class DetailReceipt extends StatelessWidget {
   static const String id = '/detail_receipt';
-  final _firestore = CustomerFirestoreHelper.firestore;
+  final _firestore = OrderFirestoreHelper.firestore;
 
   final DocumentSnapshot _receipt;
 

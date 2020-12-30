@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:myboba/utils/staff/receipt_helper.dart';
+import 'package:myboba/services/firebase/scanner_helper.dart';
 
 class ScannerPage extends StatefulWidget {
   static const String id = '/scanner_page';
@@ -15,7 +15,7 @@ class _ScannerPageState extends State<ScannerPage> {
   int receiptId = 0;
 
   final _firestore = FirebaseFirestore.instance;
-  final _receiptHelper = ReceiptHelper.instance;
+  final _receiptHelper = ScannerHelper.instance;
 
   @override
   Widget build(BuildContext context) {

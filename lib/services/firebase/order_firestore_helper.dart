@@ -5,11 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:myboba/services/firebase/authentication.dart';
 import 'package:myboba/utils/customer/time.dart';
 
-class CustomerFirestoreHelper {
-  CustomerFirestoreHelper._privateConstructor();
+class OrderFirestoreHelper {
+  OrderFirestoreHelper._privateConstructor();
   static final firestore = FirebaseFirestore.instance;
-  static final CustomerFirestoreHelper instance =
-      CustomerFirestoreHelper._privateConstructor();
+  static final OrderFirestoreHelper instance =
+      OrderFirestoreHelper._privateConstructor();
 
   final _authHelper = AuthHelper.instance;
 
@@ -17,6 +17,11 @@ class CustomerFirestoreHelper {
       {@required String menuId, @required String description}) async {
     QuerySnapshot _querySnapshot;
     try {
+      /*
+        Fetching all required data from order collection with specific where condition.
+        Return querySnapshot if not empty, else return null.
+       */
+
       _querySnapshot = await firestore
           .collection('order')
           .limit(1)
@@ -27,9 +32,9 @@ class CustomerFirestoreHelper {
           .where('pickup', isEqualTo: false)
           .get()
           .then(
-        (QuerySnapshot snapshot) {
-          if (snapshot.docs.isNotEmpty) {
-            return snapshot;
+        (QuerySnapshot querySnapshot) {
+          if (querySnapshot.docs.isNotEmpty) {
+            return querySnapshot;
           } else {
             return null;
           }
@@ -52,6 +57,7 @@ class CustomerFirestoreHelper {
     bool _isError = false;
 
     try {
+      // Updating the values on quantity and total price at existing order data.
       await firestore.collection('order').doc(docId).update(
         {
           'quantity': currentQuantity + 1,
@@ -78,6 +84,7 @@ class CustomerFirestoreHelper {
     bool _isError = false;
 
     try {
+      // Fetching data in order collection for trying to get the existing receipt_id
       _data = await firestore
           .collection('order')
           .where('customer_id', isEqualTo: _authHelper.customerId)
@@ -91,16 +98,39 @@ class CustomerFirestoreHelper {
         throw onError;
       });
 
+      // If the receipt id does exist, it will set the value from data docs to the variable.
+      // Else, set the variable to null.
       DocumentSnapshot _existingReceiptId =
           _data.docs.isNotEmpty ? _data.docs[0] : null;
 
-      Random _newReceiptId = Random();
+      // If previously, the id does not exist. Then, cra
+      bool _isReceiptIdExist = false;
+      int _newReceiptId;
+
+      while (_isReceiptIdExist == false) {
+        Random _randomNumber = Random();
+        _newReceiptId = _randomNumber.nextInt(99999999);
+
+        _isReceiptIdExist = await firestore
+            .collection('order')
+            .where('receipt_id', isEqualTo: _newReceiptId)
+            .get()
+            .then((QuerySnapshot querySnapshot) {
+          if (querySnapshot.docs.isNotEmpty) {
+            return true;
+          }
+        }).catchError((onError) {
+          throw onError;
+        });
+      }
+
+      //Checking existing receipt id in order collection
 
       await firestore.collection('order').add({
         'menu_id': menuId,
         'customer_id': _authHelper.customerId,
         'receipt_id': _existingReceiptId == null
-            ? _newReceiptId.nextInt(99999)
+            ? _newReceiptId
             : _existingReceiptId['receipt_id'],
         'checkout': false,
         'pickup': false,

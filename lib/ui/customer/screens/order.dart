@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/customer_firestore_helper.dart';
+import 'package:myboba/services/firebase/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/components/order_tool.dart';
 import 'package:myboba/ui/customer/components/customization_dropdown_button.dart';
 import 'package:myboba/ui/customer/components/rounded_text_box.dart';
@@ -25,7 +25,7 @@ class Order extends StatefulWidget {
 }
 
 class _OrderState extends State<Order> {
-  final _firestoreHelper = CustomerFirestoreHelper.instance;
+  final _firestoreHelper = OrderFirestoreHelper.instance;
   bool _isLoading = false;
 
   //Customization

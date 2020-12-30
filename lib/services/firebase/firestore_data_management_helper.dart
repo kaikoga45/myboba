@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-class StaffFirestoreHelper {
-  StaffFirestoreHelper._privateConstructor();
-  static final StaffFirestoreHelper instance =
-      StaffFirestoreHelper._privateConstructor();
+class FirestoreDataManagementHelper {
+  FirestoreDataManagementHelper._privateConstructor();
+  static final FirestoreDataManagementHelper instance =
+      FirestoreDataManagementHelper._privateConstructor();
 
   static final firestore = FirebaseFirestore.instance;
 

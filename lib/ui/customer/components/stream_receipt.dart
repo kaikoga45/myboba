@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/services/firebase/customer_firestore_helper.dart';
+import 'package:myboba/services/firebase/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/detail_receipt.dart';
 import 'package:myboba/utils/customer/time.dart';
 
 class StreamReceipt extends StatelessWidget {
-  final _firestore = CustomerFirestoreHelper.firestore;
+  final _firestore = OrderFirestoreHelper.firestore;
   final _authHelper = AuthHelper.instance;
 
   final bool _isPickup;

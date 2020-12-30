@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/staff_firestore_helper.dart';
+import 'package:myboba/services/firebase/firestore_data_management_helper.dart';
 
 class ReadOrder extends StatelessWidget {
-  final _firestore = StaffFirestoreHelper.firestore;
+  final _firestore = FirestoreDataManagementHelper.firestore;
 
   @override
   Widget build(BuildContext context) {

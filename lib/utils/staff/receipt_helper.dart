@@ -29,6 +29,7 @@ class ReceiptHelper {
       snapshotOrder.docs.forEach((element) async {
         await _firestore.collection('order').doc(element.id).update({
           'pickup': true,
+          'receipt_id': 0,
         }).catchError((onError) {
           throw onError;
         });
@@ -47,6 +48,7 @@ class ReceiptHelper {
 
       await _firestore.collection('receipt').doc(doc.id).update({
         'pickup': true,
+        'receipt_id': 0,
       }).catchError((onError) {
         throw onError;
       });

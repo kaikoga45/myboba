@@ -12,7 +12,7 @@ class ReadMenu extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'CATEGORY',
+          'MENU',
           style: Theme.of(context).textTheme.headline6.copyWith(
                 fontWeight: FontWeight.bold,
               ),

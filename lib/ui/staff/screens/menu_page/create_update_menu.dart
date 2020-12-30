@@ -126,14 +126,25 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                     return CircularProgressIndicator();
                   } else {
                     List<String> _status = [];
+
                     snapshot.data.docs.forEach((element) {
                       _status.add(element['name']);
                     });
+
+                    WidgetsBinding.instance
+                        .addPostFrameCallback((_) => setState(() {
+                              if (_selectedStatus == null) {
+                                if (widget._menuDoc == null) {
+                                  _selectedStatus = _status.elementAt(0);
+                                } else {
+                                  _selectedStatus = widget._menuDoc['status'];
+                                }
+                              }
+                            }));
+
                     return DropdownButton(
                       hint: Text('Please choose menu status'),
-                      value: widget._menuDoc == null
-                          ? _selectedStatus
-                          : widget._menuDoc['status'],
+                      value: _selectedStatus,
                       isExpanded: true,
                       items: _status.map<DropdownMenuItem<String>>(
                         (String value) {
@@ -159,14 +170,26 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                     return CircularProgressIndicator();
                   } else {
                     List<String> _category = [];
+
                     snapshot.data.docs.forEach((element) {
                       _category.add(element['name']);
                     });
+
+                    WidgetsBinding.instance
+                        .addPostFrameCallback((_) => setState(() {
+                              if (_selectedCategory == null) {
+                                if (widget._menuDoc == null) {
+                                  _selectedCategory = _category.elementAt(0);
+                                } else {
+                                  _selectedCategory =
+                                      widget._menuDoc['category'];
+                                }
+                              }
+                            }));
+
                     return DropdownButton(
                       hint: Text('Please choose menu category'),
-                      value: widget._menuDoc == null
-                          ? _selectedCategory
-                          : widget._menuDoc['category'],
+                      value: _selectedCategory,
                       isExpanded: true,
                       items: _category.map<DropdownMenuItem<String>>(
                         (String value) {

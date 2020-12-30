@@ -44,7 +44,7 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
             children: <Widget>[
               TextFormField(
                 controller: _controllerName,
-                maxLength: 20,
+                maxLength: 25,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue),
@@ -60,7 +60,6 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
               ),
               TextFormField(
                 controller: _controllerDescription,
-                maxLength: 20,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue),

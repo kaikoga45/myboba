@@ -15,12 +15,15 @@ class CreateUpdateStatus extends StatefulWidget {
 
 class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
   final _staffFirestoreHelper = StaffFirestoreHelper.instance;
-  TextEditingController _controller = TextEditingController();
+  TextEditingController _controllerName = TextEditingController();
+  TextEditingController _controllerDescription = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _controller.text =
+    _controllerName.text =
         widget._statusDoc == null ? '' : widget._statusDoc['name'];
+    _controllerDescription.text =
+        widget._statusDoc == null ? '' : widget._statusDoc['description'];
 
     return Scaffold(
       key: _scaffoldKey,
@@ -40,7 +43,7 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                controller: _controller,
+                controller: _controllerName,
                 maxLength: 20,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -55,26 +58,48 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
                   return null;
                 },
               ),
+              TextFormField(
+                controller: _controllerDescription,
+                maxLength: 20,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  labelText: 'Status description',
+                ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       if (widget._statusDoc == null) {
-                        bool _isError = await _staffFirestoreHelper
-                            .createStatus(_controller.text);
+                        bool _isError =
+                            await _staffFirestoreHelper.createStatus(
+                                name: _controllerName.text,
+                                description: _controllerDescription.text);
+
                         _isError
                             ? _scaffoldKey.currentState.showSnackBar(SnackBar(
                                 content: Text('Failed to added data!')))
                             : _scaffoldKey.currentState.showSnackBar(SnackBar(
                                 content: Text('Data completed added!')));
-                        _controller.clear();
+
+                        _controllerName.clear();
+                        _controllerDescription.clear();
                       } else {
                         bool _isError =
                             await _staffFirestoreHelper.updateStatus(
                                 docId: widget._statusDoc.id,
                                 previousStatus: widget._statusDoc['name'],
-                                newStatus: _controller.text);
+                                newStatus: _controllerName.text,
+                                description: _controllerDescription.text);
                         _isError
                             ? _scaffoldKey.currentState.showSnackBar(SnackBar(
                                 content: Text('Failed to update data!')))

@@ -53,6 +53,7 @@ class ReadStatus extends StatelessWidget {
                           ),
                         ),
                         title: Text(_status['name']),
+                        subtitle: Text(_status['description']),
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () async {

@@ -8,13 +8,16 @@ class StaffFirestoreHelper {
 
   static final firestore = FirebaseFirestore.instance;
 
-  Future<bool> createStatus(String value) async {
+  Future<bool> createStatus(
+      {@required String name, @required String description}) async {
     bool _isError = false;
 
     try {
-      await firestore
-          .collection('status')
-          .add({'name': value}).catchError((onError) {
+      await firestore.collection('status').add({
+        'name': name,
+        'description': description,
+        'timestamp': Timestamp.now()
+      }).catchError((onError) {
         throw onError;
       });
     } catch (e) {
@@ -59,6 +62,7 @@ class StaffFirestoreHelper {
   Future<bool> updateStatus(
       {@required String newStatus,
       @required String previousStatus,
+      @required String description,
       @required String docId}) async {
     bool _isError = false;
 
@@ -66,7 +70,8 @@ class StaffFirestoreHelper {
       await firestore
           .collection('status')
           .doc(docId)
-          .update({'name': newStatus}).catchError((onError) {
+          .update({'name': newStatus, 'description': description}).catchError(
+              (onError) {
         throw onError;
       });
 

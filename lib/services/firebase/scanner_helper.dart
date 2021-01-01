@@ -10,6 +10,8 @@ class ScannerHelper {
     bool _isError = false;
 
     try {
+      // Fetch all the order data that has been final in order collection
+
       QuerySnapshot snapshotOrder = await _firestore
           .collection('order')
           .where('pickup', isEqualTo: false)
@@ -26,6 +28,8 @@ class ScannerHelper {
         throw onError;
       });
 
+      // Set all the value on field pickup equal to true in every order that has been final in order collection
+
       snapshotOrder.docs.forEach((element) async {
         await _firestore.collection('order').doc(element.id).update({
           'pickup': true,
@@ -33,6 +37,8 @@ class ScannerHelper {
           throw onError;
         });
       });
+
+      // Fetch all the receipt data that has been creating in receipt collection
 
       QuerySnapshot snapshotReceipt = await _firestore
           .collection('receipt')
@@ -44,6 +50,8 @@ class ScannerHelper {
       });
 
       DocumentSnapshot doc = snapshotReceipt.docs[0];
+
+      // Set all the value on field pickup equal to true in receipt
 
       await _firestore.collection('receipt').doc(doc.id).update({
         'pickup': true,
@@ -58,6 +66,7 @@ class ScannerHelper {
   }
 
   Future<bool> setServe(int receiptId) async {
+    // Set the value to true in pickup in equal to true to indicate that the customer order has been serve
     QuerySnapshot snapshot = await _firestore
         .collection('receipt')
         .where('pickup', isEqualTo: true)

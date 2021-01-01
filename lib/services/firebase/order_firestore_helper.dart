@@ -21,7 +21,6 @@ class OrderFirestoreHelper {
         Fetching all required data from order collection with specific where condition.
         Return querySnapshot if not empty, else return null.
        */
-
       _querySnapshot = await firestore
           .collection('order')
           .limit(1)
@@ -84,7 +83,7 @@ class OrderFirestoreHelper {
     bool _isError = false;
 
     try {
-      // Fetching data in order collection for trying to get the existing receipt_id
+      // Fetching data in order collection with specific where condition for trying to get the existing receipt_id
       _data = await firestore
           .collection('order')
           .where('customer_id', isEqualTo: _authHelper.customerId)
@@ -98,15 +97,21 @@ class OrderFirestoreHelper {
         throw onError;
       });
 
-      // If the receipt id does exist, it will set the value from data docs to the variable.
-      // Else, set the variable to null.
+      /*
+         If the receipt id does exist, it will set the value from data docs to the variable.
+         Else, set the variable to null.
+      */
       DocumentSnapshot _existingReceiptId =
           _data.docs.isNotEmpty ? _data.docs[0] : null;
 
-      // If previously, the id does not exist. Then, cra
+      // If previously, the id does not exist. Then, it will generate a new random receipt id
       bool _isReceiptIdExist = false;
       int _newReceiptId;
 
+      /*
+         Checking if the new receipt id are exist in order collection.
+         If it does exist, then it will generate a new random receipt id until the new receipt id does not exist in order collection
+      */
       while (_isReceiptIdExist == false) {
         Random _randomNumber = Random();
         _newReceiptId = _randomNumber.nextInt(99999999);
@@ -124,7 +129,7 @@ class OrderFirestoreHelper {
         });
       }
 
-      //Checking existing receipt id in order collection
+      // Creating a new order data at order collection
 
       await firestore.collection('order').add({
         'menu_id': menuId,
@@ -153,6 +158,7 @@ class OrderFirestoreHelper {
   Future<bool> deleteOrderInCart({@required String docId}) async {
     bool _isError = false;
 
+    // Deleting the order data in order collection
     try {
       await firestore
           .collection('order')
@@ -172,6 +178,7 @@ class OrderFirestoreHelper {
     bool _isError = false;
 
     try {
+      // Fetching all the order data from customer cart
       QuerySnapshot _snapshot = await firestore
           .collection('order')
           .where('customer_id', isEqualTo: _authHelper.customerId)
@@ -188,10 +195,14 @@ class OrderFirestoreHelper {
         throw onError;
       });
 
+      // Calculating the total price for all order in cart
+
       int _totalPrice = 0;
       _snapshot.docs.forEach((element) {
         _totalPrice += element['total_price'];
       });
+
+      // Set the checkout to true for indicate that the customer order are final
 
       _snapshot.docs.forEach((element) async {
         await firestore
@@ -201,6 +212,8 @@ class OrderFirestoreHelper {
           throw onError;
         });
       });
+
+      // Creating a receipt
 
       await firestore.collection('receipt').add({
         'customer_id': _authHelper.customerId,

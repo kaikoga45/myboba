@@ -76,6 +76,6 @@ void checkUserLogin() {
   if (!_isLogin) {
     _initialRoute = WelcomeScreen.id;
   } else {
-    _initialRoute = FooterStaff.id;
+    _initialRoute = FooterCustomer.id;
   }
 }

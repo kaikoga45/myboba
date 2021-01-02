@@ -15,7 +15,6 @@ class _ForgotPassword extends State<ForgotPassword> {
   String email;
   String password;
 
-  String _errorMessage;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -63,23 +62,25 @@ class _ForgotPassword extends State<ForgotPassword> {
         });
       },
       validator: (value) {
-        if (_errorMessage == "invalid-email") {
+        if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value) == false) {
           return "Please enter a valid email address";
-        }
-        if (_errorMessage == "user-not-found") {
-          return "Sorry, We couldn't find your account";
         }
         return null;
       },
     );
   }
- 
+
   Widget submitButton(BuildContext context) {
     return FlatButton(
       child: Text("SEND"),
       onPressed: () async {
-        AuthHelper.auth.sendPasswordResetEmail(email: email);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StreamGetOob(email: email,))); 
+        if (_formKey.currentState.validate() == true) {
+          AuthHelper.auth.sendPasswordResetEmail(email: email);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => StreamGetOob(email: email)),
+          );
+        }
       },
       textColor: Colors.white,
       color: Color(0xFFC99542),

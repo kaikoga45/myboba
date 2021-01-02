@@ -15,10 +15,10 @@ class NewPassword extends StatefulWidget {
 class _NewPassword extends State<NewPassword> {
   String password;
   final Map<String, dynamic> oobcode;
-  
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
-  _NewPassword({ this.oobcode });
+
+  _NewPassword({this.oobcode});
 
   @override
   Widget build(BuildContext context) {
@@ -89,25 +89,27 @@ class _NewPassword extends State<NewPassword> {
         return null;
       },
     );
-  } 
+  }
 
   Widget submitButton(BuildContext context) {
     return FlatButton(
       child: Text("SEND"),
       onPressed: () async {
-        
-        String output = await AuthHelper(
-          password: this.password,
-          oobCode: this.oobcode["oob"],
-        ).resetPassword();
-        
+        if (_formKey.currentState.validate() == true) {
 
-        print(output);
-        
-        if(output == "Success"){
-          AuthHelper().deleteUnusedOob(oobcode["id"]);
-          navigatorKey.currentState.pop(context);
-        } 
+          String output = await AuthHelper(
+            password: this.password,
+            oobCode: this.oobcode["oob"],
+          ).resetPassword();
+
+          print(output);
+
+          if (output == "Success") {
+            AuthHelper().deleteUnusedOob(oobcode["id"]);
+            navigatorKey.currentState.pop(context);
+          }
+
+        }
       },
       textColor: Colors.white,
       color: Color(0xFFC99542),

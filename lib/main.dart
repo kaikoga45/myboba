@@ -9,6 +9,8 @@ import 'package:myboba/ui/screens/receipt.dart';
 import 'package:myboba/ui/screens/settings.dart';
 import 'package:myboba/ui/screens/sign_in.dart';
 import 'package:myboba/ui/screens/sign_up.dart';
+import 'package:myboba/ui/screens/forgot_password.dart';
+import 'package:myboba/ui/screens/waiting_screen.dart';
 import 'package:myboba/ui/screens/welcome_screens.dart';
 import 'package:myboba/ui/theme/main_theme.dart';
 
@@ -55,27 +57,47 @@ class StreamUser extends StatelessWidget {
     return StreamBuilder(
       stream: AuthHelper.auth.authStateChanges(),
       builder: (context, snapshot){
-        if(snapshot.hasError){
-          return ErrorAlert();
-        }
+
         if(snapshot.connectionState == ConnectionState.waiting){
           return Center(child: CircularProgressIndicator());
         }
         //saat user sign_in / sign_up
+        if(snapshot.hasData){ 
+          // check user email verification
+          return CheckEmailVerification();
+        }
+
+        // appear while there arn't user sign in / sign up to the system
+        return WelcomeScreen();
+      },
+    );
+  }
+}
+
+// stream user to check the changes of users data on firebase server
+class CheckEmailVerification extends StatelessWidget {
+  const CheckEmailVerification({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: AuthHelper.auth.userChanges(),
+      builder: (context, snapshot){
+
         if(snapshot.hasData){
           
-          // buat ngeluarin (pop) push tampilan sign_in / sign_up nya
-          // bukan best practicenya, lebih ke maksa navigatorKeynya ni
-          // coba cari lain buat routing authentication nya, aku cari-cari disuruh make class middleware 
-          // But at least it's work :')
-          if(navigatorKey.currentState.canPop() == true){
-            navigatorKey.currentState.pop();
+          //send email verification if email didn't verified
+          if(AuthHelper.auth.currentUser.emailVerified == false){
+            AuthHelper().sendEmailVerif();
+            AuthHelper.auth.currentUser.reload();
+
+            // Verif waiting screens
+            return WaitingScreens();
           }
-          
-          return Footer();
-        }
-        //kebalikannya
-        return WelcomeScreen();
+
+        } 
+        // return to home
+        return Footer();
       },
     );
   }
@@ -85,17 +107,15 @@ class StreamUser extends StatelessWidget {
 class MyBoba extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //checkUserLogin();
-    //_initialRoute = Footer.id;
     return MaterialApp(
       title: 'MyBoba',
       theme: themeData,
       navigatorKey: navigatorKey,
-      //initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         SignIn.id: (context) => SignIn(),
         SignUp.id: (context) => SignUp(),
+        ForgotPassword.id: (context) => ForgotPassword(),
         Footer.id: (context) => Footer(),
         HomePage.id: (context) => HomePage(),
         Menu.id: (context) => Menu(),
@@ -103,27 +123,6 @@ class MyBoba extends StatelessWidget {
         Settings.id: (context) => Settings(),
       },
       home: StreamUser(),
-      //home: (AuthHelper.auth.currentUser == null)? WelcomeScreen() : Footer(),
-      //home: (_initialRoute == Footer.id)? Footer() : WelcomeScreen(),
     );
   }
 }
-/*
-void checkUserLogin() {
-  // TODO : Adding firebase auth function to check user login
-
-  //if (!_isLogin) {
-  AuthHelper.auth.authStateChanges().listen((user){
-    if(user == null){
-      print("Ga log in");
-      _initialRoute = WelcomeScreen.id;
-      print(_initialRoute);
-    } else {
-      print("log in");
-      _initialroute = footer.id;
-      print(_initialroute);
-
-    }
-  }); 
-}
-*/

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myboba/main.dart';
 import 'package:myboba/services/firebase/authentication.dart';
 import 'package:myboba/ui/components/inputField_myboba.dart';
 
@@ -122,10 +123,11 @@ class _SignUpState extends State<SignUp> {
           password: this.password,
         ).signUp();
         
-        if (output["valid"] == false) {
-          //Navigator.popAndPushNamed(context, "/footer");
+
+        if (output["valid"] == true){
+          navigatorKey.currentState.pop();
+        } else {
           _errorMessage = output["message"];
-          //print(output);
           _formKey.currentState.validate();
         }
       },

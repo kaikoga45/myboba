@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:myboba/main.dart';
 import 'package:myboba/services/firebase/authentication.dart';
 import 'package:myboba/ui/components/inputField_myboba.dart';
+import 'package:myboba/ui/screens/waiting_screen.dart';
 
-class SignIn extends StatefulWidget {
-  static const String id = '/signin';
-  SignIn({Key key}) : super(key: key);
+class ForgotPassword extends StatefulWidget {
+  static const String id = '/forgotpassword';
+  ForgotPassword({Key key}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
+  _ForgotPassword createState() => _ForgotPassword();
 }
 
-class _SignInState extends State<SignIn> {
+class _ForgotPassword extends State<ForgotPassword> {
   String email;
   String password;
 
@@ -23,7 +23,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Sign IN ",
+          "Forgot Password",
           style: Theme.of(context).textTheme.headline6.copyWith(
                 fontWeight: FontWeight.w900,
               ),
@@ -37,9 +37,11 @@ class _SignInState extends State<SignIn> {
           key: _formKey,
           child: Column(
             children: <Widget>[
+              Text(
+                "Fill the blank spot with your email. We will send you a verification code to your email",
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
               emailField(),
-              passwordField(),
-              forgotPasswordButton(),
             ],
           ),
         ),
@@ -71,59 +73,13 @@ class _SignInState extends State<SignIn> {
       },
     );
   }
-
-  Widget passwordField() {
-    return InputField(
-      obscureText: true,
-      hintText: "Password",
-      icon: Icons.lock,
-      onChanged: (value) {
-        setState(() {
-          password = value;
-        });
-      },
-      validator: (value) {
-        if (_errorMessage == "wrong-password") {
-          return "Password you entered is incorrect";
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget forgotPasswordButton() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: InkWell(
-        child: Text(
-          "Forgot your password?",
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        onTap: () {
-          Navigator.pushNamed(context, '/forgotpassword');
-        },
-      ),
-    );
-  }
-
+ 
   Widget submitButton(BuildContext context) {
     return FlatButton(
-      child: Text("SIGN IN"),
+      child: Text("SEND"),
       onPressed: () async {
-        //call signIn method at authentication.dart
-        final Map<String, dynamic> output = await AuthHelper(
-          email: this.email,
-          password: this.password,
-        ).signIn();
-
-        print(output);
-        if (output["valid"] == true){
-          navigatorKey.currentState.pop();
-        }
-        else {
-          _errorMessage = output["message"];
-          _formKey.currentState.validate();
-        }
+        AuthHelper.auth.sendPasswordResetEmail(email: email);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StreamGetOob(email: email,))); 
       },
       textColor: Colors.white,
       color: Color(0xFFC99542),

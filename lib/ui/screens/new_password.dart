@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:myboba/main.dart';
 import 'package:myboba/services/firebase/authentication.dart';
 import 'package:myboba/ui/components/inputField_myboba.dart';
+import 'package:myboba/main.dart';
 
-class SignIn extends StatefulWidget {
-  static const String id = '/signin';
-  SignIn({Key key}) : super(key: key);
+class NewPassword extends StatefulWidget {
+  static const String id = '/verificationcode';
+  final Map<String, dynamic> oobcode;
+  NewPassword({Key key, this.oobcode}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
+  _NewPassword createState() => _NewPassword(oobcode: this.oobcode);
 }
 
-class _SignInState extends State<SignIn> {
-  String email;
+class _NewPassword extends State<NewPassword> {
   String password;
-
-  String _errorMessage;
+  final Map<String, dynamic> oobcode;
+  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
+  _NewPassword({ this.oobcode });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Sign IN ",
+          "Forgot Password",
           style: Theme.of(context).textTheme.headline6.copyWith(
                 fontWeight: FontWeight.w900,
               ),
@@ -37,9 +39,15 @@ class _SignInState extends State<SignIn> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              emailField(),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Fill with your new password",
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              ),
               passwordField(),
-              forgotPasswordButton(),
+              confirmPasswordField(),
             ],
           ),
         ),
@@ -48,27 +56,6 @@ class _SignInState extends State<SignIn> {
         margin: EdgeInsets.only(bottom: 65, left: 23, right: 23),
         child: submitButton(context),
       ),
-    );
-  }
-
-  Widget emailField() {
-    return InputField(
-      hintText: "Email",
-      icon: Icons.mail,
-      onChanged: (value) {
-        setState(() {
-          email = value;
-        });
-      },
-      validator: (value) {
-        if (_errorMessage == "invalid-email") {
-          return "Please enter a valid email address";
-        }
-        if (_errorMessage == "user-not-found") {
-          return "Sorry, We couldn't find your account";
-        }
-        return null;
-      },
     );
   }
 
@@ -82,48 +69,45 @@ class _SignInState extends State<SignIn> {
           password = value;
         });
       },
+    );
+  }
+
+  Widget confirmPasswordField() {
+    return InputField(
+      obscureText: true,
+      hintText: "Confirm Password",
+      icon: Icons.lock,
+      onChanged: (value) {
+        setState(() {
+          password = value;
+        });
+      },
       validator: (value) {
-        if (_errorMessage == "wrong-password") {
+        if (value != password) {
           return "Password you entered is incorrect";
         }
         return null;
       },
     );
-  }
-
-  Widget forgotPasswordButton() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: InkWell(
-        child: Text(
-          "Forgot your password?",
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        onTap: () {
-          Navigator.pushNamed(context, '/forgotpassword');
-        },
-      ),
-    );
-  }
+  } 
 
   Widget submitButton(BuildContext context) {
     return FlatButton(
-      child: Text("SIGN IN"),
+      child: Text("SEND"),
       onPressed: () async {
-        //call signIn method at authentication.dart
-        final Map<String, dynamic> output = await AuthHelper(
-          email: this.email,
+        
+        String output = await AuthHelper(
           password: this.password,
-        ).signIn();
+          oobCode: this.oobcode["oob"],
+        ).resetPassword();
+        
 
         print(output);
-        if (output["valid"] == true){
-          navigatorKey.currentState.pop();
-        }
-        else {
-          _errorMessage = output["message"];
-          _formKey.currentState.validate();
-        }
+        
+        if(output == "Success"){
+          AuthHelper().deleteUnusedOob(oobcode["id"]);
+          navigatorKey.currentState.pop(context);
+        } 
       },
       textColor: Colors.white,
       color: Color(0xFFC99542),

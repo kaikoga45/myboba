@@ -77,14 +77,9 @@ class _NewPassword extends State<NewPassword> {
       obscureText: true,
       hintText: "Confirm Password",
       icon: Icons.lock,
-      onChanged: (value) {
-        setState(() {
-          password = value;
-        });
-      },
       validator: (value) {
         if (value != password) {
-          return "Password you entered is incorrect";
+          return "Password you entered did not match, please try again";
         }
         return null;
       },

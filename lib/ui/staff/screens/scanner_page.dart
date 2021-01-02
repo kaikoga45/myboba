@@ -13,9 +13,10 @@ class ScannerPage extends StatefulWidget {
 }
 
 class _ScannerPageState extends State<ScannerPage> {
-  bool isScan = false;
-  int receiptId = 0;
-  TextEditingController controllerInputField = TextEditingController();
+  String _name = 'Kai';
+  bool _isScan = false;
+  int _receiptId = 0;
+  TextEditingController _controller = TextEditingController();
 
   final _firestore = FirebaseFirestore.instance;
   final _receiptHelper = ScannerHelper.instance;
@@ -35,181 +36,207 @@ class _ScannerPageState extends State<ScannerPage> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment:
-              isScan ? MainAxisAlignment.start : MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            isScan
-                ? Column(
-                    children: [
-                      Container(
-                        height: 490,
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream: _firestore
-                              .collection('order')
-                              .where('receipt_id', isEqualTo: receiptId)
-                              .where('pickup', isEqualTo: true)
-                              .where('checkout', isEqualTo: true)
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return Center(child: CircularProgressIndicator());
-                            } else {
-                              return ListView.builder(
-                                itemCount: snapshot.data.docs.length,
-                                itemBuilder: (context, index) {
-                                  DocumentSnapshot _receiptDetail =
-                                      snapshot.data.docs[index];
-                                  return Column(
-                                    children: [
-                                      Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 15),
-                                                child: Container(
-                                                  child: ClipRRect(
-                                                    child: FadeInImage
-                                                        .assetNetwork(
-                                                      fit: BoxFit.cover,
-                                                      height: 40,
-                                                      width: 40,
-                                                      fadeInCurve:
-                                                          Curves.bounceIn,
-                                                      placeholder:
-                                                          'assets/img/fade_placeholder.png',
-                                                      image: _receiptDetail[
-                                                          'menuImg'],
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            70),
-                                                  ),
-                                                  height: 40,
-                                                  width: 40,
-                                                ),
-                                              ),
-                                              Container(
-                                                child: Column(
-                                                  children: [
-                                                    Text(
-                                                      _receiptDetail[
-                                                          'menu_name'],
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .subtitle1
-                                                          .copyWith(
-                                                              fontSize: 16.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    ),
-                                                    Text(
-                                                      _receiptDetail[
-                                                          'description'],
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .caption,
-                                                      maxLines: 10,
-                                                    ),
-                                                    Text(
-                                                      'Rp ${_receiptDetail['total_price']}',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .caption
-                                                          .copyWith(
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .accentColor,
-                                                          ),
-                                                    ),
-                                                  ],
+            _isScan
+                ? Expanded(
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: Text('Name : $_name'),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 200,
+                              child: StreamBuilder<QuerySnapshot>(
+                                stream: _firestore
+                                    .collection('order')
+                                    .where('receipt_id', isEqualTo: _receiptId)
+                                    .where('pickup', isEqualTo: true)
+                                    .where('checkout', isEqualTo: true)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  } else {
+                                    return ListView.builder(
+                                      itemCount: snapshot.data.docs.length,
+                                      itemBuilder: (context, index) {
+                                        DocumentSnapshot _receiptDetail =
+                                            snapshot.data.docs[index];
+                                        return Column(
+                                          children: [
+                                            Container(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                ),
-                                                width: 210,
-                                              ),
-                                              Spacer(),
-                                              Column(
-                                                children: [
-                                                  SizedBox(height: 50),
-                                                  Container(
-                                                    child: Padding(
+                                                  children: [
+                                                    Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 3,
-                                                              right: 3),
-                                                      child: Text(
-                                                        '${_receiptDetail['quantity']}x',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .subtitle2
-                                                            .copyWith(
-                                                              color: Color(
-                                                                  0xFF621C0D),
+                                                              right: 15),
+                                                      child: Container(
+                                                        child: ClipRRect(
+                                                          child: FadeInImage
+                                                              .assetNetwork(
+                                                            fit: BoxFit.cover,
+                                                            height: 40,
+                                                            width: 40,
+                                                            fadeInCurve:
+                                                                Curves.bounceIn,
+                                                            placeholder:
+                                                                'assets/img/fade_placeholder.png',
+                                                            image:
+                                                                _receiptDetail[
+                                                                    'menuImg'],
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(70),
+                                                        ),
+                                                        height: 40,
+                                                        width: 40,
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Column(
+                                                        children: [
+                                                          Text(
+                                                            _receiptDetail[
+                                                                'menu_name'],
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .subtitle1
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                          ),
+                                                          Text(
+                                                            _receiptDetail[
+                                                                'description'],
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .caption,
+                                                            maxLines: 10,
+                                                          ),
+                                                          Text(
+                                                            'Rp ${_receiptDetail['total_price']}',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .caption
+                                                                .copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .accentColor,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                      ),
+                                                      width: 210,
+                                                    ),
+                                                    Spacer(),
+                                                    Column(
+                                                      children: [
+                                                        SizedBox(height: 50),
+                                                        Container(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 3,
+                                                                    right: 3),
+                                                            child: Text(
+                                                              '${_receiptDetail['quantity']}x',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .subtitle2
+                                                                  .copyWith(
+                                                                    color: Color(
+                                                                        0xFF621C0D),
+                                                                  ),
                                                             ),
-                                                      ),
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xFFEDE2CF),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(
+                                                              Radius.circular(
+                                                                  5),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xFFEDE2CF),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                        Radius.circular(5),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Divider(
-                                        color: Theme.of(context).buttonColor,
-                                        height: 0.5,
-                                      ),
-                                    ],
-                                  );
+                                            ),
+                                            Divider(
+                                              color:
+                                                  Theme.of(context).buttonColor,
+                                              height: 0.5,
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 50),
-                      GestureDetector(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).buttonColor,
-                            borderRadius: BorderRadius.circular(25),
+                              ),
+                            ),
                           ),
-                          height: 50,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                  child: Text(
-                                'SERVE COMPLETED',
-                                style: Theme.of(context).textTheme.button,
-                              )),
-                            ],
+                          SizedBox(height: 50),
+                          GestureDetector(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).buttonColor,
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              height: 50,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Center(
+                                      child: Text(
+                                    'SERVE COMPLETED',
+                                    style: Theme.of(context).textTheme.button,
+                                  )),
+                                ],
+                              ),
+                            ),
+                            onTap: () async {
+                              await _receiptHelper.setServe(_receiptId);
+                              setState(() {
+                                _isScan = false;
+                              });
+                            },
                           ),
-                        ),
-                        onTap: () async {
-                          await _receiptHelper.setServe(receiptId);
-                          setState(() {
-                            isScan = false;
-                          });
-                        },
+                        ],
                       ),
-                    ],
+                    ),
                   )
                 : Container(
                     child: Center(
@@ -241,8 +268,8 @@ class _ScannerPageState extends State<ScannerPage> {
                                 );
                               } else {
                                 setState(() {
-                                  receiptId = int.parse(barcodeScanRes);
-                                  isScan = !isScan;
+                                  _receiptId = int.parse(barcodeScanRes);
+                                  _isScan = !_isScan;
                                 });
                                 Scaffold.of(context).showSnackBar(
                                   SnackBar(
@@ -258,13 +285,12 @@ class _ScannerPageState extends State<ScannerPage> {
                             ),
                           ),
                           Text('OR'),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 105),
-                            child: Form(
-                              key: _formKey,
+                          Form(
+                            key: _formKey,
+                            child: Container(
+                              width: 145,
                               child: TextFormField(
-                                controller: controllerInputField,
+                                controller: _controller,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   focusedBorder: UnderlineInputBorder(
@@ -284,8 +310,8 @@ class _ScannerPageState extends State<ScannerPage> {
                           RaisedButton(
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
-                                bool _isError = await _receiptHelper.setPickup(
-                                    int.parse(controllerInputField.text));
+                                bool _isError = await _receiptHelper
+                                    .setPickup(int.parse(_controller.text));
 
                                 if (_isError) {
                                   Scaffold.of(context).showSnackBar(
@@ -296,10 +322,9 @@ class _ScannerPageState extends State<ScannerPage> {
                                   );
                                 } else {
                                   setState(() {
-                                    controllerInputField.clear();
-                                    receiptId =
-                                        int.parse(controllerInputField.text);
-                                    isScan = !isScan;
+                                    _receiptId = int.parse(_controller.text);
+                                    _isScan = !_isScan;
+                                    _controller.clear();
                                   });
                                   Scaffold.of(context).showSnackBar(
                                     SnackBar(

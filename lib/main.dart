@@ -14,9 +14,6 @@ import 'package:myboba/ui/customer/screens/welcome_screens.dart';
 import 'package:myboba/ui/customer/theme/main_theme.dart';
 import 'package:myboba/ui/staff/footer_staff.dart';
 
-bool _isLogin = true;
-var _initialRoute;
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(InitApp());
@@ -49,11 +46,9 @@ class InitApp extends StatelessWidget {
 class MyBoba extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    checkUserLogin();
     return MaterialApp(
       title: 'MyBoba',
       theme: themeData,
-      initialRoute: _initialRoute,
       routes: {
         ExperimentOnly.id: (context) => ExperimentOnly(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
@@ -67,15 +62,7 @@ class MyBoba extends StatelessWidget {
         DetailReceipt.id: (context) => DetailReceipt(),
         FooterStaff.id: (context) => FooterStaff(),
       },
+      home: FooterStaff(),
     );
-  }
-}
-
-void checkUserLogin() {
-  // TODO : Adding firebase auth function to check user login
-  if (!_isLogin) {
-    _initialRoute = WelcomeScreen.id;
-  } else {
-    _initialRoute = FooterCustomer.id;
   }
 }

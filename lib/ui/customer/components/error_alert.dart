@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myboba/ui/theme/main_theme.dart';
+import 'package:myboba/ui/customer/theme/main_theme.dart';
 
 class ErrorAlert extends StatelessWidget {
   @override

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/firestore_helper.dart';
-import 'package:myboba/ui/screens/display_all_menu.dart';
-import 'package:myboba/ui/screens/order.dart';
+import 'package:myboba/services/firebase/order_firestore_helper.dart';
+import 'package:myboba/ui/customer/screens/display_all_menu.dart';
+import 'package:myboba/ui/customer/screens/order.dart';
 
 class StreamMenuListViewBuilder extends StatelessWidget {
   final String _value;
@@ -35,7 +35,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirestoreHelper.firestore
+      stream: OrderFirestoreHelper.firestore
           .collection('menu')
           .where(_field, isEqualTo: _value)
           .snapshots(),
@@ -72,7 +72,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                               left: 9,
                               bottom: 1,
                               child: Text(
-                                _title.toUpperCase(),
+                                _title,
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:myboba/utils/list_of_widgets.dart';
+import 'package:myboba/utils/customer/list_of_widgets.dart';
 
-class Footer extends StatefulWidget {
-  static const id = '/footer';
+class FooterCustomer extends StatefulWidget {
+  static const id = '/footer_customer';
 
   @override
-  _FooterState createState() => _FooterState();
+  _FooterCustomerState createState() => _FooterCustomerState();
 }
 
-class _FooterState extends State<Footer> {
+class _FooterCustomerState extends State<FooterCustomer> {
   int _selectedIndex = 0;
 
   @override

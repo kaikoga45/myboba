@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/firestore_helper.dart';
-import 'package:myboba/ui/components/order_tool.dart';
-import 'package:myboba/ui/components/stream_menu_list_view_builder.dart';
-import 'package:myboba/utils/time.dart';
+import 'package:myboba/services/firebase/order_firestore_helper.dart';
+import 'package:myboba/ui/customer/components/order_tool.dart';
+import 'package:myboba/ui/customer/components/stream_menu_list_view_builder.dart';
+import 'package:myboba/utils/customer/time.dart';
 
-class HomePage extends StatelessWidget {
-  static const String id = '/home_page';
+class CustomerHomePage extends StatelessWidget {
+  static const String id = '/customer_home_page';
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirestoreHelper.firestore
+              stream: OrderFirestoreHelper.firestore
                   .collection('status')
                   .orderBy('time_added', descending: false)
                   .snapshots(),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myboba/ui/components/circular_icon_button.dart';
+import 'package:myboba/ui/customer/components/circular_icon_button.dart';
 
 class ToppingList extends StatelessWidget {
   final String _title;

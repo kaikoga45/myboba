@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:myboba/services/firebase/scanner_helper.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 class ScannerPage extends StatefulWidget {
   static const String id = '/scanner_page';
 
@@ -13,6 +15,7 @@ class ScannerPage extends StatefulWidget {
 class _ScannerPageState extends State<ScannerPage> {
   bool isScan = false;
   int receiptId = 0;
+  TextEditingController controllerInputField = TextEditingController();
 
   final _firestore = FirebaseFirestore.instance;
   final _receiptHelper = ScannerHelper.instance;
@@ -253,7 +256,65 @@ class _ScannerPageState extends State<ScannerPage> {
                               'SCAN QR CODE',
                               style: Theme.of(context).textTheme.button,
                             ),
-                          )
+                          ),
+                          Text('OR'),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 105),
+                            child: Form(
+                              key: _formKey,
+                              child: TextFormField(
+                                controller: controllerInputField,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.blue),
+                                  ),
+                                  labelText: 'Enter code order',
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please input code';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ),
+                          RaisedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState.validate()) {
+                                bool _isError = await _receiptHelper.setPickup(
+                                    int.parse(controllerInputField.text));
+
+                                if (_isError) {
+                                  Scaffold.of(context).showSnackBar(
+                                    SnackBar(
+                                      content:
+                                          Text('Failed to get receipt data!'),
+                                    ),
+                                  );
+                                } else {
+                                  setState(() {
+                                    controllerInputField.clear();
+                                    receiptId =
+                                        int.parse(controllerInputField.text);
+                                    isScan = !isScan;
+                                  });
+                                  Scaffold.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          'Receipt data has been successfully scan!'),
+                                    ),
+                                  );
+                                }
+                              }
+                            },
+                            child: Text(
+                              'SUBMIT',
+                              style: Theme.of(context).textTheme.button,
+                            ),
+                          ),
                         ],
                       ),
                     ),

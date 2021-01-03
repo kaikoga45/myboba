@@ -297,7 +297,9 @@ class _ScannerPageState extends State<ScannerPage> {
                                     .getCustomerName(int.parse(barcodeScanRes));
 
                                 if (_isError) {
-                                  _isProgress = !_isProgress;
+                                  setState(() {
+                                    _isProgress = !_isProgress;
+                                  });
                                   Scaffold.of(context).showSnackBar(
                                     SnackBar(
                                       content:
@@ -363,7 +365,9 @@ class _ScannerPageState extends State<ScannerPage> {
                                           int.parse(_controller.text));
 
                                   if (_isError) {
-                                    _isProgress = !_isProgress;
+                                    setState(() {
+                                      _isProgress = !_isProgress;
+                                    });
                                     Scaffold.of(context).showSnackBar(
                                       SnackBar(
                                         content:

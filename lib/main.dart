@@ -1,21 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/ui/components/error_alert.dart';
-import 'package:myboba/ui/components/footer.dart';
-import 'package:myboba/ui/screens/homepage.dart';
-import 'package:myboba/ui/screens/menu.dart';
-import 'package:myboba/ui/screens/receipt.dart';
-import 'package:myboba/ui/screens/settings.dart';
-import 'package:myboba/ui/screens/sign_in.dart';
-import 'package:myboba/ui/screens/sign_up.dart';
-import 'package:myboba/ui/screens/forgot_password.dart';
-import 'package:myboba/ui/screens/waiting_screen.dart';
-import 'package:myboba/ui/screens/welcome_screens.dart';
-import 'package:myboba/ui/theme/main_theme.dart';
+import 'package:myboba/services/firebase_authentication/authentication.dart';
+import 'package:myboba/ui/customer/components/error_alert.dart';
+import 'package:myboba/ui/customer/components/footer_customer.dart';
+import 'package:myboba/ui/customer/screens/detail_receipt.dart';
+import 'package:myboba/ui/customer/screens/display_all_menu.dart';
+import 'package:myboba/ui/customer/screens/experiment_only.dart';
+import 'package:myboba/ui/customer/screens/customer_home_page.dart';
+import 'package:myboba/ui/customer/screens/menu.dart';
+import 'package:myboba/ui/customer/screens/order.dart';
+import 'package:myboba/ui/customer/screens/receipt.dart';
+import 'package:myboba/ui/customer/screens/settings.dart';
+import 'package:myboba/ui/login/screens/welcome_screens.dart';
+import 'package:myboba/ui/customer/theme/main_theme.dart';
+import 'package:myboba/ui/login/screens/forgot_password.dart';
+import 'package:myboba/ui/login/screens/sign_in.dart';
+import 'package:myboba/ui/login/screens/sign_up.dart';
+import 'package:myboba/ui/login/screens/waiting_screen.dart';
+import 'package:myboba/ui/staff/footer_staff.dart';
 
-//bool _isLogin = false;
-//var _initialRoute;
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
@@ -56,17 +60,15 @@ class StreamUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: AuthHelper.auth.authStateChanges(),
-      builder: (context, snapshot){
-
-        if(snapshot.connectionState == ConnectionState.waiting){
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
         //saat user sign_in / sign_up
-        if(snapshot.hasData){ 
+        if (snapshot.hasData) {
           // check user email verification
           return CheckEmailVerification();
         }
-
         // appear while there arn't user sign in / sign up to the system
         return WelcomeScreen();
       },
@@ -82,27 +84,34 @@ class CheckEmailVerification extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: AuthHelper.auth.userChanges(),
-      builder: (context, snapshot){
-
-        if(snapshot.hasData){
-          
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
           //send email verification if email didn't verified
-          if(AuthHelper.auth.currentUser.emailVerified == false){
+          if (AuthHelper.auth.currentUser.emailVerified == false) {
             AuthHelper().sendEmailVerif();
             AuthHelper.auth.currentUser.reload();
-
-            // Verif waiting screens
+            // Verify waiting screens
             return WaitingScreens();
           }
-
-        } 
-        // return to home
-        return Footer();
+        }
+        final _authHelper = AuthHelper.instance;
+        final User user = AuthHelper.auth.currentUser;
+        return FutureBuilder<bool>(
+          future: _authHelper.checkUserType(user.uid),
+          builder: (context, isCustomer) {
+            if (isCustomer.data == true) {
+              return FooterCustomer();
+            } else if (isCustomer.data == false) {
+              return FooterStaff();
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        );
       },
     );
   }
 }
-
 
 class MyBoba extends StatelessWidget {
   @override
@@ -112,15 +121,20 @@ class MyBoba extends StatelessWidget {
       theme: themeData,
       navigatorKey: navigatorKey,
       routes: {
+        ExperimentOnly.id: (context) => ExperimentOnly(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
         SignIn.id: (context) => SignIn(),
         SignUp.id: (context) => SignUp(),
         ForgotPassword.id: (context) => ForgotPassword(),
-        Footer.id: (context) => Footer(),
-        HomePage.id: (context) => HomePage(),
+        FooterCustomer.id: (context) => FooterCustomer(),
+        CustomerHomePage.id: (context) => CustomerHomePage(),
         Menu.id: (context) => Menu(),
         Receipt.id: (context) => Receipt(),
         Settings.id: (context) => Settings(),
+        DisplayAllMenu.id: (context) => DisplayAllMenu(),
+        Order.id: (context) => Order(),
+        DetailReceipt.id: (context) => DetailReceipt(),
+        FooterStaff.id: (context) => FooterStaff(),
       },
       home: StreamUser(),
     );

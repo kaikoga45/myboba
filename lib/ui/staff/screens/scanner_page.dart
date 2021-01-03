@@ -293,12 +293,11 @@ class _ScannerPageState extends State<ScannerPage> {
                                 bool _isError = await _scannerHelper
                                     .setPickup(int.parse(barcodeScanRes));
 
-                                print(_isError);
-
                                 String _dataName = await _scannerHelper
                                     .getCustomerName(int.parse(barcodeScanRes));
 
                                 if (_isError) {
+                                  _isProgress = !_isProgress;
                                   Scaffold.of(context).showSnackBar(
                                     SnackBar(
                                       content:
@@ -364,6 +363,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                           int.parse(_controller.text));
 
                                   if (_isError) {
+                                    _isProgress = !_isProgress;
                                     Scaffold.of(context).showSnackBar(
                                       SnackBar(
                                         content:

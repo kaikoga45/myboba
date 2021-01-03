@@ -2,18 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 class FirestoreDataManagementHelper {
-  FirestoreDataManagementHelper._privateConstructor();
-  static final FirestoreDataManagementHelper instance =
-      FirestoreDataManagementHelper._privateConstructor();
-
-  static final firestore = FirebaseFirestore.instance;
+  static final firestoreApi = FirebaseFirestore.instance;
 
   Future<bool> createStatus(
       {@required String name, @required String description}) async {
     bool _isError = false;
 
     try {
-      await firestore.collection('status').add({
+      await firestoreApi.collection('status').add({
         'name': name,
         'description': description,
         'timestamp': Timestamp.now()
@@ -33,7 +29,7 @@ class FirestoreDataManagementHelper {
     bool _isError = false;
 
     try {
-      await firestore
+      await firestoreApi
           .collection('status')
           .doc(docId)
           .delete()
@@ -41,13 +37,13 @@ class FirestoreDataManagementHelper {
         throw onError;
       });
 
-      QuerySnapshot snapshotMenu = await firestore
+      QuerySnapshot snapshotMenu = await firestoreApi
           .collection('menu')
           .where('status', isEqualTo: status)
           .get();
 
       snapshotMenu.docs.forEach((element) async {
-        await firestore.collection('menu').doc(element.id).update({
+        await firestoreApi.collection('menu').doc(element.id).update({
           'status': '',
         });
       });
@@ -67,7 +63,7 @@ class FirestoreDataManagementHelper {
     bool _isError = false;
 
     try {
-      await firestore
+      await firestoreApi
           .collection('status')
           .doc(docId)
           .update({'name': newStatus, 'description': description}).catchError(
@@ -75,13 +71,13 @@ class FirestoreDataManagementHelper {
         throw onError;
       });
 
-      QuerySnapshot snapshotMenu = await firestore
+      QuerySnapshot snapshotMenu = await firestoreApi
           .collection('menu')
           .where('status', isEqualTo: previousStatus)
           .get();
 
       snapshotMenu.docs.forEach((element) async {
-        await firestore
+        await firestoreApi
             .collection('menu')
             .doc(element.id)
             .update({'status': newStatus});
@@ -100,7 +96,7 @@ class FirestoreDataManagementHelper {
     bool _isError = false;
 
     try {
-      await firestore
+      await firestoreApi
           .collection('category')
           .add({'name': categoryValue}).catchError((onError) {
         throw onError;
@@ -118,7 +114,7 @@ class FirestoreDataManagementHelper {
     bool _isError = false;
 
     try {
-      await firestore
+      await firestoreApi
           .collection('category')
           .doc(docId)
           .delete()
@@ -126,13 +122,13 @@ class FirestoreDataManagementHelper {
         throw onError;
       });
 
-      QuerySnapshot snapshotMenu = await firestore
+      QuerySnapshot snapshotMenu = await firestoreApi
           .collection('menu')
           .where('category', isEqualTo: category)
           .get();
 
       snapshotMenu.docs.forEach((element) async {
-        await firestore.collection('menu').doc(element.id).update({
+        await firestoreApi.collection('menu').doc(element.id).update({
           'category': '',
         });
       });
@@ -151,20 +147,20 @@ class FirestoreDataManagementHelper {
     bool _isError = false;
 
     try {
-      await firestore
+      await firestoreApi
           .collection('category')
           .doc(docId)
           .update({'name': newCategory}).catchError((onError) {
         throw onError;
       });
 
-      QuerySnapshot snapshotMenu = await firestore
+      QuerySnapshot snapshotMenu = await firestoreApi
           .collection('menu')
           .where('category', isEqualTo: previousCategory)
           .get();
 
       snapshotMenu.docs.forEach((element) async {
-        await firestore
+        await firestoreApi
             .collection('menu')
             .doc(element.id)
             .update({'category': newCategory});
@@ -189,7 +185,7 @@ class FirestoreDataManagementHelper {
     bool _isError = false;
 
     try {
-      await firestore.collection('menu').add({
+      await firestoreApi.collection('menu').add({
         'name': name,
         'description': description,
         'price': price,
@@ -219,7 +215,7 @@ class FirestoreDataManagementHelper {
     bool _isError = false;
 
     try {
-      await firestore.collection('menu').doc(docId).update({
+      await firestoreApi.collection('menu').doc(docId).update({
         'name': name,
         'description': description,
         'price': price,
@@ -241,7 +237,7 @@ class FirestoreDataManagementHelper {
     bool _isError = false;
 
     try {
-      await firestore
+      await firestoreApi
           .collection('menu')
           .doc(docId)
           .delete()

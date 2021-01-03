@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/order_firestore_helper.dart';
+import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/display_all_menu.dart';
 import 'package:myboba/ui/customer/screens/order.dart';
 
@@ -35,7 +35,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: OrderFirestoreHelper.firestore
+      stream: OrderFirestoreHelper.firestoreApi
           .collection('menu')
           .where(_field, isEqualTo: _value)
           .snapshots(),

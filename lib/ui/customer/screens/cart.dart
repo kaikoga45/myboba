@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/services/firebase/order_firestore_helper.dart';
+import 'package:myboba/services/firebase_authentication/authentication.dart';
+import 'package:myboba/services/firestore/order_firestore_helper.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -9,8 +9,8 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  final _firestore = OrderFirestoreHelper.firestore;
-  final _firestoreHelper = OrderFirestoreHelper.instance;
+  final _firestoreApi = OrderFirestoreHelper.firestoreApi;
+  final _firestoreHelper = OrderFirestoreHelper();
   final _authHelper = AuthHelper.instance;
 
   bool _isLoading = false;
@@ -38,9 +38,9 @@ class _CartState extends State<Cart> {
       body: Padding(
         padding: EdgeInsets.all(20),
         child: StreamBuilder<QuerySnapshot>(
-          stream: _firestore
+          stream: _firestoreApi
               .collection('order')
-              .where('customer_id', isEqualTo: _authHelper.customerId)
+              .where('customer_id', isEqualTo: _authHelper.getUserID())
               .where('checkout', isEqualTo: false)
               .snapshots(),
           builder: (context, snapshot) {

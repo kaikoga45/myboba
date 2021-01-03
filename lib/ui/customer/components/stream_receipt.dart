@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/authentication.dart';
-import 'package:myboba/services/firebase/order_firestore_helper.dart';
+import 'package:myboba/services/firebase_authentication/authentication.dart';
+import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/detail_receipt.dart';
 import 'package:myboba/utils/customer/time.dart';
 
 class StreamReceipt extends StatelessWidget {
-  final _firestore = OrderFirestoreHelper.firestore;
+  final _firestore = OrderFirestoreHelper.firestoreApi;
   final _authHelper = AuthHelper.instance;
 
   final bool _isPickup;
@@ -18,7 +18,7 @@ class StreamReceipt extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: _firestore
           .collection('receipt')
-          .where('customer_id', isEqualTo: _authHelper.customerId)
+          .where('customer_id', isEqualTo: _authHelper.getUserID())
           .where('pickup', isEqualTo: _isPickup)
           .snapshots(),
       builder: (context, snapshot) {

@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/firestore_data_management_helper.dart';
+import 'package:myboba/services/firestore/firestore_data_management_helper.dart';
 
 class ReadOrder extends StatelessWidget {
-  final _firestore = FirestoreDataManagementHelper.firestore;
+  final _firestoreApi = FirestoreDataManagementHelper.firestoreApi;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class ReadOrder extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Container(
           child: StreamBuilder<QuerySnapshot>(
-            stream: _firestore
+            stream: _firestoreApi
                 .collection('order')
                 .where('pickup', isEqualTo: true)
                 .where('checkout', isEqualTo: true)

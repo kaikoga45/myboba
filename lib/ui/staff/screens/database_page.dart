@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myboba/services/firebase_authentication/authentication.dart';
 import 'package:myboba/ui/staff/components/stream_collection.dart';
 import 'package:myboba/ui/staff/screens/category_page/read_category.dart';
 import 'package:myboba/ui/staff/screens/menu_page/read_menu.dart';
@@ -90,6 +91,15 @@ class DatabasePage extends StatelessWidget {
                   },
                 ),
               ),
+              RaisedButton(
+                onPressed: () {
+                  AuthHelper.auth.signOut();
+                },
+                child: Text(
+                  'LOGOUT',
+                  style: Theme.of(context).textTheme.button,
+                ),
+              )
             ],
           ),
         ),

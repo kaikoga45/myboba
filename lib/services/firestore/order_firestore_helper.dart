@@ -2,14 +2,11 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:myboba/services/firebase/authentication.dart';
+import 'package:myboba/services/firebase_authentication/authentication.dart';
 import 'package:myboba/utils/customer/time.dart';
 
 class OrderFirestoreHelper {
-  OrderFirestoreHelper._privateConstructor();
-  static final firestore = FirebaseFirestore.instance;
-  static final OrderFirestoreHelper instance =
-      OrderFirestoreHelper._privateConstructor();
+  static final firestoreApi = FirebaseFirestore.instance;
 
   final _authHelper = AuthHelper.instance;
 
@@ -21,10 +18,10 @@ class OrderFirestoreHelper {
         Fetching all required data from order collection with specific where condition.
         Return querySnapshot if not empty, else return null.
        */
-      _querySnapshot = await firestore
+      _querySnapshot = await firestoreApi
           .collection('order')
           .limit(1)
-          .where('customer_id', isEqualTo: _authHelper.customerId)
+          .where('customer_id', isEqualTo: _authHelper.getUserID())
           .where('menu_id', isEqualTo: menuId)
           .where('description', isEqualTo: description)
           .where('checkout', isEqualTo: false)
@@ -57,7 +54,7 @@ class OrderFirestoreHelper {
 
     try {
       // Updating the values on quantity and total price at existing order data.
-      await firestore.collection('order').doc(docId).update(
+      await firestoreApi.collection('order').doc(docId).update(
         {
           'quantity': currentQuantity + 1,
           'total_price': currentTotalPrice + newTotalPrice
@@ -84,9 +81,9 @@ class OrderFirestoreHelper {
 
     try {
       // Fetching data in order collection with specific where condition for trying to get the existing receipt_id
-      _data = await firestore
+      _data = await firestoreApi
           .collection('order')
-          .where('customer_id', isEqualTo: _authHelper.customerId)
+          .where('customer_id', isEqualTo: _authHelper.getUserID())
           .where('checkout', isEqualTo: false)
           .where('pickup', isEqualTo: false)
           .limit(1)
@@ -116,7 +113,7 @@ class OrderFirestoreHelper {
         Random _randomNumber = Random();
         _newReceiptId = _randomNumber.nextInt(99999999);
 
-        _isReceiptIdExist = await firestore
+        _isReceiptIdExist = await firestoreApi
             .collection('order')
             .where('receipt_id', isEqualTo: _newReceiptId)
             .get()
@@ -131,9 +128,9 @@ class OrderFirestoreHelper {
 
       // Creating a new order data at order collection
 
-      await firestore.collection('order').add({
+      await firestoreApi.collection('order').add({
         'menu_id': menuId,
-        'customer_id': _authHelper.customerId,
+        'customer_id': _authHelper.getUserID(),
         'receipt_id': _existingReceiptId == null
             ? _newReceiptId
             : _existingReceiptId['receipt_id'],
@@ -160,7 +157,7 @@ class OrderFirestoreHelper {
 
     // Deleting the order data in order collection
     try {
-      await firestore
+      await firestoreApi
           .collection('order')
           .doc(docId)
           .delete()
@@ -179,9 +176,9 @@ class OrderFirestoreHelper {
 
     try {
       // Fetching all the order data from customer cart
-      QuerySnapshot _snapshot = await firestore
+      QuerySnapshot _snapshot = await firestoreApi
           .collection('order')
-          .where('customer_id', isEqualTo: _authHelper.customerId)
+          .where('customer_id', isEqualTo: _authHelper.getUserID())
           .where('checkout', isEqualTo: false)
           .where('pickup', isEqualTo: false)
           .get()
@@ -205,7 +202,7 @@ class OrderFirestoreHelper {
       // Set the checkout to true for indicate that the customer order are final
 
       _snapshot.docs.forEach((element) async {
-        await firestore
+        await firestoreApi
             .collection('order')
             .doc(element.id)
             .update({'checkout': true}).catchError((onError) {
@@ -215,8 +212,8 @@ class OrderFirestoreHelper {
 
       // Creating a receipt
 
-      await firestore.collection('receipt').add({
-        'customer_id': _authHelper.customerId,
+      await firestoreApi.collection('receipt').add({
+        'customer_id': _authHelper.getUserID(),
         'receipt_id': _snapshot.docs[0]['receipt_id'],
         'pickup': false,
         'serve': false,

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/order_firestore_helper.dart';
+import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/components/order_tool.dart';
 import 'package:myboba/ui/customer/components/stream_menu_list_view_builder.dart';
 import 'package:myboba/utils/customer/time.dart';
@@ -48,7 +48,7 @@ class CustomerHomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
             child: StreamBuilder<QuerySnapshot>(
-              stream: OrderFirestoreHelper.firestore
+              stream: OrderFirestoreHelper.firestoreApi
                   .collection('status')
                   .orderBy('time_added', descending: false)
                   .snapshots(),

@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/order_firestore_helper.dart';
+import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/utils/customer/time.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class DetailReceipt extends StatelessWidget {
   static const String id = '/detail_receipt';
-  final _firestore = OrderFirestoreHelper.firestore;
+  final _firestoreApi = OrderFirestoreHelper.firestoreApi;
 
   final DocumentSnapshot _receipt;
 
@@ -85,7 +85,7 @@ class DetailReceipt extends StatelessWidget {
                         child: Container(
                           height: 250,
                           child: StreamBuilder<QuerySnapshot>(
-                            stream: _firestore
+                            stream: _firestoreApi
                                 .collection('order')
                                 .where('receipt_id',
                                     isEqualTo: _data._receipt['receipt_id'])
@@ -291,7 +291,7 @@ class DetailReceipt extends StatelessWidget {
               flex: 0,
               child: Container(
                 child: StreamBuilder<DocumentSnapshot>(
-                  stream: _firestore
+                  stream: _firestoreApi
                       .collection('receipt')
                       .doc(_data._receipt.id)
                       .snapshots(),

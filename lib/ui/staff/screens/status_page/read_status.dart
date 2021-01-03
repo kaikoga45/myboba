@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myboba/services/firebase/firestore_data_management_helper.dart';
+import 'package:myboba/services/firestore/firestore_data_management_helper.dart';
 import 'package:myboba/ui/staff/screens/status_page/create_update_status.dart';
 
 class ReadStatus extends StatelessWidget {
-  final _firestore = FirestoreDataManagementHelper.firestore;
-  final _staffFirestoreHelper = FirestoreDataManagementHelper.instance;
+  final _firestoreApi = FirestoreDataManagementHelper.firestoreApi;
+  final _staffFirestoreHelper = FirestoreDataManagementHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ReadStatus extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Container(
           child: StreamBuilder<QuerySnapshot>(
-            stream: _firestore.collection('status').snapshots(),
+            stream: _firestoreApi.collection('status').snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(child: CircularProgressIndicator());

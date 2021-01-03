@@ -6,7 +6,6 @@ import 'package:myboba/ui/customer/components/error_alert.dart';
 import 'package:myboba/ui/customer/components/footer_customer.dart';
 import 'package:myboba/ui/customer/screens/detail_receipt.dart';
 import 'package:myboba/ui/customer/screens/display_all_menu.dart';
-import 'package:myboba/ui/customer/screens/experiment_only.dart';
 import 'package:myboba/ui/customer/screens/customer_home_page.dart';
 import 'package:myboba/ui/customer/screens/menu.dart';
 import 'package:myboba/ui/customer/screens/order.dart';
@@ -121,7 +120,6 @@ class MyBoba extends StatelessWidget {
       theme: themeData,
       navigatorKey: navigatorKey,
       routes: {
-        ExperimentOnly.id: (context) => ExperimentOnly(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
         SignIn.id: (context) => SignIn(),
         SignUp.id: (context) => SignUp(),

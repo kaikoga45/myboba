@@ -40,7 +40,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(

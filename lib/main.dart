@@ -116,6 +116,7 @@ class MyBoba extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'MyBoba',
       theme: themeData,
       navigatorKey: navigatorKey,

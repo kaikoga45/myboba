@@ -29,15 +29,13 @@ class CustomizationDropdownButton extends StatelessWidget {
             Spacer(),
             DropdownButtonHideUnderline(
               child: DropdownButton(
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      .copyWith(color: Theme.of(context).buttonColor),
+                  style: Theme.of(context).textTheme.subtitle1.copyWith(
+                      color: Theme.of(context).colorScheme.onSecondary),
                   isDense: true,
                   elevation: 0,
                   dropdownColor: Color(0xFFEDE2CF),
                   icon: Icon(Icons.arrow_forward_ios,
-                      color: Theme.of(context).buttonColor),
+                      color: Theme.of(context).colorScheme.onSecondary),
                   iconSize: 15,
                   value: _value,
                   items: _items,

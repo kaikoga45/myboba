@@ -108,14 +108,18 @@ class OrderTool extends StatelessWidget {
                                   ),
                                   Spacer(),
                                   VerticalDivider(
-                                    color: Theme.of(context).buttonColor,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
                                   ),
                                   GestureDetector(
                                     child: Container(
                                       width: 91,
                                       height: 29,
                                       decoration: BoxDecoration(
-                                        color: Theme.of(context).buttonColor,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary,
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(25),
                                         ),

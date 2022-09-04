@@ -62,11 +62,14 @@ class _MenuState extends State<Menu> {
                                       decoration: BoxDecoration(
                                         color: _isDisplayAllProduct == false &&
                                                 _indexButtonPressed == index
-                                            ? Theme.of(context).buttonColor
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary
                                             : Theme.of(context).primaryColor,
                                         border: Border.all(
-                                            color:
-                                                Theme.of(context).buttonColor),
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(25.0)),
                                       ),

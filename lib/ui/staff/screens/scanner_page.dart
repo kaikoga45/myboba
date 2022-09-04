@@ -171,7 +171,8 @@ class _ScannerPageState extends State<ScannerPage> {
                                                                             .w400,
                                                                     color: Theme.of(
                                                                             context)
-                                                                        .accentColor,
+                                                                        .colorScheme
+                                                                        .secondary,
                                                                   ),
                                                             ),
                                                           ],
@@ -224,7 +225,8 @@ class _ScannerPageState extends State<ScannerPage> {
                                               ),
                                               Divider(
                                                 color: Theme.of(context)
-                                                    .buttonColor,
+                                                    .colorScheme
+                                                    .onSecondary,
                                                 height: 0.5,
                                               ),
                                             ],
@@ -240,7 +242,8 @@ class _ScannerPageState extends State<ScannerPage> {
                             GestureDetector(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).buttonColor,
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 height: 50,
@@ -276,7 +279,7 @@ class _ScannerPageState extends State<ScannerPage> {
                               Icons.camera_alt_outlined,
                               size: 70,
                             ),
-                            RaisedButton(
+                            ElevatedButton(
                               onPressed: () async {
                                 setState(() {
                                   _isProgress = !_isProgress;
@@ -300,7 +303,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                   setState(() {
                                     _isProgress = !_isProgress;
                                   });
-                                  Scaffold.of(context).showSnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content:
                                           Text('Failed to get receipt data!'),
@@ -313,7 +316,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                     _receiptId = int.parse(barcodeScanRes);
                                     _isScan = !_isScan;
                                   });
-                                  Scaffold.of(context).showSnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
                                           'Receipt data has been successfully scan!'),
@@ -350,7 +353,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                 ),
                               ),
                             ),
-                            RaisedButton(
+                            ElevatedButton(
                               onPressed: () async {
                                 setState(() {
                                   _isProgress = !_isProgress;
@@ -368,7 +371,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                     setState(() {
                                       _isProgress = !_isProgress;
                                     });
-                                    Scaffold.of(context).showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content:
                                             Text('Failed to get receipt data!'),
@@ -382,7 +385,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                       _isScan = !_isScan;
                                       _controller.clear();
                                     });
-                                    Scaffold.of(context).showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                             'Receipt data has been successfully scan!'),

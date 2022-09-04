@@ -124,7 +124,8 @@ class _CartState extends State<Cart> {
                                                         fontWeight:
                                                             FontWeight.w400,
                                                         color: Theme.of(context)
-                                                            .accentColor,
+                                                            .colorScheme
+                                                            .secondary,
                                                       ),
                                                 ),
                                               ],
@@ -144,7 +145,8 @@ class _CartState extends State<Cart> {
                                                           .deleteOrderInCart(
                                                               docId: _cart.id);
                                                   if (isError) {
-                                                    Scaffold.of(context)
+                                                    ScaffoldMessenger.of(
+                                                            context)
                                                         .showSnackBar(
                                                       SnackBar(
                                                         content: Text(
@@ -152,7 +154,8 @@ class _CartState extends State<Cart> {
                                                       ),
                                                     );
                                                   } else {
-                                                    Scaffold.of(context)
+                                                    ScaffoldMessenger.of(
+                                                            context)
                                                         .showSnackBar(
                                                       SnackBar(
                                                         content: Text(
@@ -192,7 +195,9 @@ class _CartState extends State<Cart> {
                                     ),
                                   ),
                                   Divider(
-                                    color: Theme.of(context).buttonColor,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
                                     height: 0.5,
                                   ),
                                 ],
@@ -256,9 +261,11 @@ class _CartState extends State<Cart> {
                         ? Expanded(
                             flex: 0,
                             child: Container(
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                 ),
                                 child: Text(
                                   'PROCESS TO CHECKOUT',
@@ -271,14 +278,14 @@ class _CartState extends State<Cart> {
                                   bool isError =
                                       await _firestoreHelper.setCheckout();
                                   if (isError) {
-                                    Scaffold.of(context).showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                             'Checkout Failed! Please try again'),
                                       ),
                                     );
                                   } else {
-                                    Scaffold.of(context).showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                             'Checkout Completed! See the receipt in receipt order menu'),

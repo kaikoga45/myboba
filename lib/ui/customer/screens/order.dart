@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firestore/order_firestore_helper.dart';
@@ -146,7 +145,7 @@ class _OrderState extends State<Order> {
                           'Rp ${data._menu['price'] + (_totalPriceTopping + _totalPriceIce + _totalPriceSize + _totalPriceSugar)}',
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 fontWeight: FontWeight.w600,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                           textAlign: TextAlign.center,
                         ),
@@ -357,7 +356,7 @@ class _OrderState extends State<Order> {
             ),
             OrderTool(
               floatingActionButton: FloatingActionButton.extended(
-                backgroundColor: Theme.of(context).buttonColor,
+                backgroundColor: Theme.of(context).colorScheme.onSecondary,
                 onPressed: () async {
                   setState(() {
                     _isLoading = !_isLoading;
@@ -413,7 +412,7 @@ class _OrderState extends State<Order> {
 
                   _isError
                       ? Navigator.pop(context)
-                      : _scaffoldKey.currentState.showSnackBar(
+                      : ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
                                 'Order has been successfully added to cart!'),

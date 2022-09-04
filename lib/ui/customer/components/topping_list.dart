@@ -44,7 +44,7 @@ class ToppingList extends StatelessWidget {
                     child: Text(
                       '$_value',
                       style: TextStyle(
-                          color: Theme.of(context).buttonColor,
+                          color: Theme.of(context).colorScheme.onSecondary,
                           decoration: TextDecoration.underline),
                     ),
                   ),

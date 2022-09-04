@@ -73,7 +73,7 @@ class _ForgotPassword extends State<ForgotPassword> {
   }
 
   Widget submitButton(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       child: Text("SEND"),
       onPressed: () async {
         if (_formKey.currentState.validate() == true) {
@@ -84,10 +84,12 @@ class _ForgotPassword extends State<ForgotPassword> {
           );
         }
       },
-      textColor: Colors.white,
-      color: Color(0xFFC99542),
-      padding: EdgeInsets.all(20),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      style: TextButton.styleFrom(
+        textStyle: TextStyle(color: Colors.white),
+        backgroundColor: Color(0xFFC99542),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        padding: EdgeInsets.all(20),
+      ),
     );
   }
 }

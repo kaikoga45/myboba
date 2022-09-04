@@ -65,10 +65,12 @@ class _CreateUpdateCategoryState extends State<CreateUpdateCategory> {
                         bool _isError = await _staffFirestoreHelper
                             .createCategory(categoryValue: _controller.text);
                         _isError
-                            ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Failed to added data!')))
-                            : _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Data completed added!')));
+                            ? ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Failed to added data!')))
+                            : ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Data completed added!')));
                         _controller.clear();
                       } else {
                         bool _isError =
@@ -77,10 +79,12 @@ class _CreateUpdateCategoryState extends State<CreateUpdateCategory> {
                                 previousCategory: widget._categoryDoc['name'],
                                 newCategory: _controller.text);
                         _isError
-                            ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Failed to update data!')))
-                            : _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Data completed update!')));
+                            ? ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Failed to update data!')))
+                            : ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Data completed update!')));
                       }
                     }
                   },

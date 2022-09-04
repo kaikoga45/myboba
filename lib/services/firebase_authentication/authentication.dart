@@ -72,7 +72,7 @@ class AuthHelper {
         password: this.password,
       );
       User user = data.user;
-      user.updateProfile(displayName: username);
+      user.updateDisplayName(username);
 
       _usersStore.add({
         "source_UID": user.uid,

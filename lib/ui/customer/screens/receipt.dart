@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/ui/customer/components/stream_receipt.dart';
 
@@ -13,7 +12,7 @@ class Receipt extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           bottom: TabBar(
-            indicatorColor: Theme.of(context).accentColor,
+            indicatorColor: Theme.of(context).colorScheme.secondary,
             indicatorWeight: 5.0,
             tabs: [
               Tab(

@@ -64,7 +64,8 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Theme.of(context)
-                                    .accentColor
+                                    .colorScheme
+                                    .secondary
                                     .withOpacity(0.2),
                               ),
                             ),

@@ -169,7 +169,8 @@ class DetailReceipt extends StatelessWidget {
                                                                       .w400,
                                                               color: Theme.of(
                                                                       context)
-                                                                  .accentColor,
+                                                                  .colorScheme
+                                                                  .secondary,
                                                             ),
                                                       ),
                                                     ],
@@ -218,7 +219,9 @@ class DetailReceipt extends StatelessWidget {
                                           ),
                                         ),
                                         Divider(
-                                          color: Theme.of(context).buttonColor,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondary,
                                           height: 0.5,
                                         ),
                                       ],
@@ -283,7 +286,7 @@ class DetailReceipt extends StatelessWidget {
               ),
             ),
             Divider(
-              color: Theme.of(context).buttonColor,
+              color: Theme.of(context).colorScheme.onSecondary,
               height: 0,
               thickness: 1.0,
             ),
@@ -324,8 +327,9 @@ class DetailReceipt extends StatelessWidget {
                                           .textTheme
                                           .caption
                                           .copyWith(
-                                              color:
-                                                  Theme.of(context).accentColor,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                               fontWeight: FontWeight.bold),
                                     ),
                                     Spacer(),
@@ -352,8 +356,9 @@ class DetailReceipt extends StatelessWidget {
                                         .textTheme
                                         .caption
                                         .copyWith(
-                                            color:
-                                                Theme.of(context).accentColor,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                             fontWeight: FontWeight.bold),
                                   ),
                                   QrImage(

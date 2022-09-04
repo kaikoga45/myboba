@@ -215,7 +215,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                     if (_formKey.currentState.validate()) {
                       if (_selectedStatus == null ||
                           _selectedCategory == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(_selectedCategory == null
                                 ? 'Please select menu category'
                                 : 'Please select menu status')));
@@ -230,10 +230,12 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                                   status: _selectedStatus,
                                   category: _selectedCategory);
                           _isError
-                              ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text('Failed to added data!')))
-                              : _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text('Data completed added!')));
+                              ? ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Failed to added data!')))
+                              : ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Data completed added!')));
                         } else {
                           bool _isError =
                               await _staffFirestoreHelper.updateMenu(
@@ -245,10 +247,12 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                                   status: _selectedStatus,
                                   category: _selectedCategory);
                           _isError
-                              ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text('Failed to update data!')))
-                              : _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text('Data completed update!')));
+                              ? ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Failed to update data!')))
+                              : ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Data completed update!')));
                         }
                       }
                     }

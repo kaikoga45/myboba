@@ -68,20 +68,20 @@ class WelcomeScreen extends StatelessWidget {
   }
 
   Widget _buttonSignUp(BuildContext context) {
-    double widthScreen = MediaQuery.of(context).size.width;
-
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 23),
-      child: FlatButton(
+      child: ElevatedButton(
         child: Text("SIGN UP"),
         onPressed: () {
           Navigator.pushNamed(context, SignUp.id);
         },
-        textColor: Colors.white,
-        color: Color(0xFFC99542),
-        padding: EdgeInsets.all(20),
-        minWidth: widthScreen,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        style: TextButton.styleFrom(
+          textStyle: TextStyle(color: Colors.white),
+          backgroundColor: Color(0xFFC99542),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          padding: EdgeInsets.all(20),
+        ),
       ),
     );
   }

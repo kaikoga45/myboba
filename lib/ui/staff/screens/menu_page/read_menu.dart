@@ -62,11 +62,13 @@ class ReadMenu extends StatelessWidget {
                             _isError = await _staffFirestoreHelper.deleteMenu(
                                 docId: _menu.id);
                             _isError
-                                ? Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text('Failed to delete!')))
-                                : Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                        'Data has been complete delete!')));
+                                ? ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Failed to delete!')))
+                                : ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Data has been complete delete!')));
                           },
                         ),
                       ),

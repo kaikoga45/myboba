@@ -3,7 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData themeData = ThemeData(
   primaryColor: Color(0xFFFFFFFF),
-  accentColor: Color(0xFF9D521E),
+  colorScheme: ColorScheme.fromSwatch().copyWith(
+    secondary: Color(0xFF9D521E),
+    onSecondary: Color(0xFFC99542),
+  ),
   textTheme: TextTheme(
     headline1: GoogleFonts.poppins(
       fontSize: 93,
@@ -83,7 +86,6 @@ final ThemeData themeData = ThemeData(
     ),
   ),
   iconTheme: IconThemeData(color: Color(0xFF9D521E)),
-  buttonColor: Color(0xFFC99542),
   appBarTheme: AppBarTheme(color: Color(0xFFFFFFFF)),
   scaffoldBackgroundColor: Color(0xFFFFFFFF),
   cardColor: Color(0xFFFAFAFA),

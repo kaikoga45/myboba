@@ -61,10 +61,12 @@ class ReadStatus extends StatelessWidget {
                             _isError = await _staffFirestoreHelper.deleteStatus(
                                 docId: _status.id, status: _status['name']);
                             _isError
-                                ? Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text('Failed to delete!')))
-                                : Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text('Delete completed!')));
+                                ? ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Failed to delete!')))
+                                : ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Delete completed!')));
                           },
                         ),
                       ),

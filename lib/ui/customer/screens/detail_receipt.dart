@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firestore/order_firestore_helper.dart';
+import 'package:myboba/ui/customer/theme/color_palettes.dart';
 import 'package:myboba/utils/customer/time.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -167,9 +168,8 @@ class DetailReceipt extends StatelessWidget {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .accentColor,
+                                                              color: ColorPalettes
+                                                                  .golderBrown,
                                                             ),
                                                       ),
                                                     ],
@@ -218,7 +218,7 @@ class DetailReceipt extends StatelessWidget {
                                           ),
                                         ),
                                         Divider(
-                                          color: Theme.of(context).buttonColor,
+                                          color: ColorPalettes.button,
                                           height: 0.5,
                                         ),
                                       ],
@@ -283,7 +283,7 @@ class DetailReceipt extends StatelessWidget {
               ),
             ),
             Divider(
-              color: Theme.of(context).buttonColor,
+              color: ColorPalettes.button,
               height: 0,
               thickness: 1.0,
             ),
@@ -324,8 +324,7 @@ class DetailReceipt extends StatelessWidget {
                                           .textTheme
                                           .caption
                                           .copyWith(
-                                              color:
-                                                  Theme.of(context).accentColor,
+                                              color: ColorPalettes.golderBrown,
                                               fontWeight: FontWeight.bold),
                                     ),
                                     Spacer(),
@@ -352,8 +351,7 @@ class DetailReceipt extends StatelessWidget {
                                         .textTheme
                                         .caption
                                         .copyWith(
-                                            color:
-                                                Theme.of(context).accentColor,
+                                            color: ColorPalettes.golderBrown,
                                             fontWeight: FontWeight.bold),
                                   ),
                                   QrImage(

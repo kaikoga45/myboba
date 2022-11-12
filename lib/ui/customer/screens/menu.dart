@@ -4,6 +4,8 @@ import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/components/stream_menu_grid_view_builder.dart';
 import 'package:myboba/ui/customer/components/stream_menu_list_view_builder.dart';
 
+import '../theme/color_palettes.dart';
+
 class Menu extends StatefulWidget {
   static const String id = '/menu';
 
@@ -62,11 +64,10 @@ class _MenuState extends State<Menu> {
                                       decoration: BoxDecoration(
                                         color: _isDisplayAllProduct == false &&
                                                 _indexButtonPressed == index
-                                            ? Theme.of(context).buttonColor
+                                            ? ColorPalettes.button
                                             : Theme.of(context).primaryColor,
                                         border: Border.all(
-                                            color:
-                                                Theme.of(context).buttonColor),
+                                            color: ColorPalettes.button),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(25.0)),
                                       ),

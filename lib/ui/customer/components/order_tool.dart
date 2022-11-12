@@ -4,6 +4,8 @@ import 'package:myboba/services/firebase_authentication/authentication.dart';
 import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/cart.dart';
 
+import '../theme/color_palettes.dart';
+
 class OrderTool extends StatelessWidget {
   final _authHelper = AuthHelper.instance;
   final Widget _floatingActionButton;
@@ -107,15 +109,13 @@ class OrderTool extends StatelessWidget {
                                     width: 150,
                                   ),
                                   Spacer(),
-                                  VerticalDivider(
-                                    color: Theme.of(context).buttonColor,
-                                  ),
+                                  VerticalDivider(color: ColorPalettes.button),
                                   GestureDetector(
                                     child: Container(
                                       width: 91,
                                       height: 29,
                                       decoration: BoxDecoration(
-                                        color: Theme.of(context).buttonColor,
+                                        color: ColorPalettes.button,
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(25),
                                         ),

@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUp> {
         ),
         bottomNavigationBar: Container(
           margin: EdgeInsets.only(bottom: 65, left: 23, right: 23),
-          child: FlatButton(
+          child: TextButton(
             child: Text("SIGN UP"),
             onPressed: () async {
               setState(() {
@@ -75,11 +75,14 @@ class _SignUpState extends State<SignUp> {
                 _formKey.currentState.validate();
               }
             },
-            textColor: Colors.white,
-            color: Color(0xFFC99542),
-            padding: EdgeInsets.all(20),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+              backgroundColor: Color(0xFFC99542),
+              padding: EdgeInsets.all(20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
           ),
         ),
       ),

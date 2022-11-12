@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:myboba/services/firestore/firestore_data_management_helper.dart';
 
 final _formKey = GlobalKey<FormState>();
-final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class CreateUpdateStatus extends StatefulWidget {
   final DocumentSnapshot _statusDoc;
@@ -26,7 +25,6 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
         widget._statusDoc == null ? '' : widget._statusDoc['description'];
 
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
           widget._statusDoc == null ? 'CREATE STATUS' : 'UPDATE STATUS',
@@ -85,10 +83,12 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
                                 description: _controllerDescription.text);
 
                         _isError
-                            ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Failed to added data!')))
-                            : _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Data completed added!')));
+                            ? ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Failed to added data!')))
+                            : ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Data completed added!')));
 
                         _controllerName.clear();
                         _controllerDescription.clear();
@@ -100,10 +100,12 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
                                 newStatus: _controllerName.text,
                                 description: _controllerDescription.text);
                         _isError
-                            ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Failed to update data!')))
-                            : _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Data completed update!')));
+                            ? ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Failed to update data!')))
+                            : ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Data completed update!')));
                       }
                     }
                   },

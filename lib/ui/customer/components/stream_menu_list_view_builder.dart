@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/display_all_menu.dart';
 import 'package:myboba/ui/customer/screens/order.dart';
+import 'package:myboba/ui/customer/theme/color_palettes.dart';
 
 class StreamMenuListViewBuilder extends StatelessWidget {
   final String _value;
@@ -63,9 +64,8 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                               width: 25,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Theme.of(context)
-                                    .accentColor
-                                    .withOpacity(0.2),
+                                color:
+                                    ColorPalettes.golderBrown.withOpacity(0.2),
                               ),
                             ),
                             Positioned(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myboba/ui/customer/theme/color_palettes.dart';
 
 class CircularIconButton extends StatelessWidget {
   final Icon _icon;
@@ -14,7 +15,7 @@ class CircularIconButton extends StatelessWidget {
       child: Container(
         child: _icon,
         decoration: BoxDecoration(
-          color: Theme.of(context).buttonColor,
+          color: ColorPalettes.button,
           borderRadius: BorderRadius.all(Radius.circular(25)),
         ),
       ),

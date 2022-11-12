@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myboba/ui/customer/theme/color_palettes.dart';
 
 class RoundedTextBox extends StatelessWidget {
   final String _title;
@@ -23,7 +24,7 @@ class RoundedTextBox extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .caption
-                .copyWith(color: Theme.of(context).accentColor),
+                .copyWith(color: ColorPalettes.golderBrown),
           ),
         ),
       ),

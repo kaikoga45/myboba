@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/color_palettes.dart';
+
 class CustomizationDropdownButton extends StatelessWidget {
   final String _title;
   final String _value;
@@ -32,12 +34,12 @@ class CustomizationDropdownButton extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1
-                      .copyWith(color: Theme.of(context).buttonColor),
+                      .copyWith(color: ColorPalettes.button),
                   isDense: true,
                   elevation: 0,
                   dropdownColor: Color(0xFFEDE2CF),
                   icon: Icon(Icons.arrow_forward_ios,
-                      color: Theme.of(context).buttonColor),
+                      color: ColorPalettes.button),
                   iconSize: 15,
                   value: _value,
                   items: _items,

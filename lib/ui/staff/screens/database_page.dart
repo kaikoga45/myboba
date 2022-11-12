@@ -91,7 +91,7 @@ class DatabasePage extends StatelessWidget {
                   },
                 ),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   AuthHelper.auth.signOut();
                 },

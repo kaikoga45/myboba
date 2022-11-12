@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firestore/order_firestore_helper.dart';
@@ -8,7 +7,7 @@ import 'package:myboba/ui/customer/components/rounded_text_box.dart';
 import 'package:myboba/ui/customer/components/topping_list.dart';
 import 'package:myboba/utils/customer/order_helper.dart';
 
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+import '../theme/color_palettes.dart';
 
 class Order extends StatefulWidget {
   static const String id = '/ordering';
@@ -51,7 +50,6 @@ class _OrderState extends State<Order> {
   Widget build(BuildContext context) {
     final Order data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      key: _scaffoldKey,
       backgroundColor: Color(0xFFF1F0EC),
       appBar: AppBar(
         leading: IconButton(
@@ -146,7 +144,7 @@ class _OrderState extends State<Order> {
                           'Rp ${data._menu['price'] + (_totalPriceTopping + _totalPriceIce + _totalPriceSize + _totalPriceSugar)}',
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 fontWeight: FontWeight.w600,
-                                color: Theme.of(context).accentColor,
+                                color: ColorPalettes.golderBrown,
                               ),
                           textAlign: TextAlign.center,
                         ),
@@ -357,7 +355,7 @@ class _OrderState extends State<Order> {
             ),
             OrderTool(
               floatingActionButton: FloatingActionButton.extended(
-                backgroundColor: Theme.of(context).buttonColor,
+                backgroundColor: ColorPalettes.button,
                 onPressed: () async {
                   setState(() {
                     _isLoading = !_isLoading;
@@ -413,7 +411,7 @@ class _OrderState extends State<Order> {
 
                   _isError
                       ? Navigator.pop(context)
-                      : _scaffoldKey.currentState.showSnackBar(
+                      : ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
                                 'Order has been successfully added to cart!'),

@@ -62,10 +62,12 @@ class ReadCategory extends StatelessWidget {
                                     docId: _category.id,
                                     category: _category['name']);
                             _isError
-                                ? Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text('Failed to delete!')))
-                                : Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text('Delete completed!')));
+                                ? ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Failed to delete!')))
+                                : ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Delete completed!')));
                           },
                         ),
                       ),

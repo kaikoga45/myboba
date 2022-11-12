@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/ui/customer/components/stream_receipt.dart';
+
+import '../theme/color_palettes.dart';
 
 class Receipt extends StatelessWidget {
   static const String id = '/receipt';
@@ -13,7 +14,7 @@ class Receipt extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           bottom: TabBar(
-            indicatorColor: Theme.of(context).accentColor,
+            indicatorColor: ColorPalettes.golderBrown,
             indicatorWeight: 5.0,
             tabs: [
               Tab(

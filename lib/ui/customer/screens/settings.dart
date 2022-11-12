@@ -135,9 +135,11 @@ class Settings extends StatelessWidget {
               SizedBox(height: 10),
               Expanded(
                 flex: 0,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                   onPressed: () {
                     AuthHelper.auth.signOut();

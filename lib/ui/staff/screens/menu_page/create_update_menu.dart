@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:myboba/services/firestore/firestore_data_management_helper.dart';
 
 final _formKey = GlobalKey<FormState>();
-final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class CreateUpdateMenu extends StatefulWidget {
   final DocumentSnapshot _menuDoc;
@@ -41,7 +40,6 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
           widget._menuDoc == null ? 'CREATE MENU' : 'UPDATE MENU',
@@ -215,7 +213,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                     if (_formKey.currentState.validate()) {
                       if (_selectedStatus == null ||
                           _selectedCategory == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(_selectedCategory == null
                                 ? 'Please select menu category'
                                 : 'Please select menu status')));
@@ -230,10 +228,12 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                                   status: _selectedStatus,
                                   category: _selectedCategory);
                           _isError
-                              ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text('Failed to added data!')))
-                              : _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text('Data completed added!')));
+                              ? ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Failed to added data!')))
+                              : ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Data completed added!')));
                         } else {
                           bool _isError =
                               await _staffFirestoreHelper.updateMenu(
@@ -245,10 +245,12 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                                   status: _selectedStatus,
                                   category: _selectedCategory);
                           _isError
-                              ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text('Failed to update data!')))
-                              : _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text('Data completed update!')));
+                              ? ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Failed to update data!')))
+                              : ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Data completed update!')));
                         }
                       }
                     }

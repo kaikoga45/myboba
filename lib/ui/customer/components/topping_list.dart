@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myboba/ui/customer/components/circular_icon_button.dart';
 
+import '../theme/color_palettes.dart';
+
 class ToppingList extends StatelessWidget {
   final String _title;
   final int _value;
@@ -44,7 +46,7 @@ class ToppingList extends StatelessWidget {
                     child: Text(
                       '$_value',
                       style: TextStyle(
-                          color: Theme.of(context).buttonColor,
+                          color: ColorPalettes.button,
                           decoration: TextDecoration.underline),
                     ),
                   ),

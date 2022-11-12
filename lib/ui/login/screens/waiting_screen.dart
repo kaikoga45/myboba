@@ -65,14 +65,14 @@ class StreamGetOob extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           print(snapshot.data);
-          QuerySnapshot? data = snapshot.data as QuerySnapshot?;
+          QuerySnapshot data = snapshot.data;
           Map<String, dynamic>? output;
-          data?.docs.forEach((item) {
+          data.docs.forEach((item) {
             output = item.data() as Map<String, dynamic>?;
             output!["id"] = item.id;
           });
           print(output);
-          if ((data?.docs.length ?? 0) > 0) {
+          if (data.docs.length > 0) {
             return NewPassword(oobcode: output);
           }
         }

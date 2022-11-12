@@ -9,7 +9,7 @@ class ScannerHelper {
     try {
       // Fetch all the order data that has been final in order collection
 
-      QuerySnapshot snapshotOrder = await _firestoreApi
+      QuerySnapshot? snapshotOrder = await _firestoreApi
           .collection('order')
           .where('pickup', isEqualTo: false)
           .where('checkout', isEqualTo: true)
@@ -27,7 +27,7 @@ class ScannerHelper {
 
       // Set all the value on field pickup equal to true in every order that has been final in order collection
 
-      snapshotOrder.docs.forEach((element) async {
+      snapshotOrder?.docs.forEach((element) async {
         await _firestoreApi.collection('order').doc(element.id).update({
           'pickup': true,
         }).catchError((onError) {

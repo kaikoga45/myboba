@@ -4,7 +4,7 @@ import 'package:myboba/ui/customer/theme/color_palettes.dart';
 class RoundedTextBox extends StatelessWidget {
   final String _title;
 
-  RoundedTextBox({@required String title}) : _title = title;
+  RoundedTextBox({required String title}) : _title = title;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class RoundedTextBox extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
-                .caption
+                .caption!
                 .copyWith(color: ColorPalettes.golderBrown),
           ),
         ),

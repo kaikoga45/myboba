@@ -5,8 +5,8 @@ import 'package:myboba/services/firestore/firestore_data_management_helper.dart'
 final _formKey = GlobalKey<FormState>();
 
 class CreateUpdateStatus extends StatefulWidget {
-  final DocumentSnapshot _statusDoc;
-  CreateUpdateStatus({DocumentSnapshot statusDoc}) : _statusDoc = statusDoc;
+  final DocumentSnapshot? _statusDoc;
+  CreateUpdateStatus({DocumentSnapshot? statusDoc}) : _statusDoc = statusDoc;
 
   @override
   _CreateUpdateStatusState createState() => _CreateUpdateStatusState();
@@ -20,15 +20,15 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
   @override
   Widget build(BuildContext context) {
     _controllerName.text =
-        widget._statusDoc == null ? '' : widget._statusDoc['name'];
+        widget._statusDoc == null ? '' : widget._statusDoc!['name'];
     _controllerDescription.text =
-        widget._statusDoc == null ? '' : widget._statusDoc['description'];
+        widget._statusDoc == null ? '' : widget._statusDoc!['description'];
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget._statusDoc == null ? 'CREATE STATUS' : 'UPDATE STATUS',
-          style: Theme.of(context).textTheme.headline6.copyWith(
+          style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -50,7 +50,7 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
                   labelText: 'Name Of Status',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter some text';
                   }
                   return null;
@@ -65,7 +65,7 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
                   labelText: 'Status description',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter some text';
                   }
                   return null;
@@ -75,7 +75,7 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       if (widget._statusDoc == null) {
                         bool _isError =
                             await _staffFirestoreHelper.createStatus(
@@ -95,8 +95,8 @@ class _CreateUpdateStatusState extends State<CreateUpdateStatus> {
                       } else {
                         bool _isError =
                             await _staffFirestoreHelper.updateStatus(
-                                docId: widget._statusDoc.id,
-                                previousStatus: widget._statusDoc['name'],
+                                docId: widget._statusDoc!.id,
+                                previousStatus: widget._statusDoc!['name'],
                                 newStatus: _controllerName.text,
                                 description: _controllerDescription.text);
                         _isError

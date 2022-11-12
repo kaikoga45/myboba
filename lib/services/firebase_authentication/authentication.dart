@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthHelper {
-  String username;
-  final String email;
-  final String password;
+  String? username;
+  final String? email;
+  final String? password;
 
-  final String oobCode;
+  final String? oobCode;
 
   final _firestoreApi = FirebaseFirestore.instance;
 
@@ -26,41 +26,41 @@ class AuthHelper {
     this.oobCode,
   });
 
-  Stream<User> get authStateChanges => auth.authStateChanges();
+  Stream<User?> get authStateChanges => auth.authStateChanges();
 
-  Future<String> resetPassword() async {
+  Future<String?> resetPassword() async {
     try {
       auth.confirmPasswordReset(
-        code: this.oobCode,
-        newPassword: this.password,
+        code: this.oobCode!,
+        newPassword: this.password!,
       );
 
       return "Success";
-    } catch (error) {
+    } on FirebaseAuthException catch (error) {
       return error.code;
     }
   }
 
-  Stream<QuerySnapshot> getOobData(String mail) {
+  Stream<QuerySnapshot> getOobData(String? mail) {
     return _oobCodeTemp.where("email", isEqualTo: mail).snapshots();
   }
 
-  Future<String> deleteUnusedOob(String id) async {
+  Future<String> deleteUnusedOob(String? id) async {
     try {
       await _oobCodeTemp.doc(id).delete();
 
       return "Success";
-    } catch (error) {
-      return error;
+    } on FirebaseAuthException catch (error) {
+      return error.code;
     }
   }
 
-  Future<String> sendEmailVerif() async {
+  Future<String?> sendEmailVerif() async {
     try {
-      await auth.currentUser.sendEmailVerification();
+      await auth.currentUser!.sendEmailVerification();
 
       return "Success";
-    } catch (error) {
+    } on FirebaseAuthException catch (error) {
       return error.code;
     }
   }
@@ -68,11 +68,11 @@ class AuthHelper {
   Future<Map<String, dynamic>> signUp() async {
     try {
       UserCredential data = await auth.createUserWithEmailAndPassword(
-        email: this.email,
-        password: this.password,
+        email: this.email!,
+        password: this.password!,
       );
-      User user = data.user;
-      user.updateProfile(displayName: username);
+      User user = data.user!;
+      user.updatePhotoURL(username);
 
       _usersStore.add({
         "source_UID": user.uid,
@@ -94,8 +94,8 @@ class AuthHelper {
   Future<Map<String, dynamic>> signIn() async {
     try {
       await auth.signInWithEmailAndPassword(
-        email: this.email,
-        password: this.password,
+        email: this.email!,
+        password: this.password!,
       );
 
       return {
@@ -146,6 +146,6 @@ class AuthHelper {
   }
 
   String getUserID() {
-    return auth.currentUser.uid;
+    return auth.currentUser!.uid;
   }
 }

@@ -5,16 +5,16 @@ import 'package:myboba/main.dart';
 
 class NewPassword extends StatefulWidget {
   static const String id = '/verificationcode';
-  final Map<String, dynamic> oobcode;
-  NewPassword({Key key, this.oobcode}) : super(key: key);
+  final Map<String, dynamic>? oobcode;
+  NewPassword({Key? key, this.oobcode}) : super(key: key);
 
   @override
   _NewPassword createState() => _NewPassword(oobcode: this.oobcode);
 }
 
 class _NewPassword extends State<NewPassword> {
-  String password;
-  final Map<String, dynamic> oobcode;
+  String? password;
+  final Map<String, dynamic>? oobcode;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -26,7 +26,7 @@ class _NewPassword extends State<NewPassword> {
       appBar: AppBar(
         title: Text(
           "Forgot Password",
-          style: Theme.of(context).textTheme.headline6.copyWith(
+          style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontWeight: FontWeight.w900,
               ),
         ),
@@ -90,17 +90,17 @@ class _NewPassword extends State<NewPassword> {
     return TextButton(
       child: Text("SEND"),
       onPressed: () async {
-        if (_formKey.currentState.validate() == true) {
-          String output = await AuthHelper(
+        if (_formKey.currentState!.validate() == true) {
+          String? output = await AuthHelper(
             password: this.password,
-            oobCode: this.oobcode["oob"],
+            oobCode: this.oobcode!["oob"],
           ).resetPassword();
 
           print(output);
 
           if (output == "Success") {
-            AuthHelper().deleteUnusedOob(oobcode["id"]);
-            navigatorKey.currentState.pop(context);
+            AuthHelper().deleteUnusedOob(oobcode!["id"]);
+            navigatorKey.currentState!.pop(context);
           }
         }
       },

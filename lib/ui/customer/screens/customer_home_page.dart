@@ -16,7 +16,7 @@ class CustomerHomePage extends StatelessWidget {
           'MYBOBA',
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(fontWeight: FontWeight.bold),
         ),
         actions: [
@@ -30,7 +30,7 @@ class CustomerHomePage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle2
+                      .subtitle2!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 decoration: BoxDecoration(
@@ -58,10 +58,10 @@ class CustomerHomePage extends StatelessWidget {
                     return Center(child: CircularProgressIndicator());
                   }
                   return ListView.builder(
-                    itemCount: snapshot.data.docs.length,
+                    itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       final DocumentSnapshot _status =
-                          snapshot.data.docs[index];
+                          snapshot.data!.docs[index];
                       return SingleChildScrollView(
                         child: Column(
                           children: [

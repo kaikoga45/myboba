@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 class StreamCollection extends StatelessWidget {
   final _firestore = FirebaseFirestore.instance;
 
-  final String _collection;
-  final String _title;
-  final Color _color;
-  final bool _isOrder;
-  final Function _onTap;
+  final String? _collection;
+  final String? _title;
+  final Color? _color;
+  final bool? _isOrder;
+  final Function? _onTap;
 
   StreamCollection(
-      {String collection,
-      String title,
-      Color color,
-      bool isOrder,
-      Function onTap})
+      {String? collection,
+      String? title,
+      Color? color,
+      bool? isOrder,
+      Function? onTap})
       : _collection = collection,
         _title = title,
         _color = color,
@@ -25,38 +25,38 @@ class StreamCollection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _onTap,
+      onTap: _onTap as void Function()?,
       child: Card(
         color: _color,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              _title.toUpperCase(),
+              _title!.toUpperCase(),
               style: Theme.of(context)
                   .textTheme
-                  .headline4
+                  .headline4!
                   .copyWith(color: Theme.of(context).primaryColor),
             ),
             StreamBuilder<QuerySnapshot>(
-              stream: _isOrder
+              stream: _isOrder!
                   ? _firestore
                       .collection('order')
                       .where('pickup', isEqualTo: true)
                       .where('checkout', isEqualTo: true)
                       .snapshots()
                   : _firestore
-                      .collection(_collection.toLowerCase())
+                      .collection(_collection!.toLowerCase())
                       .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 } else {
                   return Text(
-                    '${snapshot.data.docs.length} Total',
+                    '${snapshot.data!.docs.length} Total',
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1
+                        .bodyText1!
                         .copyWith(color: Colors.black38),
                   );
                 }

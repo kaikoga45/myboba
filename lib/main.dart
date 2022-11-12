@@ -53,7 +53,7 @@ class InitApp extends StatelessWidget {
 
 // Stream user to check user state ()
 class StreamUser extends StatelessWidget {
-  const StreamUser({Key key}) : super(key: key);
+  const StreamUser({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class StreamUser extends StatelessWidget {
 
 // stream user to check the changes of users data on firebase server
 class CheckEmailVerification extends StatelessWidget {
-  const CheckEmailVerification({Key key}) : super(key: key);
+  const CheckEmailVerification({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,15 +86,15 @@ class CheckEmailVerification extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           //send email verification if email didn't verified
-          if (AuthHelper.auth.currentUser.emailVerified == false) {
+          if (AuthHelper.auth.currentUser!.emailVerified == false) {
             AuthHelper().sendEmailVerif();
-            AuthHelper.auth.currentUser.reload();
+            AuthHelper.auth.currentUser!.reload();
             // Verify waiting screens
             return WaitingScreens();
           }
         }
         final _authHelper = AuthHelper.instance;
-        final User user = AuthHelper.auth.currentUser;
+        final User user = AuthHelper.auth.currentUser!;
         return FutureBuilder<bool>(
           future: _authHelper.checkUserType(user.uid),
           builder: (context, isCustomer) {

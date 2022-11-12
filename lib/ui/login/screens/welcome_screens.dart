@@ -3,7 +3,7 @@ import 'package:myboba/ui/login/screens/sign_in.dart';
 import 'package:myboba/ui/login/screens/sign_up.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  WelcomeScreen({Key key}) : super(key: key);
+  WelcomeScreen({Key? key}) : super(key: key);
   static const String id = '/welcome_screen';
 
   @override
@@ -42,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
         children: [
           Text(
             "Save time ordering beverage with MyBoba",
-            style: Theme.of(context).textTheme.headline5.copyWith(
+            style: Theme.of(context).textTheme.headline5!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
             textAlign: TextAlign.center,

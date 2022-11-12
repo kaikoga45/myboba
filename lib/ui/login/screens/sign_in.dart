@@ -9,17 +9,17 @@ bool _loginProgress = false;
 
 class SignIn extends StatefulWidget {
   static const String id = '/sign_in';
-  SignIn({Key key}) : super(key: key);
+  SignIn({Key? key}) : super(key: key);
 
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-  String email;
-  String password;
+  String? email;
+  String? password;
 
-  String _errorMessage;
+  String? _errorMessage;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -30,7 +30,7 @@ class _SignInState extends State<SignIn> {
         appBar: AppBar(
           title: Text(
             "SIGN IN ",
-            style: Theme.of(context).textTheme.headline6.copyWith(
+            style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontWeight: FontWeight.w900,
                 ),
           ),
@@ -70,10 +70,10 @@ class _SignInState extends State<SignIn> {
 
               print(output);
               if (output["valid"] == true) {
-                navigatorKey.currentState.pop();
+                navigatorKey.currentState!.pop();
               } else {
                 _errorMessage = output["message"];
-                _formKey.currentState.validate();
+                _formKey.currentState!.validate();
               }
             },
             style: TextButton.styleFrom(

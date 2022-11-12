@@ -21,14 +21,14 @@ class Receipt extends StatelessWidget {
                 child: Text('ACTIVE ORDER',
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle2
+                        .subtitle2!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
               ),
               Tab(
                 child: Text('LIST TRANSACTION',
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle2
+                        .subtitle2!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
               ),
             ],
@@ -37,7 +37,7 @@ class Receipt extends StatelessWidget {
             'RECEIPT ORDER',
             style: Theme.of(context)
                 .textTheme
-                .headline6
+                .headline6!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
         ),

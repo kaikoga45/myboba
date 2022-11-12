@@ -9,16 +9,16 @@ class DetailReceipt extends StatelessWidget {
   static const String id = '/detail_receipt';
   final _firestoreApi = OrderFirestoreHelper.firestoreApi;
 
-  final DocumentSnapshot _receipt;
+  final DocumentSnapshot? _receipt;
 
-  DetailReceipt({DocumentSnapshot receipt}) : _receipt = receipt;
+  DetailReceipt({DocumentSnapshot? receipt}) : _receipt = receipt;
 
   @override
   Widget build(BuildContext context) {
-    DetailReceipt _data = ModalRoute.of(context).settings.arguments;
-    double _totalPriceAfterTax = _data._receipt['total_price'] * 0.05;
-    int _newtotalPrice =
-        _data._receipt['total_price'] + _totalPriceAfterTax.toInt();
+    DetailReceipt _data = ModalRoute.of(context)!.settings.arguments as DetailReceipt;
+    double _totalPriceAfterTax = _data._receipt!['total_price'] * 0.05;
+    int? _newtotalPrice =
+        _data._receipt!['total_price'] + _totalPriceAfterTax.toInt();
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +32,7 @@ class DetailReceipt extends StatelessWidget {
           'DETAIL RECEIPT ORDER',
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(fontWeight: FontWeight.bold),
         ),
         elevation: 0,
@@ -64,17 +64,17 @@ class DetailReceipt extends StatelessWidget {
                               'DETAIL ORDER',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6
+                                  .headline6!
                                   .copyWith(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
                             Text(
-                              Time.convertToDate(_data._receipt['timestamp']),
+                              Time.convertToDate(_data._receipt!['timestamp']),
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .subtitle1!
                                   .copyWith(
                                       color: Color(0xFF9D521E), fontSize: 16),
                             ),
@@ -89,7 +89,7 @@ class DetailReceipt extends StatelessWidget {
                             stream: _firestoreApi
                                 .collection('order')
                                 .where('receipt_id',
-                                    isEqualTo: _data._receipt['receipt_id'])
+                                    isEqualTo: _data._receipt!['receipt_id'])
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
@@ -97,10 +97,10 @@ class DetailReceipt extends StatelessWidget {
                                     child: CircularProgressIndicator());
                               } else {
                                 return ListView.builder(
-                                  itemCount: snapshot.data.docs.length,
+                                  itemCount: snapshot.data!.docs.length,
                                   itemBuilder: (context, index) {
                                     DocumentSnapshot _receiptDetail =
-                                        snapshot.data.docs[index];
+                                        snapshot.data!.docs[index];
                                     return Column(
                                       children: [
                                         Container(
@@ -144,7 +144,7 @@ class DetailReceipt extends StatelessWidget {
                                                             'menu_name'],
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .subtitle1
+                                                            .subtitle1!
                                                             .copyWith(
                                                                 fontSize: 16.0,
                                                                 fontWeight:
@@ -163,7 +163,7 @@ class DetailReceipt extends StatelessWidget {
                                                         'Rp ${_receiptDetail['total_price']}',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .caption
+                                                            .caption!
                                                             .copyWith(
                                                               fontWeight:
                                                                   FontWeight
@@ -195,7 +195,7 @@ class DetailReceipt extends StatelessWidget {
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .subtitle2
+                                                                  .subtitle2!
                                                                   .copyWith(
                                                                     color: Color(
                                                                         0xFF621C0D),
@@ -242,7 +242,7 @@ class DetailReceipt extends StatelessWidget {
                                 children: [
                                   Text('Order'),
                                   Text(
-                                    'Rp ${_data._receipt['total_price']}',
+                                    'Rp ${_data._receipt!['total_price']}',
                                     style: TextStyle(color: Color(0xFF9D521E)),
                                   ),
                                 ],
@@ -293,13 +293,13 @@ class DetailReceipt extends StatelessWidget {
                 child: StreamBuilder<DocumentSnapshot>(
                   stream: _firestoreApi
                       .collection('receipt')
-                      .doc(_data._receipt.id)
+                      .doc(_data._receipt!.id)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Center(child: CircularProgressIndicator());
                     } else {
-                      if (!snapshot.data['pickup']) {
+                      if (!snapshot.data!['pickup']) {
                         return Container(
                           height: 161,
                           decoration: BoxDecoration(
@@ -322,17 +322,17 @@ class DetailReceipt extends StatelessWidget {
                                       'Transaction Code',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .caption
+                                          .caption!
                                           .copyWith(
                                               color: ColorPalettes.golderBrown,
                                               fontWeight: FontWeight.bold),
                                     ),
                                     Spacer(),
                                     Text(
-                                      '${_data._receipt['receipt_id']}',
+                                      '${_data._receipt!['receipt_id']}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline6
+                                          .headline6!
                                           .copyWith(
                                             color: Color(0xFF026242),
                                             fontSize: 20,
@@ -349,13 +349,13 @@ class DetailReceipt extends StatelessWidget {
                                     'QR Code',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .caption
+                                        .caption!
                                         .copyWith(
                                             color: ColorPalettes.golderBrown,
                                             fontWeight: FontWeight.bold),
                                   ),
                                   QrImage(
-                                    data: '${_data._receipt['receipt_id']}',
+                                    data: '${_data._receipt!['receipt_id']}',
                                     size: 100,
                                   )
                                 ],

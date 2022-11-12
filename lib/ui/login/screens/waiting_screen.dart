@@ -4,7 +4,7 @@ import 'package:myboba/services/firebase_authentication/authentication.dart';
 import 'package:myboba/ui/login/screens/new_password.dart';
 
 class WaitingScreens extends StatelessWidget {
-  const WaitingScreens({Key key}) : super(key: key);
+  const WaitingScreens({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class WaitingScreens extends StatelessWidget {
       ),
       child: Text(
         "Please check your email to proceed the request",
-        style: Theme.of(context).textTheme.headline5.copyWith(
+        style: Theme.of(context).textTheme.headline5!.copyWith(
               fontWeight: FontWeight.w900,
             ),
         textAlign: TextAlign.center,
@@ -55,7 +55,7 @@ class WaitingScreens extends StatelessWidget {
 }
 
 class StreamGetOob extends StatelessWidget {
-  final String email;
+  final String? email;
   StreamGetOob({this.email});
 
   @override
@@ -66,10 +66,10 @@ class StreamGetOob extends StatelessWidget {
         if (snapshot.hasData) {
           print(snapshot.data);
           QuerySnapshot data = snapshot.data;
-          Map<String, dynamic> output;
+          Map<String, dynamic>? output;
           data.docs.forEach((item) {
-            output = item.data();
-            output["id"] = item.id;
+            output = item.data() as Map<String, dynamic>?;
+            output!["id"] = item.id;
           });
           print(output);
           if (data.docs.length > 0) {

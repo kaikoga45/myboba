@@ -24,7 +24,7 @@ class _CartState extends State<Cart> {
           'MY CART',
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
@@ -49,8 +49,8 @@ class _CartState extends State<Cart> {
               return Center(child: CircularProgressIndicator());
             } else {
               int _totalPriceInCart = 0;
-              snapshot.data.docs.forEach((element) {
-                _totalPriceInCart += element['total_price'];
+              snapshot.data!.docs.forEach((element) {
+                _totalPriceInCart += element['total_price'] as int;
               });
               num _totalPriceAfterTax = _totalPriceInCart * 0.05;
               return Container(
@@ -62,10 +62,10 @@ class _CartState extends State<Cart> {
                       flex: 2,
                       child: Container(
                         child: ListView.builder(
-                            itemCount: snapshot.data.docs.length,
+                            itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
                               DocumentSnapshot _cart =
-                                  snapshot.data.docs[index];
+                                  snapshot.data!.docs[index];
                               return Column(
                                 children: [
                                   Container(
@@ -103,7 +103,7 @@ class _CartState extends State<Cart> {
                                                   _cart['menu_name'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .subtitle1
+                                                      .subtitle1!
                                                       .copyWith(
                                                           fontSize: 16.0,
                                                           fontWeight:
@@ -120,7 +120,7 @@ class _CartState extends State<Cart> {
                                                   'Rp ${_cart['total_price']}',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .caption
+                                                      .caption!
                                                       .copyWith(
                                                         fontWeight:
                                                             FontWeight.w400,
@@ -175,7 +175,7 @@ class _CartState extends State<Cart> {
                                                     '${_cart['quantity']}x',
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .subtitle2
+                                                        .subtitle2!
                                                         .copyWith(
                                                             color: Color(
                                                                 0xFF621C0D)),

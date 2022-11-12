@@ -14,7 +14,7 @@ class Settings extends StatelessWidget {
           'SETTINGS',
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(fontWeight: FontWeight.bold),
         ),
         elevation: 0,

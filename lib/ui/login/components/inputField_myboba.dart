@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class InputField extends StatefulWidget {
-  final bool obscureText;
-  final String hintText;
-  final IconData icon;
-  final ValueChanged<String> onChanged;
-  final FormFieldSetter<String> onSaved;
-  final FormFieldValidator<String> validator;
+  final bool? obscureText;
+  final String? hintText;
+  final IconData? icon;
+  final ValueChanged<String>? onChanged;
+  final FormFieldSetter<String>? onSaved;
+  final FormFieldValidator<String>? validator;
 
   InputField({
-    Key key,
+    Key? key,
     this.obscureText,
     this.hintText,
     this.icon,
@@ -30,12 +30,12 @@ class InputField extends StatefulWidget {
 }
 
 class _InputFieldState extends State<InputField> {
-  final bool obscureText;
-  final String hintText;
-  final IconData icon;
-  final ValueChanged<String> onChanged;
-  final FormFieldSetter<String> onSaved;
-  final FormFieldValidator<String> validator;
+  final bool? obscureText;
+  final String? hintText;
+  final IconData? icon;
+  final ValueChanged<String>? onChanged;
+  final FormFieldSetter<String>? onSaved;
+  final FormFieldValidator<String>? validator;
 
   _InputFieldState({
     this.obscureText,
@@ -53,7 +53,7 @@ class _InputFieldState extends State<InputField> {
         margin: EdgeInsets.symmetric(vertical: 12),
         child: TextFormField(
           keyboardType: TextInputType.emailAddress,
-          obscureText: (obscureText == null || !obscureText) ? false : true,
+          obscureText: (obscureText == null || !obscureText!) ? false : true,
           decoration: InputDecoration(
             filled: true,
             fillColor: Color(0xFFFAFAFA),

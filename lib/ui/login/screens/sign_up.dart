@@ -8,18 +8,18 @@ bool _loginProgress = false;
 
 class SignUp extends StatefulWidget {
   static const String id = '/sign_up';
-  SignUp({Key key}) : super(key: key);
+  SignUp({Key? key}) : super(key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  String username;
-  String password;
-  String email;
+  String? username;
+  String? password;
+  String? email;
 
-  String _errorMessage;
+  String? _errorMessage;
   final _formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _SignUpState extends State<SignUp> {
         appBar: AppBar(
           title: Text(
             "SIGN UP ",
-            style: Theme.of(context).textTheme.headline6.copyWith(
+            style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontWeight: FontWeight.w900,
                 ),
           ),
@@ -69,10 +69,10 @@ class _SignUpState extends State<SignUp> {
               });
 
               if (output["valid"] == true) {
-                navigatorKey.currentState.pop();
+                navigatorKey.currentState!.pop();
               } else {
                 _errorMessage = output["message"];
-                _formKey.currentState.validate();
+                _formKey.currentState!.validate();
               }
             },
             style: TextButton.styleFrom(

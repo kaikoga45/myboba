@@ -79,8 +79,8 @@ class ScannerHelper {
     return true;
   }
 
-  Future<String> getCustomerName(int receiptId) async {
-    String _name = '';
+  Future<String?> getCustomerName(int receiptId) async {
+    String? _name = '';
 
     try {
       QuerySnapshot _receiptSnapshot = await _firestoreApi

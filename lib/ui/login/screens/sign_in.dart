@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:myboba/main.dart';
 import 'package:myboba/services/firebase_authentication/authentication.dart';
 import 'package:myboba/ui/login/components/inputField_myboba.dart';

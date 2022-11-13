@@ -4,12 +4,12 @@ import 'package:myboba/ui/customer/components/stream_menu_grid_view_builder.dart
 class DisplayAllMenu extends StatelessWidget {
   static const String id = '/see_all_menu';
 
-  final String _title;
-  final String _description;
-  final String _field;
-  final String _value;
+  final String? _title;
+  final String? _description;
+  final String? _field;
+  final String? _value;
 
-  DisplayAllMenu({String title, String description, String field, String value})
+  DisplayAllMenu({String? title, String? description, String? field, String? value})
       : _title = title,
         _description = description,
         _field = field,
@@ -17,14 +17,14 @@ class DisplayAllMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DisplayAllMenu _data = ModalRoute.of(context).settings.arguments;
+    final DisplayAllMenu _data = ModalRoute.of(context)!.settings.arguments as DisplayAllMenu;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _data._title.toUpperCase(),
+          _data._title!.toUpperCase(),
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(fontWeight: FontWeight.bold),
         ),
         elevation: 0,
@@ -37,8 +37,8 @@ class DisplayAllMenu extends StatelessWidget {
                 ? Padding(
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      _data._description.toUpperCase(),
-                      style: Theme.of(context).textTheme.subtitle1.copyWith(
+                      _data._description!.toUpperCase(),
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           fontSize: 16.0, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),

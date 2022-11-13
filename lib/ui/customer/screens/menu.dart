@@ -15,8 +15,8 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   bool _isDisplayAllProduct = true;
-  int _indexButtonPressed;
-  String _categorySelected;
+  int? _indexButtonPressed;
+  String? _categorySelected;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _MenuState extends State<Menu> {
           'MENU',
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(fontWeight: FontWeight.bold),
         ),
         elevation: 0,
@@ -51,10 +51,10 @@ class _MenuState extends State<Menu> {
                           Expanded(
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.docs.length,
+                              itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
                                 final DocumentSnapshot _category =
-                                    snapshot.data.docs[index];
+                                    snapshot.data!.docs[index];
                                 final String _categoryName = _category['name'];
                                 return GestureDetector(
                                   child: Padding(
@@ -82,7 +82,7 @@ class _MenuState extends State<Menu> {
                                                   .button
                                               : Theme.of(context)
                                                   .textTheme
-                                                  .button
+                                                  .button!
                                                   .copyWith(
                                                     color: Color(0xFF9D521E),
                                                   ),
@@ -111,10 +111,10 @@ class _MenuState extends State<Menu> {
                     _isDisplayAllProduct
                         ? Expanded(
                             child: ListView.builder(
-                              itemCount: snapshot.data.docs.length,
+                              itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
                                 final DocumentSnapshot _category =
-                                    snapshot.data.docs[index];
+                                    snapshot.data!.docs[index];
                                 return SingleChildScrollView(
                                   child: Column(
                                     children: [

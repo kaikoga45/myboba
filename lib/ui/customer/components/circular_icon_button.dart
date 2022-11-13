@@ -5,7 +5,7 @@ class CircularIconButton extends StatelessWidget {
   final Icon _icon;
   final Function _onTap;
 
-  CircularIconButton({@required Icon icon, @required Function onTap})
+  CircularIconButton({required Icon icon, required Function onTap})
       : _icon = icon,
         _onTap = onTap;
 
@@ -19,7 +19,7 @@ class CircularIconButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(25)),
         ),
       ),
-      onTap: _onTap,
+      onTap: _onTap as void Function()?,
     );
   }
 }

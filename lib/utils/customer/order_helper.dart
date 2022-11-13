@@ -1,16 +1,14 @@
-import 'package:flutter/foundation.dart';
-
 class OrderHelper {
   static String createDescription(
-      {@required String size,
-      @required String iceAmount,
-      @required String sugarAmount,
-      @required int grassJelly,
-      @required int redBean,
-      @required int rainbowJelly,
-      @required int mousse,
-      @required int pearl,
-      @required int aloeVera}) {
+      {required String size,
+      required String iceAmount,
+      required String sugarAmount,
+      required int grassJelly,
+      required int redBean,
+      required int rainbowJelly,
+      required int mousse,
+      required int pearl,
+      required int aloeVera}) {
     String description;
     int toppingAdded =
         grassJelly + redBean + rainbowJelly + mousse + pearl + aloeVera;
@@ -51,11 +49,11 @@ class OrderHelper {
   }
 
   static int calculateTotalPrice(
-      {@required int menu,
-      @required int size,
-      @required int ice,
-      @required int sugar,
-      @required int topping}) {
+      {required int menu,
+      required int size,
+      required int ice,
+      required int sugar,
+      required int topping}) {
     int total = menu + size + ice + sugar + topping;
     return total;
   }

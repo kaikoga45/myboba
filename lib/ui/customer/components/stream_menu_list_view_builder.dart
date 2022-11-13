@@ -6,24 +6,24 @@ import 'package:myboba/ui/customer/screens/order.dart';
 import 'package:myboba/ui/customer/theme/color_palettes.dart';
 
 class StreamMenuListViewBuilder extends StatelessWidget {
-  final String _value;
-  final String _description;
+  final String? _value;
+  final String? _description;
   final String _field;
   final double _containerHeight;
   final double _imageHeight;
   final double _imageWidth;
-  final String _title;
+  final String? _title;
   final double _imageBorderRadius;
 
   StreamMenuListViewBuilder(
-      {@required double containerHeight,
-      @required String title,
-      String description,
-      @required String value,
-      @required String field,
-      @required double imageHeight,
-      @required double imageWidth,
-      @required double imageBorderRadius})
+      {required double containerHeight,
+      required String? title,
+      String? description,
+      required String? value,
+      required String field,
+      required double imageHeight,
+      required double imageWidth,
+      required double imageBorderRadius})
       : _containerHeight = containerHeight,
         _title = title,
         _description = description,
@@ -46,7 +46,7 @@ class StreamMenuListViewBuilder extends StatelessWidget {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (snapshot.data.docs.isEmpty) {
+          } else if (snapshot.data!.docs.isEmpty) {
             return Container();
           } else {
             return Container(
@@ -72,10 +72,10 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                               left: 9,
                               bottom: 1,
                               child: Text(
-                                _title,
+                                _title!,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle1
+                                    .subtitle1!
                                     .copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
@@ -100,10 +100,10 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              'See All ${snapshot.data.docs.length}',
+                              'See All ${snapshot.data!.docs.length}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .subtitle1!
                                   .copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
@@ -123,9 +123,9 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: snapshot.data.docs.length,
+                      itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        DocumentSnapshot _menu = snapshot.data.docs[index];
+                        DocumentSnapshot _menu = snapshot.data!.docs[index];
                         return Padding(
                           padding: const EdgeInsets.only(right: 15),
                           child: GestureDetector(

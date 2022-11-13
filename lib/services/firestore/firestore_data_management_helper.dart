@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 
 class FirestoreDataManagementHelper {
   static final firestoreApi = FirebaseFirestore.instance;
 
   Future<bool> createStatus(
-      {@required String name, @required String description}) async {
+      {required String name, required String description}) async {
     bool _isError = false;
 
     try {
@@ -25,7 +24,7 @@ class FirestoreDataManagementHelper {
   }
 
   Future<bool> deleteStatus(
-      {@required String status, @required String docId}) async {
+      {required String? status, required String docId}) async {
     bool _isError = false;
 
     try {
@@ -56,10 +55,10 @@ class FirestoreDataManagementHelper {
   }
 
   Future<bool> updateStatus(
-      {@required String newStatus,
-      @required String previousStatus,
-      @required String description,
-      @required String docId}) async {
+      {required String newStatus,
+      required String? previousStatus,
+      required String description,
+      required String docId}) async {
     bool _isError = false;
 
     try {
@@ -92,7 +91,7 @@ class FirestoreDataManagementHelper {
 
   //SECTION CATEGORY
 
-  Future<bool> createCategory({@required String categoryValue}) async {
+  Future<bool> createCategory({required String categoryValue}) async {
     bool _isError = false;
 
     try {
@@ -110,7 +109,7 @@ class FirestoreDataManagementHelper {
   }
 
   Future<bool> deleteCategory(
-      {@required String category, @required String docId}) async {
+      {required String? category, required String docId}) async {
     bool _isError = false;
 
     try {
@@ -141,9 +140,9 @@ class FirestoreDataManagementHelper {
   }
 
   Future<bool> updateCategory(
-      {@required String newCategory,
-      @required String previousCategory,
-      @required String docId}) async {
+      {required String newCategory,
+      required String? previousCategory,
+      required String docId}) async {
     bool _isError = false;
 
     try {
@@ -175,12 +174,12 @@ class FirestoreDataManagementHelper {
 
   //Section Menu
   Future<bool> createMenu({
-    @required String name,
-    @required String description,
-    @required int price,
-    @required String img,
-    @required String status,
-    @required String category,
+    required String name,
+    required String description,
+    required int price,
+    required String img,
+    required String? status,
+    required String? category,
   }) async {
     bool _isError = false;
 
@@ -204,13 +203,13 @@ class FirestoreDataManagementHelper {
   }
 
   Future<bool> updateMenu({
-    @required String docId,
-    @required String name,
-    @required String description,
-    @required int price,
-    @required String img,
-    @required String status,
-    @required String category,
+    required String docId,
+    required String name,
+    required String description,
+    required int price,
+    required String img,
+    required String? status,
+    required String? category,
   }) async {
     bool _isError = false;
 
@@ -233,7 +232,7 @@ class FirestoreDataManagementHelper {
     return _isError;
   }
 
-  Future<bool> deleteMenu({@required String docId}) async {
+  Future<bool> deleteMenu({required String docId}) async {
     bool _isError = false;
 
     try {

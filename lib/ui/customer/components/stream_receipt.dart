@@ -9,9 +9,9 @@ class StreamReceipt extends StatelessWidget {
   final _firestore = OrderFirestoreHelper.firestoreApi;
   final _authHelper = AuthHelper.instance;
 
-  final bool _isPickup;
+  final bool? _isPickup;
 
-  StreamReceipt({bool isPickup, bool isActiveOrder}) : _isPickup = isPickup;
+  StreamReceipt({bool? isPickup, bool? isActiveOrder}) : _isPickup = isPickup;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +26,11 @@ class StreamReceipt extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         } else {
           return ListView.builder(
-            itemCount: snapshot.data.docs.length,
+            itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              DocumentSnapshot _receipt = snapshot.data.docs[index];
+              DocumentSnapshot _receipt = snapshot.data!.docs[index];
               double _totalPriceAfterTax = _receipt['total_price'] * 0.05;
-              int _newtotalPrice =
+              int? _newtotalPrice =
                   _receipt['total_price'] + _totalPriceAfterTax.toInt();
               return Padding(
                 padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -52,7 +52,7 @@ class StreamReceipt extends StatelessWidget {
                               '${index + 1}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4
+                                  .headline4!
                                   .copyWith(
                                       fontSize: 40, color: Color(0xFf9D521E)),
                             )),
@@ -74,7 +74,7 @@ class StreamReceipt extends StatelessWidget {
                                 ),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle1
+                                    .subtitle1!
                                     .copyWith(
                                         color: Color(0xFF9D521E), fontSize: 16),
                               ),
@@ -82,7 +82,7 @@ class StreamReceipt extends StatelessWidget {
                                 'Total Rp $_newtotalPrice',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption
+                                    .caption!
                                     .copyWith(color: Color(0xFF9D521E)),
                               ),
                             ],
@@ -98,7 +98,7 @@ class StreamReceipt extends StatelessWidget {
                                 _receipt['pickup'] ? 'Completed' : 'Need Scan',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption
+                                    .caption!
                                     .copyWith(
                                       color: Color(0xFF026242),
                                     ),

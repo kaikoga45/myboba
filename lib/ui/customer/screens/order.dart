@@ -12,10 +12,10 @@ import '../theme/color_palettes.dart';
 class Order extends StatefulWidget {
   static const String id = '/ordering';
 
-  final DocumentSnapshot _menu;
-  final String _title;
+  final DocumentSnapshot? _menu;
+  final String? _title;
 
-  Order({DocumentSnapshot menu, String title})
+  Order({DocumentSnapshot? menu, String? title})
       : _menu = menu,
         _title = title;
 
@@ -48,7 +48,7 @@ class _OrderState extends State<Order> {
 
   @override
   Widget build(BuildContext context) {
-    final Order data = ModalRoute.of(context).settings.arguments;
+    final Order data = ModalRoute.of(context)!.settings.arguments as Order;
     return Scaffold(
       backgroundColor: Color(0xFFF1F0EC),
       appBar: AppBar(
@@ -60,10 +60,10 @@ class _OrderState extends State<Order> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          data._title.toUpperCase(),
+          data._title!.toUpperCase(),
           style: Theme.of(context)
               .textTheme
-              .subtitle1
+              .subtitle1!
               .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -85,9 +85,9 @@ class _OrderState extends State<Order> {
                       width: 190,
                       fadeInCurve: Curves.bounceIn,
                       placeholder: 'assets/img/fade_placeholder.png',
-                      image: data._menu['img'],
+                      image: data._menu!['img'],
                     ),
-                    tag: data._menu.id,
+                    tag: data._menu!.id,
                   ),
                   borderRadius: BorderRadius.circular(100),
                 ),
@@ -127,22 +127,25 @@ class _OrderState extends State<Order> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          data._menu['name'],
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                          data._menu!['name'],
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(data._menu['description'],
+                          child: Text(data._menu!['description'],
                               style: Theme.of(context).textTheme.caption,
                               textAlign: TextAlign.center),
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'Rp ${data._menu['price'] + (_totalPriceTopping + _totalPriceIce + _totalPriceSize + _totalPriceSugar)}',
-                          style: Theme.of(context).textTheme.caption.copyWith(
+                          'Rp ${data._menu!['price'] + (_totalPriceTopping + _totalPriceIce + _totalPriceSize + _totalPriceSugar)}',
+                          style: Theme.of(context).textTheme.caption!.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: ColorPalettes.golderBrown,
                               ),
@@ -174,7 +177,6 @@ class _OrderState extends State<Order> {
                                 } else {
                                   _totalPriceSize = 5000;
                                 }
-                                _size = value;
                               },
                             );
                           },
@@ -201,7 +203,6 @@ class _OrderState extends State<Order> {
                                 } else {
                                   _totalPriceSugar = 5000;
                                 }
-                                _sugarAmount = value;
                               },
                             );
                           },
@@ -228,7 +229,6 @@ class _OrderState extends State<Order> {
                                 } else {
                                   _totalPriceIce = 5000;
                                 }
-                                _iceAmount = value;
                               },
                             );
                           },
@@ -362,7 +362,7 @@ class _OrderState extends State<Order> {
                   });
 
                   bool _isError;
-                  QuerySnapshot _orderSnapshot;
+                  QuerySnapshot? _orderSnapshot;
 
                   String _description = OrderHelper.createDescription(
                     size: _size,
@@ -377,7 +377,7 @@ class _OrderState extends State<Order> {
                   );
 
                   int _newTotalPrice = OrderHelper.calculateTotalPrice(
-                    menu: data._menu['price'],
+                    menu: data._menu!['price'],
                     size: _totalPriceSize,
                     ice: _totalPriceIce,
                     sugar: _totalPriceSugar,
@@ -386,7 +386,7 @@ class _OrderState extends State<Order> {
 
                   _orderSnapshot =
                       await _firestoreHelper.getExistingOrderInCart(
-                          menuId: data._menu.id, description: _description);
+                          menuId: data._menu!.id, description: _description);
 
                   if (_orderSnapshot != null) {
                     DocumentSnapshot _orderDoc = _orderSnapshot.docs[0];
@@ -397,9 +397,9 @@ class _OrderState extends State<Order> {
                         newTotalPrice: _newTotalPrice);
                   } else {
                     _isError = await _firestoreHelper.createNewOrderInCart(
-                      menuId: data._menu.id,
-                      menuName: data._menu['name'],
-                      menuImg: data._menu['img'],
+                      menuId: data._menu!.id,
+                      menuName: data._menu!['name'],
+                      menuImg: data._menu!['img'],
                       description: _description,
                       totalPrice: _newTotalPrice,
                     );

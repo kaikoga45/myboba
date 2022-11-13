@@ -10,10 +10,10 @@ class ToppingList extends StatelessWidget {
   final Function _onTapPlus;
 
   ToppingList(
-      {@required String title,
-      @required int value,
-      @required Function onTapMinus,
-      @required Function onTapPlus})
+      {required String title,
+      required int value,
+      required Function onTapMinus,
+      required Function onTapPlus})
       : _title = title,
         _value = value,
         _onTapMinus = onTapMinus,

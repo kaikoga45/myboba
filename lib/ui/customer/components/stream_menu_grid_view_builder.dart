@@ -4,10 +4,10 @@ import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/order.dart';
 
 class StreamMenuGridViewBuilder extends StatelessWidget {
-  final String _field;
-  final String _value;
+  final String? _field;
+  final String? _value;
 
-  StreamMenuGridViewBuilder({@required String field, @required String value})
+  StreamMenuGridViewBuilder({required String? field, required String? value})
       : _field = field,
         _value = value;
 
@@ -18,7 +18,7 @@ class StreamMenuGridViewBuilder extends StatelessWidget {
           ? OrderFirestoreHelper.firestoreApi.collection('menu').snapshots()
           : OrderFirestoreHelper.firestoreApi
               .collection('menu')
-              .where(_field, isEqualTo: _value)
+              .where(_field!, isEqualTo: _value)
               .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
@@ -26,19 +26,19 @@ class StreamMenuGridViewBuilder extends StatelessWidget {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (snapshot.data.docs.isEmpty) {
+          } else if (snapshot.data!.docs.isEmpty) {
             return Container();
           } else {
             return Expanded(
               child: GridView.builder(
                 padding: EdgeInsets.only(bottom: 30.0),
-                itemCount: snapshot.data.docs.length,
+                itemCount: snapshot.data!.docs.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 10.0,
                     childAspectRatio: 0.9),
                 itemBuilder: (context, index) {
-                  final DocumentSnapshot _menus = snapshot.data.docs[index];
+                  final DocumentSnapshot _menus = snapshot.data!.docs[index];
                   return GestureDetector(
                     child: Container(
                       child: Column(
@@ -66,7 +66,7 @@ class StreamMenuGridViewBuilder extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2
+                                .subtitle2!
                                 .copyWith(color: Color(0xFF026242)),
                           ),
                           Text(

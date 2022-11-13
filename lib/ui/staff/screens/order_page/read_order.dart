@@ -11,7 +11,7 @@ class ReadOrder extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'ORDER TRANSACTION',
-          style: Theme.of(context).textTheme.headline6.copyWith(
+          style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -31,9 +31,9 @@ class ReadOrder extends StatelessWidget {
                 return Center(child: CircularProgressIndicator());
               } else {
                 return ListView.builder(
-                  itemCount: snapshot.data.docs.length,
+                  itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    DocumentSnapshot _order = snapshot.data.docs[index];
+                    DocumentSnapshot _order = snapshot.data!.docs[index];
                     return Card(
                       child: ListTile(
                         contentPadding: EdgeInsets.symmetric(vertical: 10),

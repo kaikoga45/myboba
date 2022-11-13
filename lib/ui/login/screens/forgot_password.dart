@@ -5,15 +5,15 @@ import 'package:myboba/ui/login/screens/waiting_screen.dart';
 
 class ForgotPassword extends StatefulWidget {
   static const String id = '/forgot_password';
-  ForgotPassword({Key key}) : super(key: key);
+  ForgotPassword({Key? key}) : super(key: key);
 
   @override
   _ForgotPassword createState() => _ForgotPassword();
 }
 
 class _ForgotPassword extends State<ForgotPassword> {
-  String email;
-  String password;
+  String? email;
+  String? password;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -23,7 +23,7 @@ class _ForgotPassword extends State<ForgotPassword> {
       appBar: AppBar(
         title: Text(
           "Forgot Password",
-          style: Theme.of(context).textTheme.headline6.copyWith(
+          style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontWeight: FontWeight.w900,
               ),
         ),
@@ -63,7 +63,7 @@ class _ForgotPassword extends State<ForgotPassword> {
       },
       validator: (value) {
         if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                .hasMatch(value) ==
+                .hasMatch(value ?? '') ==
             false) {
           return "Please enter a valid email address";
         }
@@ -76,8 +76,8 @@ class _ForgotPassword extends State<ForgotPassword> {
     return TextButton(
       child: Text("SEND"),
       onPressed: () async {
-        if (_formKey.currentState.validate() == true) {
-          AuthHelper.auth.sendPasswordResetEmail(email: email);
+        if (_formKey.currentState!.validate() == true) {
+          AuthHelper.auth.sendPasswordResetEmail(email: email!);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => StreamGetOob(email: email)),

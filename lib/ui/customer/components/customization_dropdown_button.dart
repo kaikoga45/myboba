@@ -6,13 +6,13 @@ class CustomizationDropdownButton extends StatelessWidget {
   final String _title;
   final String _value;
   final List<DropdownMenuItem<Object>> _items;
-  final Function _onChanged;
+  final void Function(Object?)? _onChanged;
 
   CustomizationDropdownButton(
-      {@required String title,
-      @required String value,
-      @required List<DropdownMenuItem<Object>> items,
-      @required Function onChanged})
+      {required String title,
+      required String value,
+      required List<DropdownMenuItem<Object>> items,
+      required void Function(Object?)? onChanged})
       : _title = title,
         _value = value,
         _items = items,
@@ -31,19 +31,20 @@ class CustomizationDropdownButton extends StatelessWidget {
             Spacer(),
             DropdownButtonHideUnderline(
               child: DropdownButton(
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      .copyWith(color: ColorPalettes.button),
-                  isDense: true,
-                  elevation: 0,
-                  dropdownColor: Color(0xFFEDE2CF),
-                  icon: Icon(Icons.arrow_forward_ios,
-                      color: ColorPalettes.button),
-                  iconSize: 15,
-                  value: _value,
-                  items: _items,
-                  onChanged: _onChanged),
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: ColorPalettes.button),
+                isDense: true,
+                elevation: 0,
+                dropdownColor: Color(0xFFEDE2CF),
+                icon:
+                    Icon(Icons.arrow_forward_ios, color: ColorPalettes.button),
+                iconSize: 15,
+                value: _value,
+                items: _items,
+                onChanged: _onChanged,
+              ),
             ),
           ],
         ),

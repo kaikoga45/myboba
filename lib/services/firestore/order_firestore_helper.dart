@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:myboba/services/firebase_authentication/authentication.dart';
 import 'package:myboba/utils/customer/time.dart';
 
@@ -10,9 +9,9 @@ class OrderFirestoreHelper {
 
   final _authHelper = AuthHelper.instance;
 
-  Future<QuerySnapshot> getExistingOrderInCart(
-      {@required String menuId, @required String description}) async {
-    QuerySnapshot _querySnapshot;
+  Future<QuerySnapshot?> getExistingOrderInCart(
+      {required String menuId, required String description}) async {
+    QuerySnapshot? _querySnapshot;
     try {
       /*
         Fetching all required data from order collection with specific where condition.
@@ -45,10 +44,10 @@ class OrderFirestoreHelper {
   }
 
   Future<bool> updateOrderInCart({
-    @required String docId,
-    @required int currentQuantity,
-    @required int currentTotalPrice,
-    @required int newTotalPrice,
+    required String docId,
+    required int currentQuantity,
+    required int currentTotalPrice,
+    required int newTotalPrice,
   }) async {
     bool _isError = false;
 
@@ -70,11 +69,11 @@ class OrderFirestoreHelper {
   }
 
   Future<bool> createNewOrderInCart(
-      {@required String menuId,
-      @required String menuName,
-      @required String menuImg,
-      @required String description,
-      @required int totalPrice}) async {
+      {required String menuId,
+      required String? menuName,
+      required String? menuImg,
+      required String description,
+      required int totalPrice}) async {
     QuerySnapshot _data;
 
     bool _isError = false;
@@ -98,12 +97,12 @@ class OrderFirestoreHelper {
          If the receipt id does exist, it will set the value from data docs to the variable.
          Else, set the variable to null.
       */
-      DocumentSnapshot _existingReceiptId =
+      DocumentSnapshot? _existingReceiptId =
           _data.docs.isNotEmpty ? _data.docs[0] : null;
 
       // If previously, the id does not exist. Then, it will generate a new random receipt id
       bool _isReceiptIdExist = false;
-      int _newReceiptId;
+      int? _newReceiptId;
 
       /*
          Checking if the new receipt id are exist in order collection.
@@ -114,16 +113,17 @@ class OrderFirestoreHelper {
         _newReceiptId = _randomNumber.nextInt(99999999);
 
         _isReceiptIdExist = await firestoreApi
-            .collection('order')
-            .where('receipt_id', isEqualTo: _newReceiptId)
-            .get()
-            .then((QuerySnapshot querySnapshot) {
-          if (querySnapshot.docs.isNotEmpty) {
-            return true;
-          }
-        }).catchError((onError) {
-          throw onError;
-        });
+                .collection('order')
+                .where('receipt_id', isEqualTo: _newReceiptId)
+                .get()
+                .then((QuerySnapshot querySnapshot) {
+              if (querySnapshot.docs.isNotEmpty) {
+                return true;
+              }
+            }).catchError((onError) {
+              throw onError;
+            }) ??
+            false;
       }
 
       // Creating a new order data at order collection
@@ -152,7 +152,7 @@ class OrderFirestoreHelper {
     return _isError;
   }
 
-  Future<bool> deleteOrderInCart({@required String docId}) async {
+  Future<bool> deleteOrderInCart({required String docId}) async {
     bool _isError = false;
 
     // Deleting the order data in order collection
@@ -176,7 +176,7 @@ class OrderFirestoreHelper {
 
     try {
       // Fetching all the order data from customer cart
-      QuerySnapshot _snapshot = await firestoreApi
+      QuerySnapshot? _snapshot = await firestoreApi
           .collection('order')
           .where('customer_id', isEqualTo: _authHelper.getUserID())
           .where('checkout', isEqualTo: false)
@@ -195,13 +195,13 @@ class OrderFirestoreHelper {
       // Calculating the total price for all order in cart
 
       int _totalPrice = 0;
-      _snapshot.docs.forEach((element) {
-        _totalPrice += element['total_price'];
+      _snapshot?.docs.forEach((element) {
+        _totalPrice += (element['total_price'] as int?) ?? 0;
       });
 
       // Set the checkout to true for indicate that the customer order are final
 
-      _snapshot.docs.forEach((element) async {
+      _snapshot?.docs.forEach((element) async {
         await firestoreApi
             .collection('order')
             .doc(element.id)
@@ -214,7 +214,7 @@ class OrderFirestoreHelper {
 
       await firestoreApi.collection('receipt').add({
         'customer_id': _authHelper.getUserID(),
-        'receipt_id': _snapshot.docs[0]['receipt_id'],
+        'receipt_id': _snapshot?.docs[0]['receipt_id'],
         'pickup': false,
         'serve': false,
         'total_price': _totalPrice,

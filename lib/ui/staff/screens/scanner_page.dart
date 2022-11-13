@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:myboba/services/firestore/scanner_helper.dart';
 import 'package:myboba/ui/customer/theme/color_palettes.dart';
 
@@ -16,7 +16,7 @@ class ScannerPage extends StatefulWidget {
 }
 
 class _ScannerPageState extends State<ScannerPage> {
-  String _name;
+  String? _name;
   bool _isScan = false;
   int _receiptId = 0;
   TextEditingController _controller = TextEditingController();
@@ -32,7 +32,7 @@ class _ScannerPageState extends State<ScannerPage> {
         appBar: AppBar(
           title: Text(
             'SCAN ORDER',
-            style: Theme.of(context).textTheme.headline6.copyWith(
+            style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
           ),
@@ -59,7 +59,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                         'Name : $_name',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold),
@@ -89,10 +89,10 @@ class _ScannerPageState extends State<ScannerPage> {
                                           child: CircularProgressIndicator());
                                     } else {
                                       return ListView.builder(
-                                        itemCount: snapshot.data.docs.length,
+                                        itemCount: snapshot.data!.docs.length,
                                         itemBuilder: (context, index) {
                                           DocumentSnapshot _receiptDetail =
-                                              snapshot.data.docs[index];
+                                              snapshot.data!.docs[index];
                                           return Column(
                                             children: [
                                               Container(
@@ -143,7 +143,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .subtitle1
+                                                                  .subtitle1!
                                                                   .copyWith(
                                                                       fontSize:
                                                                           16.0,
@@ -165,7 +165,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .caption
+                                                                  .caption!
                                                                   .copyWith(
                                                                     fontWeight:
                                                                         FontWeight
@@ -197,7 +197,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                                                 style: Theme.of(
                                                                         context)
                                                                     .textTheme
-                                                                    .subtitle2
+                                                                    .subtitle2!
                                                                     .copyWith(
                                                                       color: Color(
                                                                           0xFF621C0D),
@@ -292,7 +292,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                 bool _isError = await _scannerHelper
                                     .setPickup(int.parse(barcodeScanRes));
 
-                                String _dataName = await _scannerHelper
+                                String? _dataName = await _scannerHelper
                                     .getCustomerName(int.parse(barcodeScanRes));
 
                                 if (_isError) {
@@ -341,7 +341,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                     labelText: 'Enter code order',
                                   ),
                                   validator: (value) {
-                                    if (value.isEmpty) {
+                                    if (value!.isEmpty) {
                                       return 'Please input code';
                                     }
                                     return null;
@@ -355,11 +355,11 @@ class _ScannerPageState extends State<ScannerPage> {
                                   _isProgress = !_isProgress;
                                 });
 
-                                if (_formKey.currentState.validate()) {
+                                if (_formKey.currentState!.validate()) {
                                   bool _isError = await _scannerHelper
                                       .setPickup(int.parse(_controller.text));
 
-                                  String _dataName =
+                                  String? _dataName =
                                       await _scannerHelper.getCustomerName(
                                           int.parse(_controller.text));
 

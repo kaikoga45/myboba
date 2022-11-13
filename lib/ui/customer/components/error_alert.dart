@@ -16,7 +16,7 @@ class ErrorAlert extends StatelessWidget {
               Text(
                 'Ooops...Something Went Wrong! Please contact the developer about this issue.',
                 style:
-                    themeData.textTheme.headline6.copyWith(color: Colors.white),
+                    themeData.textTheme.headline6!.copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ],

@@ -8,9 +8,9 @@ import '../theme/color_palettes.dart';
 
 class OrderTool extends StatelessWidget {
   final _authHelper = AuthHelper.instance;
-  final Widget _floatingActionButton;
+  final Widget? _floatingActionButton;
 
-  OrderTool({Widget floatingActionButton})
+  OrderTool({Widget? floatingActionButton})
       : _floatingActionButton = floatingActionButton;
 
   @override
@@ -25,10 +25,10 @@ class OrderTool extends StatelessWidget {
         if (!snapshot.hasData) {
           return Container();
         } else {
-          int _totalOrderInCart = snapshot.data.docs.length;
+          int _totalOrderInCart = snapshot.data!.docs.length;
           int _totalPriceInCart = 0;
-          snapshot.data.docs.forEach((element) {
-            _totalPriceInCart += element['total_price'];
+          snapshot.data!.docs.forEach((element) {
+            _totalPriceInCart += element['total_price'] as int;
           });
           return Container(
             child: Column(
@@ -39,11 +39,11 @@ class OrderTool extends StatelessWidget {
                   child: _floatingActionButton != null
                       ? Container(
                           padding: EdgeInsets.only(
-                              bottom: snapshot.data.docs.isEmpty ? 20 : 0),
+                              bottom: snapshot.data!.docs.isEmpty ? 20 : 0),
                           child: _floatingActionButton)
                       : Container(),
                 ),
-                snapshot.data.docs.isEmpty
+                snapshot.data!.docs.isEmpty
                     ? Container()
                     : Align(
                         alignment: Alignment.bottomCenter,
@@ -87,7 +87,7 @@ class OrderTool extends StatelessWidget {
                                           'Total',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle2
+                                              .subtitle2!
                                               .copyWith(
                                                 color: Color(0xFF621C0D),
                                               ),
@@ -98,7 +98,7 @@ class OrderTool extends StatelessWidget {
                                             '$_totalOrderInCart Qty - Rp $_totalPriceInCart',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle2
+                                                .subtitle2!
                                                 .copyWith(
                                                   color: Color(0xFF621C0D),
                                                 ),

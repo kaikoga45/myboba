@@ -5,8 +5,8 @@ import 'package:myboba/services/firestore/firestore_data_management_helper.dart'
 final _formKey = GlobalKey<FormState>();
 
 class CreateUpdateMenu extends StatefulWidget {
-  final DocumentSnapshot _menuDoc;
-  CreateUpdateMenu({DocumentSnapshot menuDoc}) : _menuDoc = menuDoc;
+  final DocumentSnapshot? _menuDoc;
+  CreateUpdateMenu({DocumentSnapshot? menuDoc}) : _menuDoc = menuDoc;
 
   @override
   _CreateUpdateMenuState createState() => _CreateUpdateMenuState();
@@ -20,20 +20,20 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
   TextEditingController _controllerMenuPrice = TextEditingController();
   TextEditingController _controllerMenuImg = TextEditingController();
 
-  String _selectedStatus;
-  String _selectedCategory;
+  String? _selectedStatus;
+  String? _selectedCategory;
 
   @override
   void initState() {
     super.initState();
     _controllerMenuName.text =
-        widget._menuDoc == null ? '' : widget._menuDoc['name'];
+        widget._menuDoc == null ? '' : widget._menuDoc!['name'];
     _controllerMenuDescription.text =
-        widget._menuDoc == null ? '' : widget._menuDoc['description'];
+        widget._menuDoc == null ? '' : widget._menuDoc!['description'];
     _controllerMenuPrice.text =
-        widget._menuDoc == null ? '' : widget._menuDoc['price'].toString();
+        widget._menuDoc == null ? '' : widget._menuDoc!['price'].toString();
     _controllerMenuImg.text =
-        widget._menuDoc == null ? '' : widget._menuDoc['img'];
+        widget._menuDoc == null ? '' : widget._menuDoc!['img'];
   }
 
   @override
@@ -43,7 +43,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
       appBar: AppBar(
         title: Text(
           widget._menuDoc == null ? 'CREATE MENU' : 'UPDATE MENU',
-          style: Theme.of(context).textTheme.headline6.copyWith(
+          style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -65,7 +65,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                   labelText: 'Name Of Menu',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter some text';
                   }
                   return null;
@@ -80,7 +80,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                   labelText: 'Menu Description',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter some menu description!';
                   }
                   return null;
@@ -96,7 +96,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                   labelText: 'Menu Price',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter the price!';
                   }
                   return null;
@@ -111,7 +111,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                   labelText: 'URL Link Menu Photo',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter the url link menu photo!';
                   }
                   return null;
@@ -123,9 +123,9 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                   if (!snapshot.hasData) {
                     return CircularProgressIndicator();
                   } else {
-                    List<String> _status = [];
+                    List<String?> _status = [];
 
-                    snapshot.data.docs.forEach((element) {
+                    snapshot.data!.docs.forEach((element) {
                       _status.add(element['name']);
                     });
 
@@ -135,7 +135,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                                 if (widget._menuDoc == null) {
                                   _selectedStatus = _status.elementAt(0);
                                 } else {
-                                  _selectedStatus = widget._menuDoc['status'];
+                                  _selectedStatus = widget._menuDoc!['status'];
                                 }
                               }
                             }));
@@ -145,14 +145,14 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                       value: _selectedStatus,
                       isExpanded: true,
                       items: _status.map<DropdownMenuItem<String>>(
-                        (String value) {
+                        (String? value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(value!),
                           );
                         },
                       ).toList(),
-                      onChanged: (value) {
+                      onChanged: (dynamic value) {
                         setState(() {
                           _selectedStatus = value;
                         });
@@ -167,9 +167,9 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                   if (!snapshot.hasData) {
                     return CircularProgressIndicator();
                   } else {
-                    List<String> _category = [];
+                    List<String?> _category = [];
 
-                    snapshot.data.docs.forEach((element) {
+                    snapshot.data!.docs.forEach((element) {
                       _category.add(element['name']);
                     });
 
@@ -180,7 +180,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                                   _selectedCategory = _category.elementAt(0);
                                 } else {
                                   _selectedCategory =
-                                      widget._menuDoc['category'];
+                                      widget._menuDoc!['category'];
                                 }
                               }
                             }));
@@ -190,14 +190,14 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                       value: _selectedCategory,
                       isExpanded: true,
                       items: _category.map<DropdownMenuItem<String>>(
-                        (String value) {
+                        (String? value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(value!),
                           );
                         },
                       ).toList(),
-                      onChanged: (value) {
+                      onChanged: (dynamic value) {
                         setState(() {
                           _selectedCategory = value;
                         });
@@ -210,7 +210,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       if (_selectedStatus == null ||
                           _selectedCategory == null) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -237,7 +237,7 @@ class _CreateUpdateMenuState extends State<CreateUpdateMenu> {
                         } else {
                           bool _isError =
                               await _staffFirestoreHelper.updateMenu(
-                                  docId: widget._menuDoc.id,
+                                  docId: widget._menuDoc!.id,
                                   name: _controllerMenuName.text,
                                   description: _controllerMenuDescription.text,
                                   price: int.parse(_controllerMenuPrice.text),

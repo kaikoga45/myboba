@@ -15,7 +15,7 @@ class DatabasePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'DATABASE',
-          style: Theme.of(context).textTheme.headline6.copyWith(
+          style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontWeight: FontWeight.bold,
               ),
         ),

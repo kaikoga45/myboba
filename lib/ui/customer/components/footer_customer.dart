@@ -26,11 +26,11 @@ class _FooterCustomerState extends State<FooterCustomer> {
         currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.home),
+            icon: Icon(FontAwesomeIcons.house),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.coffee), label: 'Menu'),
+              icon: Icon(FontAwesomeIcons.mugSaucer), label: 'Menu'),
           BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.receipt), label: 'Receipt'),
           BottomNavigationBarItem(

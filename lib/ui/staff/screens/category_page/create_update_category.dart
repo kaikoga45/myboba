@@ -5,8 +5,8 @@ import 'package:myboba/services/firestore/firestore_data_management_helper.dart'
 final _formKey = GlobalKey<FormState>();
 
 class CreateUpdateCategory extends StatefulWidget {
-  final DocumentSnapshot _categoryDoc;
-  CreateUpdateCategory({DocumentSnapshot categoryDoc})
+  final DocumentSnapshot? _categoryDoc;
+  CreateUpdateCategory({DocumentSnapshot? categoryDoc})
       : _categoryDoc = categoryDoc;
 
   @override
@@ -20,13 +20,13 @@ class _CreateUpdateCategoryState extends State<CreateUpdateCategory> {
   @override
   Widget build(BuildContext context) {
     _controller.text =
-        widget._categoryDoc == null ? '' : widget._categoryDoc['name'];
+        widget._categoryDoc == null ? '' : widget._categoryDoc!['name'];
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget._categoryDoc == null ? 'CREATE CATEGORY' : 'UPDATE CATEGORY',
-          style: Theme.of(context).textTheme.headline6.copyWith(
+          style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -48,7 +48,7 @@ class _CreateUpdateCategoryState extends State<CreateUpdateCategory> {
                   labelText: 'Name Of Category',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter some text';
                   }
                   return null;
@@ -58,7 +58,7 @@ class _CreateUpdateCategoryState extends State<CreateUpdateCategory> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       if (widget._categoryDoc == null) {
                         bool _isError = await _staffFirestoreHelper
                             .createCategory(categoryValue: _controller.text);
@@ -73,8 +73,8 @@ class _CreateUpdateCategoryState extends State<CreateUpdateCategory> {
                       } else {
                         bool _isError =
                             await _staffFirestoreHelper.updateCategory(
-                                docId: widget._categoryDoc.id,
-                                previousCategory: widget._categoryDoc['name'],
+                                docId: widget._categoryDoc!.id,
+                                previousCategory: widget._categoryDoc!['name'],
                                 newCategory: _controller.text);
                         _isError
                             ? ScaffoldMessenger.of(context).showSnackBar(

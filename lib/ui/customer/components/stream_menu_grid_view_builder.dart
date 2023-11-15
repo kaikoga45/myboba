@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firestore/order_firestore_helper.dart';
-import 'package:myboba/ui/customer/screens/order.dart';
+import 'package:myboba/ui/customer/screens/order.dart' as sc;
 
 class StreamMenuGridViewBuilder extends StatelessWidget {
   final String? _field;
@@ -80,8 +80,8 @@ class StreamMenuGridViewBuilder extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        Order.id,
-                        arguments: Order(
+                        sc.Order.id,
+                        arguments: sc.Order(
                           menu: _menus,
                           title: _menus['category'],
                         ),

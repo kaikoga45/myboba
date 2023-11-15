@@ -15,7 +15,8 @@ class DetailReceipt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DetailReceipt _data = ModalRoute.of(context)!.settings.arguments as DetailReceipt;
+    DetailReceipt _data =
+        ModalRoute.of(context)!.settings.arguments as DetailReceipt;
     double _totalPriceAfterTax = _data._receipt!['total_price'] * 0.05;
     int? _newtotalPrice =
         _data._receipt!['total_price'] + _totalPriceAfterTax.toInt();
@@ -187,7 +188,7 @@ class DetailReceipt extends StatelessWidget {
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 left: 3,
                                                                 right: 3),
                                                         child: Text(
@@ -354,7 +355,7 @@ class DetailReceipt extends StatelessWidget {
                                             color: ColorPalettes.golderBrown,
                                             fontWeight: FontWeight.bold),
                                   ),
-                                  QrImage(
+                                  QrImageView(
                                     data: '${_data._receipt!['receipt_id']}',
                                     size: 100,
                                   )

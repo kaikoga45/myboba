@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myboba/services/firestore/order_firestore_helper.dart';
 import 'package:myboba/ui/customer/screens/display_all_menu.dart';
-import 'package:myboba/ui/customer/screens/order.dart';
+import 'package:myboba/ui/customer/screens/order.dart' as sc;
 import 'package:myboba/ui/customer/theme/color_palettes.dart';
 
 class StreamMenuListViewBuilder extends StatelessWidget {
@@ -165,8 +165,8 @@ class StreamMenuListViewBuilder extends StatelessWidget {
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
-                                Order.id,
-                                arguments: Order(
+                                sc.Order.id,
+                                arguments: sc.Order(
                                   menu: _menu,
                                   title: _title,
                                 ),
